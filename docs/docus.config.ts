@@ -1,9 +1,9 @@
 export default {
-  title: '@nuxt-commerce/bigcommerce',
-  url: 'https://bigcommerce.nuxt-commerce.vercel.app',
+  title: '@nuxt-commerce/algolia',
+  url: 'https://algolia.nuxt-commerce.vercel.app',
   theme: {
     colors: {
-      primary: '#0D52FF',
+      primary: '#5468FF',
       prism: {
         background: '#F4F4F5 dark:#1F2937'
       }
@@ -11,14 +11,14 @@ export default {
     header: {
       title: false,
       logo: {
-        light: '/logo-light.svg',
-        dark: '/logo-dark.svg'
+        light: '/logo-dark.svg',
+        dark: '/logo-light.svg'
       }
     }
   },
   twitter: '@theandrewsky',
   github: {
-    repo: 'nuxt-commerce/bigcommerce',
+    repo: 'nuxt-commerce/algolia',
     branch: 'main',
     releases: true
   }

@@ -8,21 +8,19 @@
 [![Codecov][codecov-src]][codecov-href]
 [![License][license-src]][license-href]
 
-> [Strapi](https://strapi.io) module for [Nuxt 3](https://v3.nuxtjs.org)
+> [Algolia](https://www.algolia.com/) module for [Nuxt 3](https://v3.nuxtjs.org)
 
-- [✨ &nbsp;Release Notes](https://github.com/nuxt-community/strapi-module/releases)
-- [📖 &nbsp;Read the documentation](https://strapi.nuxtjs.org)
+- [✨ &nbsp;Release Notes](https://github.com/nuxt-commerce/algolia/releases)
+- [📖 &nbsp;Read the documentation](https://algolia.nuxt-commerce.vercel.app)
 
 ## Features
 
 - Nuxt 3 ready
-- Strapi v3 + v4 compatible
-- Authentication support
-- RESTful methods
-- Handle errors with hooks
+- Easy integration with Algolia
+- Handy composables like useAlgolia, useSearch, etc
 - TypeScript support
 
-[📖 &nbsp;Read the documentation](https://strapi.nuxtjs.org)
+[📖 &nbsp;Read the documentation](https://algolia.nuxt-commerce.vercel.app)
 
 ## Development
 
@@ -35,7 +33,7 @@
 [MIT License](./LICENSE)
 
 <!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/@nuxtjs/strapi/latest.svg
+[npm-version-src]: https://img.shields.io/npm/v/@nuxt-commerce/algolia/latest.svg
 [npm-version-href]: https://npmjs.com/package/@nuxtjs/strapi
 
 [npm-downloads-src]: https://img.shields.io/npm/dt/@nuxtjs/strapi.svg
