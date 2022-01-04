@@ -1,6 +1,6 @@
-[![@nuxtjs/strapi](https://strapi.nuxtjs.org/preview.png)](https://strapi.nuxtjs.org)
+[![@nuxt-commerce/algolia](https://algolia.nuxt-commerce.vercel.app/preview.png)](https://algolia.nuxt-commerce.vercel.app)
 
-# @nuxtjs/strapi
+# @nuxt-commerce/algolia
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -34,16 +34,16 @@
 
 <!-- Badges -->
 [npm-version-src]: https://img.shields.io/npm/v/@nuxt-commerce/algolia/latest.svg
-[npm-version-href]: https://npmjs.com/package/@nuxtjs/strapi
+[npm-version-href]: https://npmjs.com/package/@nuxt-commerce/algolia
 
-[npm-downloads-src]: https://img.shields.io/npm/dt/@nuxtjs/strapi.svg
-[npm-downloads-href]: https://npmjs.com/package/@nuxtjs/strapi
+[npm-downloads-src]: https://img.shields.io/npm/dt/@nuxt-commerce/algolia.svg
+[npm-downloads-href]: https://npmjs.com/package/@nuxt-commerce/algolia
 
-[github-actions-ci-src]: https://github.com/nuxt-community/strapi-module/workflows/ci/badge.svg
-[github-actions-ci-href]: https://github.com/nuxt-community/strapi-module/actions?query=workflow%3Aci
+[github-actions-ci-src]: https://github.com/nuxt-commerce/algolia/workflows/ci/badge.svg
+[github-actions-ci-href]: https://github.com/nuxt-commerce/algolia/actions?query=workflow%3Aci
 
-[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-community/strapi-module.svg
-[codecov-href]: https://codecov.io/gh/nuxt-community/strapi-module
+[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-commerce/algolia.svg
+[codecov-href]: https://codecov.io/gh/nuxt-commerce/algolia
 
-[license-src]: https://img.shields.io/npm/l/@nuxtjs/strapi.svg
-[license-href]: https://npmjs.com/package/@nuxtjs/strapi
+[license-src]: https://img.shields.io/npm/l/@nuxt-commerce/algolia.svg
+[license-href]: https://npmjs.com/package/@nuxt-commerce/algolia
