@@ -1,21 +1,31 @@
 import defu from 'defu'
 import { resolve } from 'pathe'
-import { defineNuxtModule, addPlugin, addServerMiddleware } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin } from '@nuxt/kit'
 import type { Nuxt } from '@nuxt/schema'
-import type { BigCommerceConfigOptions } from './types'
+import type { AlgoliaOptions } from './types'
 
-export default defineNuxtModule<BigCommerceConfigOptions>({
-  name: '@nuxt-commerce/bigcommerce',
-  configKey: 'bigcommerce',
-  setup (_options: BigCommerceConfigOptions, nuxt: Nuxt) {
+export default defineNuxtModule<AlgoliaOptions>({
+  name: '@nuxt-commerce/algolia',
+  configKey: 'algolia',
+  setup (options: AlgoliaOptions, nuxt: Nuxt) {
+    if (!options.apiKey) {
+      throw new Error('Missing `apiKey`')
+    }
 
-    // TODO: fix that server middleware registration
-    addServerMiddleware({ handle: resolve('./server/middleware') })
+    if (!options.applicationId) {
+      throw new Error('Missing `applicationId`')
+    }
+
+    // Default runtimeConfig
+    nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
+      apiKey: options.apiKey,
+      applicationId: options.applicationId,
+    })
 
     // Add plugin to load user before bootstrap
-    addPlugin(resolve(__dirname, './plugins/bigcommerce'))
+    addPlugin(resolve(__dirname, './plugins/algolia'))
 
-    // Add strapi composables
+    // Add useAlgolia composable
     nuxt.hook('autoImports:dirs', (dirs) => {
       dirs.push(resolve(__dirname, './composables'))
     })
@@ -27,13 +37,13 @@ export * from './types'
 declare module '@nuxt/schema' {
   interface ConfigSchema {
     publicRuntimeConfig?: {
-      bigcommerce?: BigCommerceConfigOptions
+      algolia?: AlgoliaOptions
     }
   }
   interface NuxtConfig {
-    bigcommerce?: BigCommerceConfigOptions
+    algolia?: AlgoliaOptions
   }
   interface NuxtOptions {
-    bigcommerce?: BigCommerceConfigOptions
+    algolia?: AlgoliaOptions
   }
 }
