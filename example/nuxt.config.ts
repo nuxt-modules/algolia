@@ -6,5 +6,5 @@ export default defineNuxtConfig({
       apiKey: process.env.ALGOLIA_SEARCH_API_KEY,
       applicationId: process.env.ALGOLIA_APPLICATION_ID
     }]
-  ],
+  ]
 })

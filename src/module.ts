@@ -19,7 +19,7 @@ export default defineNuxtModule<AlgoliaOptions>({
     // Default runtimeConfig
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
-      applicationId: options.applicationId,
+      applicationId: options.applicationId
     })
 
     // Add plugin to load user before bootstrap

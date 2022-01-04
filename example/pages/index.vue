@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 const { result, search } = useSearch('test_index')
-const algolia = useAlgolia();
+const algolia = useAlgolia()
 
 console.log(algolia)
 
