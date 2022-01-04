@@ -1,6 +1,6 @@
 export default {
   title: '@nuxt-commerce/algolia',
-  url: 'https://algolia.nuxt-commerce.vercel.app',
+  url: 'https://algolia-nc.netlify.app',
   theme: {
     colors: {
       primary: '#5468FF',

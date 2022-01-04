@@ -1,4 +1,4 @@
-[![@nuxt-commerce/algolia](https://algolia.nuxt-commerce.vercel.app/preview.png)](https://algolia.nuxt-commerce.vercel.app)
+[![@nuxt-commerce/algolia](https://algolia-nc.netlify.app/preview.png)](https://algolia.nuxt-commerce.vercel.app)
 
 # @nuxt-commerce/algolia
 
@@ -11,7 +11,7 @@
 > [Algolia](https://www.algolia.com/) module for [Nuxt 3](https://v3.nuxtjs.org)
 
 - [✨ &nbsp;Release Notes](https://github.com/nuxt-commerce/algolia/releases)
-- [📖 &nbsp;Read the documentation](https://algolia.nuxt-commerce.vercel.app)
+- [📖 &nbsp;Read the documentation](https://algolia-nc.netlify.app)
 
 ## Features
 
@@ -20,7 +20,7 @@
 - Handy composables like useAlgolia, useSearch, etc
 - TypeScript support
 
-[📖 &nbsp;Read the documentation](https://algolia.nuxt-commerce.vercel.app)
+[📖 &nbsp;Read the documentation](https://algolia-nc.netlify.app)
 
 ## Development
 
