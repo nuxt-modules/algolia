@@ -1,14 +1,14 @@
 <template>
   <div>
-    {{ product }}
+    {{ result }}
   </div>
 </template>
 
 <script lang="ts" setup>
-const { $bigcommerce } = useNuxtApp()
-const product = ref(null)
+const { result, search } = useSearch('test_index')
+const algolia = useAlgolia();
 
-onMounted(() => {
-  product.value = $bigcommerce.product.getById(77)
+onMounted(async () => {
+  await search({ query: 'Samsung' })
 })
 </script>
