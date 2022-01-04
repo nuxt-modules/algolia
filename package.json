@@ -1,8 +1,8 @@
 {
-  "name": "@nuxt-commerce/bigcommerce",
-  "version": "1.0.0",
-  "description": "BigCommerce module for Nuxt 3",
-  "repository": "nuxt-commerce/bigcommerce",
+  "name": "@nuxt-commerce/algolia",
+  "version": "0.1.0",
+  "description": "Algolia module for Nuxt 3",
+  "repository": "nuxt-commerce/algolia",
   "author": "Jakub Andrzejewski",
   "contributors": [
     {
@@ -42,6 +42,6 @@
     "access": "public"
   },
   "dependencies": {
-    "axios": "^0.24.0"
+    "algoliasearch": "^4.11.0"
   }
 }
