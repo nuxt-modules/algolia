@@ -41,8 +41,8 @@ Firstly, you need to add `@nuxt-commerce/algolia` to your Nuxt config.
     [
       '@nuxt-commerce/algolia',
       {
-        apiKey: '123',
-        applicationId: '123'
+        apiKey: '<YOUR_SEARCH_API_KEY>',
+        applicationId: '<YOUR_APPLICATION_ID>'
       }
     ]
   ]
@@ -51,7 +51,7 @@ Firstly, you need to add `@nuxt-commerce/algolia` to your Nuxt config.
 
 Then you can start using `@nuxt-commerce/algolia` in your setup function!
 
-```js
+```vue
 <script setup>
 const { result, search } = useSearch('test_index') // pass your index as param
 
