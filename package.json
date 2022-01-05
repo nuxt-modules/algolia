@@ -2,12 +2,13 @@
   "name": "@nuxt-commerce/algolia",
   "version": "0.1.0",
   "description": "Algolia module for Nuxt 3",
-  "repository": "nuxt-commerce/algolia",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxt-commerce/algolia.git"
+  },
   "author": "Jakub Andrzejewski",
   "contributors": [
-    {
-      "name": "Baroshem <jakub.andrzejewski.dev@gmail.com>"
-    }
+    "Baroshem <jakub.andrzejewski.dev@gmail.com>"
   ],
   "license": "MIT",
   "exports": {
@@ -43,5 +44,19 @@
   },
   "dependencies": {
     "algoliasearch": "^4.11.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/nuxt-commerce/algolia/issues"
+  },
+  "homepage": "https://github.com/nuxt-commerce/algolia#readme",
+  "directories": {
+    "doc": "docs",
+    "example": "example"
+  },
+  "keywords": [
+    "algolia",
+    "search",
+    "nuxt",
+    "module"
+  ]
 }
