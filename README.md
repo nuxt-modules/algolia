@@ -23,12 +23,14 @@
 [📖 &nbsp;Read the documentation](https://algolia-nc.netlify.app)
 
 ## Setup
+
 ```sh
 yarn add @nuxt-commerce/algolia # yarn
 npm i @nuxt-commerce/algolia # npm
 ```
 
 ## Basic usage
+
 Firstly, you need to add `@nuxt-commerce/algolia` to your Nuxt config.
 
 ```javascript
