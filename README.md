@@ -22,6 +22,43 @@
 
 [📖 &nbsp;Read the documentation](https://algolia-nc.netlify.app)
 
+## Setup
+```sh
+yarn add @nuxt-commerce/algolia # yarn
+npm i @nuxt-commerce/algolia # npm
+```
+
+## Basic usage
+Firstly, you need to add `@nuxt-commerce/algolia` to your Nuxt config.
+
+```javascript
+// nuxt.config.js
+
+{
+  modules: [
+    [
+      '@nuxt-commerce/algolia',
+      {
+        apiKey: '123',
+        applicationId: '123'
+      }
+    ]
+  ]
+}
+```
+
+Then you can start using `@nuxt-commerce/algolia` in your setup function!
+
+```js
+<script setup>
+const { result, search } = useSearch('test_index') // pass your index as param
+
+onMounted(async () => {
+  await search({ query: 'Samsung' });
+})
+</script>
+```
+
 ## Development
 
 1. Clone this repository
