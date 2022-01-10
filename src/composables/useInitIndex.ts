@@ -1,8 +1,8 @@
 import { useAlgolia } from './useAlgolia'
 
 export const useInitIndex = (indexName: string) => {
-  const algolia = useAlgolia();
-  const algoliaIndex = algolia.initIndex(indexName);
+  const algolia = useAlgolia()
+  const algoliaIndex = algolia.initIndex(indexName)
 
-  return algoliaIndex;
+  return algoliaIndex
 }

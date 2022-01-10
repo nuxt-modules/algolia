@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { SearchQuery, SearchResponse } from '../types'
-import { useState } from '#app'
 import { useInitIndex } from './useInitIndex'
+import { useState } from '#app'
 
 export const useSearch = (indexName: string) => {
   const algoliaIndex = useInitIndex(indexName)
