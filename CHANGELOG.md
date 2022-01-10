@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/nuxt-commerce/algolia/compare/v0.1.2...v0.2.0) (2022-01-10)
+
+
+### Features
+
+* add types for result and req opts ([0a39cb3](https://github.com/nuxt-commerce/algolia/commit/0a39cb386722e45af930e00bebe5709016e0dc3d))
+* new composable useInitIndex ([0655cd8](https://github.com/nuxt-commerce/algolia/commit/0655cd888124806faf392f49ec9aec94a58a1724))
+* rc version ([244f3fd](https://github.com/nuxt-commerce/algolia/commit/244f3fd0a0307a77cf6e8d9f03210ac12c2c648a))
+* run lint ([8358ac6](https://github.com/nuxt-commerce/algolia/commit/8358ac660b1e26d8fa3f2af2c288816400756228))
+* update docs ([93d6783](https://github.com/nuxt-commerce/algolia/commit/93d6783d0d83d7b0fba6a8c14b053fea762f5e1c))
+* update example with new data ([c7871b9](https://github.com/nuxt-commerce/algolia/commit/c7871b97a33462799c74007927c01e0685751ee9))
+* useInitIndex & req opts in search ([0de06cf](https://github.com/nuxt-commerce/algolia/commit/0de06cf053db18583a65572a88fa1b8e79f02636))
+
 ### [0.1.2](https://github.com/nuxt-commerce/algolia/compare/v0.1.1...v0.1.2) (2022-01-05)
 
 ### 0.1.1 (2022-01-05)
