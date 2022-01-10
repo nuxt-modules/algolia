@@ -1,15 +1,14 @@
 import { computed } from 'vue'
-import { SearchQuery } from '../types'
-import { useAlgolia } from './useAlgolia'
+import { SearchQuery, SearchResponse } from '../types'
 import { useState } from '#app'
+import { useInitIndex } from './useInitIndex'
 
-export const useSearch = (uniqueIndex: string) => {
-  const algolia = useAlgolia()
-  const result = useState<any>(`${uniqueIndex}-search-result`, () => null)
+export const useSearch = (indexName: string) => {
+  const algoliaIndex = useInitIndex(indexName)
+  const result = useState<SearchResponse<unknown>>(`${indexName}-search-result`, () => null as any)
 
-  const search = async ({ query }: SearchQuery) => {
-    const algoliaIndex = algolia.initIndex(uniqueIndex)
-    const searchResult = await algoliaIndex.search(query)
+  const search = async ({ query, requestOptions }: SearchQuery) => {
+    const searchResult = await algoliaIndex.search(query, requestOptions)
     result.value = searchResult
     return searchResult
   }
