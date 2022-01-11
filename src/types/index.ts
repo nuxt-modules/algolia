@@ -3,13 +3,52 @@ export type AlgoliaOptions = {
   apiKey: string;
 };
 
-export type SearchQuery = {
+export type SearchParams = {
   query: string;
   requestOptions?: RequestOptions & SearchOptions;
   [key: string]: any;
 };
 
+export type SearchForFacetValuesParams = {
+  facet: {
+    name: string;
+    query: string;
+  };
+  requestOptions?: RequestOptions & SearchOptions;
+  [key: string]: any;
+}
+
 // Algolia types
+
+export type FacetHit = {
+  /**
+   * The value of the facet.
+   */
+  readonly value: string;
+  /**
+   * The highlighted value.
+   */
+  readonly highlighted: string;
+  /**
+   * The count.
+   */
+  readonly count: number;
+};
+
+export type SearchForFacetValuesResponse = {
+  /**
+   * The list of facet hits.
+   */
+  facetHits: FacetHit[];
+  /**
+   * The exhaustive facets count.
+   */
+  exhaustiveFacetsCount: boolean;
+  /**
+   * The time that the API toke the process the request.
+   */
+  processingTimeMS?: number;
+};
 
 export declare type RequestOptions = {
   /**
