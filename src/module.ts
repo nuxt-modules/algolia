@@ -16,16 +16,13 @@ export default defineNuxtModule<AlgoliaOptions>({
       throw new Error('Missing `applicationId`')
     }
 
-    // Default runtimeConfig
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId
     })
 
-    // Add plugin to load user before bootstrap
     addPlugin(resolve(__dirname, './plugins/algolia'))
 
-    // Add useAlgolia composable
     nuxt.hook('autoImports:dirs', (dirs) => {
       dirs.push(resolve(__dirname, './composables'))
     })
