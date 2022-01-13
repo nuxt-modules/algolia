@@ -1,6 +1,6 @@
 export default {
-  title: '@nuxt-commerce/algolia',
-  url: 'https://algolia-nc.netlify.app',
+  title: '@nuxt-modules/algolia',
+  url: 'https://algolia-nm.netlify.app',
   theme: {
     colors: {
       primary: '#5468FF',
@@ -18,7 +18,7 @@ export default {
   },
   twitter: '@theandrewsky',
   github: {
-    repo: 'nuxt-commerce/algolia',
+    repo: 'nuxt-modules/algolia',
     branch: 'main',
     releases: true
   }

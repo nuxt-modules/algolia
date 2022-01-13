@@ -5,7 +5,7 @@ import type { Nuxt } from '@nuxt/schema'
 import type { AlgoliaOptions } from './types'
 
 export default defineNuxtModule<AlgoliaOptions>({
-  name: '@nuxt-commerce/algolia',
+  name: '@nuxt-modules/algolia',
   configKey: 'algolia',
   setup (options: AlgoliaOptions, nuxt: Nuxt) {
     if (!options.apiKey) {
