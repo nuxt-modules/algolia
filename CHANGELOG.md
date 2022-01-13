@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/nuxt-modules/algolia/compare/v0.2.0...v0.3.0) (2022-01-13)
+
+
+### Features
+
+* 0.3.0-rc.1 ([2b40460](https://github.com/nuxt-modules/algolia/commit/2b404609b529f6b477bedabf26d3b5664089b279))
+* add types for facet values search ([fda6069](https://github.com/nuxt-modules/algolia/commit/fda6069e4c353e71240dd6eec5fbede058d06d46))
+* create useSearchForFacetValues composable ([b0ad15d](https://github.com/nuxt-modules/algolia/commit/b0ad15dc875f9ad917c1554290a6444735a7fc40))
+* docs for new composable ([290c1c6](https://github.com/nuxt-modules/algolia/commit/290c1c66342ccca04030183bb845095dc4a53e77))
+* lint ([f966a40](https://github.com/nuxt-modules/algolia/commit/f966a408df0e27d0defb3ee1d8e26e0ea3be7069))
+* remove unnecessary comments ([a2ddf2d](https://github.com/nuxt-modules/algolia/commit/a2ddf2d26c6bf3e5bdf1dd087d7420928e9bcd97))
+* rename [@nuxt-commerce](https://github.com/nuxt-commerce) to [@nuxt-modules](https://github.com/nuxt-modules) ([aa9939c](https://github.com/nuxt-modules/algolia/commit/aa9939c2c2a0624caa9abcfcc032b82b3374f64a))
+* rename SearchQuery to SearchParams type ([d34f907](https://github.com/nuxt-modules/algolia/commit/d34f90773077326ca92b7c340f920f14e2105fda))
+* update example page ([be87c0d](https://github.com/nuxt-modules/algolia/commit/be87c0d9cb3ee029c631bc0467eda6cc26b7574a))
+
 ## [0.2.0](https://github.com/nuxt-modules/algolia/compare/v0.1.2...v0.2.0) (2022-01-10)
 
 
