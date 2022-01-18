@@ -4,7 +4,8 @@ export default defineNuxtConfig({
   buildModules: [
     ['../src/module', {
       apiKey: process.env.ALGOLIA_SEARCH_API_KEY,
-      applicationId: process.env.ALGOLIA_APPLICATION_ID
+      applicationId: process.env.ALGOLIA_APPLICATION_ID,
+      lite: false // by default set to 'true'
     }]
   ]
 })
