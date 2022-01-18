@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/nuxt-modules/algolia/compare/v0.3.0...v0.4.0) (2022-01-18)
+
+
+### Features
+
+* 0.4.0-rc.1 ([39966fd](https://github.com/nuxt-modules/algolia/commit/39966fdf94742e07e475274fb7afca0cc019d1f6))
+* add 'lite' option in the config ([edcfff5](https://github.com/nuxt-modules/algolia/commit/edcfff5144463251e036b2c33799340edfe85376))
+* add 'lite' option in the example ([5a9422a](https://github.com/nuxt-modules/algolia/commit/5a9422a54124537e670ec66dfb94748901331a7c))
+* lint ([88ff401](https://github.com/nuxt-modules/algolia/commit/88ff40179e1ba0b4900e430a7d331d2c11cb92f4))
+* refactor ([c31d411](https://github.com/nuxt-modules/algolia/commit/c31d411f701917ac34fb265945b3cbac55ae6466))
+* run lint ([6281097](https://github.com/nuxt-modules/algolia/commit/62810978d2029918f2f18d6f00818885adc89eac))
+* update docs ([bd7bec9](https://github.com/nuxt-modules/algolia/commit/bd7bec9aa882ab841e80a4e7c8ac342a8a98cce2))
+* update modules to buildModules in README.md ([3528bde](https://github.com/nuxt-modules/algolia/commit/3528bdeb6471939cd0784b9385f5089769e6540b))
+
 ## [0.3.0](https://github.com/nuxt-modules/algolia/compare/v0.2.0...v0.3.0) (2022-01-13)
 
 
