@@ -1,6 +1,7 @@
 export type AlgoliaOptions = {
   applicationId: string;
   apiKey: string;
+  lite: boolean;
 };
 
 export type SearchParams = {

@@ -16,9 +16,13 @@ export default defineNuxtModule<AlgoliaOptions>({
       throw new Error('Missing `applicationId`')
     }
 
+    // Use Lite version by default
+    const useAlgoliasearchLite = options.lite === undefined ? true : options.lite
+
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
-      applicationId: options.applicationId
+      applicationId: options.applicationId,
+      lite: useAlgoliasearchLite
     })
 
     addPlugin(resolve(__dirname, './plugins/algolia'))
