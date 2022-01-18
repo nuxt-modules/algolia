@@ -1,7 +1,7 @@
 import { computed } from 'vue'
+import { useState } from '#app'
 import { SearchForFacetValuesParams, SearchForFacetValuesResponse } from '../types'
 import { useInitIndex } from './useInitIndex'
-import { useState } from '#app'
 
 export const useSearchForFacetValues = (indexName: string) => {
   const algoliaIndex = useInitIndex(indexName)
