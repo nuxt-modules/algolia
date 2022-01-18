@@ -37,7 +37,7 @@ Firstly, you need to add `@nuxt-modules/algolia` to your Nuxt config.
 // nuxt.config.js
 
 {
-  modules: [
+  buildModules: [
     [
       '@nuxt-modules/algolia',
       {
