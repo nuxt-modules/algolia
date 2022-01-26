@@ -2,7 +2,8 @@ import defu from 'defu'
 import { resolve } from 'pathe'
 import { defineNuxtModule, addPlugin } from '@nuxt/kit'
 import type { Nuxt } from '@nuxt/schema'
-import type { AlgoliaOptions } from './types'
+import type { AlgoliaOptions, CrawlerPage } from './types'
+import { createGenerateDoneHook, createPageGenerateHook } from './crawler'
 
 export default defineNuxtModule<AlgoliaOptions>({
   name: '@nuxt-modules/algolia',
@@ -14,6 +15,23 @@ export default defineNuxtModule<AlgoliaOptions>({
 
     if (!options.applicationId) {
       throw new Error('Missing `applicationId`')
+    }
+
+    if (options.crawler) {
+      if (!options.crawler.apiAdminKey) {
+        throw new Error('Missing `crawler.apiAdminKey`')
+      }
+
+      if (!options.crawler.indexName) {
+        throw new Error('Missing `crawler.indexName`')
+      }
+
+      const pages: CrawlerPage[] = []
+
+      nuxt.addHooks({
+        'generate:page': createPageGenerateHook(nuxt, options, pages),
+        'generate:done': createGenerateDoneHook(nuxt, options, pages)
+      })
     }
 
     // Use Lite version by default

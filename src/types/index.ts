@@ -2,7 +2,19 @@ export type AlgoliaOptions = {
   applicationId: string;
   apiKey: string;
   lite: boolean;
+  crawler?: {
+    apiAdminKey: string;
+    indexName: string;
+    meta?:
+            | (( html: string, route: string) => Metadata|Promise<Metadata>)
+            | (keyof Metadata)[]
+    include?: ((route: string) => boolean) | (string | RegExp)[]
+  }
 };
+
+export type GeneratePageArg = Parameters<import('@nuxt/schema').NuxtHooks['generate:page']>[0]
+export type Metadata = import('metascraper').Metadata
+export type CrawlerPage = { href: string } & Metadata
 
 export type SearchParams = {
   query: string;
