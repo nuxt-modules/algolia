@@ -3,7 +3,7 @@ export type AlgoliaOptions = {
   apiKey: string;
   lite: boolean;
   crawler?: {
-    apiAdminKey: string;
+    apiKey: string;
     indexName: string;
     meta?:
             | (( html: string, route: string) => Metadata|Promise<Metadata>)

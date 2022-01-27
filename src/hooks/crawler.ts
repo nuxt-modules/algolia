@@ -87,8 +87,8 @@ export function createPageGenerateHook (nuxt: Nuxt, options: AlgoliaOptions, pag
 export function createGenerateDoneHook (nuxt: Nuxt, options: AlgoliaOptions, pages: CrawlerPage[]) {
   return async () => {
     if (pages.length > 0 && options.crawler) {
-      const { crawler: { apiAdminKey, indexName }, applicationId } = options
-      const client = algoliasearch(applicationId, apiAdminKey)
+      const { crawler: { apiKey, indexName }, applicationId } = options
+      const client = algoliasearch(applicationId, apiKey)
       const index = client.initIndex(indexName)
 
       await nuxt.callHook('crawler:index:before', {

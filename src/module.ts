@@ -19,8 +19,8 @@ export default defineNuxtModule<AlgoliaOptions>({
     }
 
     if (options.crawler) {
-      if (!options.crawler.apiAdminKey) {
-        throw new Error('Missing `crawler.apiAdminKey`')
+      if (!options.crawler.apiKey) {
+        throw new Error('Missing `crawler.apiKey`')
       }
 
       if (!options.crawler.indexName) {
