@@ -9,7 +9,7 @@ import type { AlgoliaOptions, CrawlerPage, GeneratePageArg } from 'src/types'
  * Create a function to specify which routes should be indexed.
  */
 function createShouldInclude (options: AlgoliaOptions) {
-  const include = options.crawler?.include ?? (() => true)
+  const { include } = options.crawler
 
   return typeof include === 'function'
     ? include
@@ -20,7 +20,7 @@ function createShouldInclude (options: AlgoliaOptions) {
  * Create a function to collect the routes' metadata.
  */
 function createMetaGetter (options: AlgoliaOptions) {
-  const meta = options.crawler?.meta
+  const { meta } = options.crawler
 
   if (typeof meta === 'function') {
     return meta

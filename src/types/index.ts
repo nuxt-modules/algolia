@@ -2,13 +2,13 @@ export type AlgoliaOptions = {
   applicationId: string;
   apiKey: string;
   lite: boolean;
-  crawler?: {
+  crawler: {
     apiKey: string;
     indexName: string;
-    meta?:
+    meta:
             | (( html: string, route: string) => Metadata|Promise<Metadata>)
             | (keyof Metadata)[]
-    include?: ((route: string) => boolean) | (string | RegExp)[]
+    include: ((route: string) => boolean) | (string | RegExp)[]
   }
 };
 

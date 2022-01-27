@@ -9,6 +9,17 @@ export default defineNuxtModule<AlgoliaOptions>({
     name: '@nuxt-modules/algolia',
     configKey: 'algolia'
   },
+  defaults: {
+    applicationId: '',
+    apiKey: '',
+    lite: true,
+    crawler: {
+      apiKey: '',
+      indexName: '',
+      include: () => true,
+      meta: ['title', 'description']
+    }
+  },
   setup (options, nuxt) {
     if (!options.apiKey) {
       throw new Error('Missing `apiKey`')
@@ -18,7 +29,7 @@ export default defineNuxtModule<AlgoliaOptions>({
       throw new Error('Missing `applicationId`')
     }
 
-    if (options.crawler) {
+    if (options.crawler.apiKey || options.crawler.indexName) {
       if (!options.crawler.apiKey) {
         throw new Error('Missing `crawler.apiKey`')
       }
@@ -35,13 +46,11 @@ export default defineNuxtModule<AlgoliaOptions>({
       })
     }
 
-    // Use Lite version by default
-    const useAlgoliasearchLite = options.lite === undefined ? true : options.lite
-
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
-      lite: useAlgoliasearchLite
+      // Use Lite version by default
+      lite: options.lite
     })
 
     addPlugin(resolve(__dirname, './plugins/algolia'))
