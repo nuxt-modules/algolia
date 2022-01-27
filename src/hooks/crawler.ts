@@ -2,8 +2,8 @@
 import type { Nuxt } from '@nuxt/schema'
 import algoliasearch from 'algoliasearch'
 import type { SearchClient, SearchIndex } from 'algoliasearch'
-import metascraper, { Metadata } from 'metascraper'
-import type { AlgoliaOptions, CrawlerPage, GeneratePageArg } from 'src/types'
+import scraper from 'metadata-scraper'
+import type { AlgoliaOptions, CrawlerPage, GeneratePageArg, Metadata } from 'src/types'
 
 /**
  * Create a function to specify which routes should be indexed.
@@ -43,10 +43,11 @@ function createMetaGetter (options: AlgoliaOptions) {
  * Default metadata getter using "metascaper".
  */
 function createDefaultMetaGetter () {
-  const scraper = metascraper([])
-
   return async (html: string, route: string) => {
-    return await scraper({ html, url: route })
+    return await scraper({
+      html,
+      url: route
+    })
   }
 }
 
