@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/nuxt-modules/algolia/compare/v0.5.0...v0.5.1) (2022-01-28)
+
+
+### Features
+
+* change types import ([8a74883](https://github.com/nuxt-modules/algolia/commit/8a748833e26193cdcde51ad2a38ced239b72d857))
+
 ## [0.5.0](https://github.com/nuxt-modules/algolia/compare/v0.4.0...v0.5.0) (2022-01-28)
 
 
