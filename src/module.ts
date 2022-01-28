@@ -1,13 +1,26 @@
 import defu from 'defu'
 import { resolve } from 'pathe'
 import { defineNuxtModule, addPlugin } from '@nuxt/kit'
-import type { Nuxt } from '@nuxt/schema'
-import type { AlgoliaOptions } from './types'
+import type { AlgoliaOptions, CrawlerPage } from './types'
+import { createGenerateDoneHook, createPageGenerateHook } from './hooks/crawler'
 
 export default defineNuxtModule<AlgoliaOptions>({
-  name: '@nuxt-modules/algolia',
-  configKey: 'algolia',
-  setup (options: AlgoliaOptions, nuxt: Nuxt) {
+  meta: {
+    name: '@nuxt-modules/algolia',
+    configKey: 'algolia'
+  },
+  defaults: {
+    applicationId: '',
+    apiKey: '',
+    lite: true,
+    crawler: {
+      apiKey: '',
+      indexName: '',
+      include: () => true,
+      meta: ['title', 'description']
+    }
+  },
+  setup (options, nuxt) {
     if (!options.apiKey) {
       throw new Error('Missing `apiKey`')
     }
@@ -16,13 +29,28 @@ export default defineNuxtModule<AlgoliaOptions>({
       throw new Error('Missing `applicationId`')
     }
 
-    // Use Lite version by default
-    const useAlgoliasearchLite = options.lite === undefined ? true : options.lite
+    if (options.crawler.apiKey || options.crawler.indexName) {
+      if (!options.crawler.apiKey) {
+        throw new Error('Missing `crawler.apiKey`')
+      }
+
+      if (!options.crawler.indexName) {
+        throw new Error('Missing `crawler.indexName`')
+      }
+
+      const pages: CrawlerPage[] = []
+
+      nuxt.addHooks({
+        'generate:page': createPageGenerateHook(nuxt, options, pages),
+        'generate:done': createGenerateDoneHook(nuxt, options, pages)
+      })
+    }
 
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
-      lite: useAlgoliasearchLite
+      // Use Lite version by default
+      lite: options.lite
     })
 
     addPlugin(resolve(__dirname, './plugins/algolia'))
