@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/nuxt-modules/algolia/compare/v0.4.0...v0.5.0) (2022-01-28)
+
+
+### Features
+
+* 0.5.0-rc.1 ([145ffbe](https://github.com/nuxt-modules/algolia/commit/145ffbe0f24dcc0e39b10dc2cfb7eb6f77fe6b47))
+* crawler ([51d7ca7](https://github.com/nuxt-modules/algolia/commit/51d7ca710d1aa7b732c8cf67d2ea04ea33803ebb))
+
+
+### Bug Fixes
+
+* move hooks to hooks folder ([915baf4](https://github.com/nuxt-modules/algolia/commit/915baf43f56a6eb71c717c4e547b264630e98b8b))
+* set default values using new module def ([1eea6ce](https://github.com/nuxt-modules/algolia/commit/1eea6cee91520a7b2a376000c644ab95dde996f3))
+* use metadata-scraper ([ae016c4](https://github.com/nuxt-modules/algolia/commit/ae016c46ad039469c9d4f5139b42b29a6e19fdd5))
+
 ## [0.4.0](https://github.com/nuxt-modules/algolia/compare/v0.3.0...v0.4.0) (2022-01-18)
 
 
