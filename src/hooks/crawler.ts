@@ -3,7 +3,7 @@ import type { Nuxt } from '@nuxt/schema'
 import algoliasearch from 'algoliasearch'
 import type { SearchClient, SearchIndex } from 'algoliasearch'
 import scraper from 'metadata-scraper'
-import type { AlgoliaOptions, CrawlerPage, GeneratePageArg, Metadata } from 'src/types'
+import type { AlgoliaOptions, CrawlerPage, GeneratePageArg, Metadata } from '../types'
 
 /**
  * Create a function to specify which routes should be indexed.
