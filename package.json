@@ -44,8 +44,7 @@
   },
   "dependencies": {
     "algoliasearch": "^4.11.0",
-    "metadata-scraper": "^0.2.49",
-    "metascraper": "^5.25.7"
+    "metadata-scraper": "^0.2.49"
   },
   "bugs": {
     "url": "https://github.com/nuxt-modules/algolia/issues"
