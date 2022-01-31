@@ -1,11 +1,27 @@
 import { computed } from 'vue'
-import { SearchParams, SearchResponse } from '../types'
+import type { RequestOptions } from '@algolia/transporter'
+import type { SearchOptions, SearchResponse } from '@algolia/client-search'
 import { useInitIndex } from './useInitIndex'
 import { useState } from '#app'
 
-export const useSearch = (indexName: string) => {
+export type SearchParams = {
+  query: string;
+  requestOptions?: RequestOptions & SearchOptions;
+  [key: string]: any;
+};
+
+export type SearchForFacetValuesParams = {
+  facet: {
+    name: string;
+    query: string;
+  };
+  requestOptions?: RequestOptions & SearchOptions;
+  [key: string]: any;
+}
+
+export const useSearch = <T>(indexName: string) => {
   const algoliaIndex = useInitIndex(indexName)
-  const result = useState<SearchResponse<unknown>>(`${indexName}-search-result`, () => null as any)
+  const result = useState<SearchResponse<T>>(`${indexName}-search-result`, () => null as any)
 
   const search = async ({ query, requestOptions }: SearchParams) => {
     const searchResult = await algoliaIndex.search(query, requestOptions)

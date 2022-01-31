@@ -11,40 +11,40 @@
     "Baroshem <jakub.andrzejewski.dev@gmail.com>"
   ],
   "license": "MIT",
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/module.cjs",
-      "import": "./dist/module.mjs"
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
     }
   },
-  "main": "dist/module.mjs",
-  "module": "dist/module.mjs",
-  "types": "dist/module.d.ts",
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "dev": "nuxt dev example",
+    "prepack": "nuxt-module-build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "docs": "cd docs && yarn dev",
-    "lint": "eslint --ext .js,.ts,.vue .",
-    "prepublishOnly": "yarn build",
-    "release": "yarn lint && standard-version && git push --follow-tags"
+    "release": "nuxt-module-build && standard-version && git push --follow-tags"
+  },
+  "dependencies": {
+    "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
+    "algoliasearch": "^4.11.0",
+    "metadata-scraper": "^0.2.49"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config-typescript": "^8.0.0",
-    "eslint": "^8.4.1",
-    "nuxt3": "^3.0.0-27388331.8ea6b65",
-    "standard-version": "^9.3.2",
-    "typescript": "^4.5.4",
-    "unbuild": "0.6.3"
+    "@nuxt/module-builder": "latest",
+    "@nuxtjs/eslint-config-typescript": "latest",
+    "eslint": "latest",
+    "nuxt3": "latest",
+    "standard-version": "^9.3.2"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "algoliasearch": "^4.11.0",
-    "metadata-scraper": "^0.2.49"
   },
   "bugs": {
     "url": "https://github.com/nuxt-modules/algolia/issues"
@@ -52,7 +52,7 @@
   "homepage": "https://github.com/nuxt-modules/algolia#readme",
   "directories": {
     "doc": "docs",
-    "example": "example"
+    "example": "playground"
   },
   "keywords": [
     "algolia",

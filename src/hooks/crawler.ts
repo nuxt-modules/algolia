@@ -1,9 +1,15 @@
 
-import type { Nuxt } from '@nuxt/schema'
+import type { Nuxt, NuxtHooks } from '@nuxt/schema'
 import algoliasearch from 'algoliasearch'
-import type { SearchClient, SearchIndex } from 'algoliasearch'
 import scraper from 'metadata-scraper'
-import type { AlgoliaOptions, CrawlerPage, GeneratePageArg, Metadata } from 'src/types'
+
+import type { SearchClient, SearchIndex } from 'algoliasearch'
+import type { MetaData } from 'metadata-scraper/lib/types'
+import type { AlgoliaOptions } from './../module'
+
+export type GeneratePageArg = Parameters<NuxtHooks['generate:page']>[0]
+
+export type CrawlerPage = { href: string } & MetaData
 
 /**
  * Create a function to specify which routes should be indexed.
@@ -32,7 +38,7 @@ function createMetaGetter (options: AlgoliaOptions) {
     return async (html: string, route: string) => {
       const metadata = await defaultMetaGetter(html, route)
 
-      return meta.reduce((acc, key) => ({ ...acc, [key]: metadata[key] }), {} as Metadata)
+      return meta.reduce((acc, key) => ({ ...acc, [key]: metadata[key] }), {} as MetaData)
     }
   }
 
@@ -115,8 +121,8 @@ export function createGenerateDoneHook (nuxt: Nuxt, options: AlgoliaOptions, pag
 
   declare module '@nuxt/schema' {
       interface NuxtHooks {
-          'crawler:add:before': (arg: { route: string, html: string, meta: Metadata, page: CrawlerPage }) => void
-          'crawler:add:after': (arg: { route: string, html: string, meta: Metadata, page: CrawlerPage }) => void
+          'crawler:add:before': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
+          'crawler:add:after': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
           'crawler:index:before': (arg: { options: AlgoliaOptions, pages: CrawlerPage[], client: SearchClient, index: SearchIndex }) => void
           'crawler:index:after': (arg: { options: AlgoliaOptions, pages: CrawlerPage[], client: SearchClient, index: SearchIndex }) => void
       }

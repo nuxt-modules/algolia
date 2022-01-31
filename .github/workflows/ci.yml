@@ -38,11 +38,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
 
-      - name: Lint
-        run: yarn lint
-
       - name: Build
-        run: yarn build
+        run: yarn prepack
 
       - name: Version Check
         id: check

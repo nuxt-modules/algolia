@@ -1,8 +1,23 @@
-import defu from 'defu'
-import { resolve } from 'pathe'
+import { resolve } from 'path'
+import { fileURLToPath } from 'url'
 import { defineNuxtModule, addPlugin } from '@nuxt/kit'
-import type { AlgoliaOptions, CrawlerPage } from './types'
-import { createGenerateDoneHook, createPageGenerateHook } from './hooks/crawler'
+import type { MetaData } from 'metadata-scraper/lib/types'
+import defu from 'defu'
+import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage } from './hooks'
+
+export interface AlgoliaOptions {
+  applicationId: string;
+  apiKey: string;
+  lite: boolean;
+  crawler: {
+    apiKey: string;
+    indexName: string;
+    meta:
+            | ((html: string, route: string) => MetaData|Promise<MetaData>)
+            | (keyof MetaData)[]
+    include: ((route: string) => boolean) | (string | RegExp)[]
+  }
+};
 
 export default defineNuxtModule<AlgoliaOptions>({
   meta: {
@@ -53,26 +68,12 @@ export default defineNuxtModule<AlgoliaOptions>({
       lite: options.lite
     })
 
-    addPlugin(resolve(__dirname, './plugins/algolia'))
+    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    nuxt.options.build.transpile.push(runtimeDir)
+    addPlugin(resolve(runtimeDir, 'plugin'))
 
     nuxt.hook('autoImports:dirs', (dirs) => {
-      dirs.push(resolve(__dirname, './composables'))
+      dirs.push(resolve(__dirname, 'composables'))
     })
   }
 })
-
-export * from './types'
-
-declare module '@nuxt/schema' {
-  interface ConfigSchema {
-    publicRuntimeConfig?: {
-      algolia?: AlgoliaOptions
-    }
-  }
-  interface NuxtConfig {
-    algolia?: AlgoliaOptions
-  }
-  interface NuxtOptions {
-    algolia?: AlgoliaOptions
-  }
-}
