@@ -2,7 +2,6 @@
 import type { Nuxt, NuxtHooks } from '@nuxt/schema'
 import algoliasearch from 'algoliasearch'
 import scraper from 'metadata-scraper'
-
 import type { SearchClient, SearchIndex } from 'algoliasearch'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import type { AlgoliaOptions } from './../module'

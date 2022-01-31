@@ -1,6 +1,6 @@
 {
   "name": "@nuxt-modules/algolia",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "description": "Algolia module for Nuxt 3",
   "repository": {
     "type": "git",
@@ -8,7 +8,8 @@
   },
   "author": "Jakub Andrzejewski",
   "contributors": [
-    "Baroshem <jakub.andrzejewski.dev@gmail.com>"
+    "Baroshem <jakub.andrzejewski.dev@gmail.com>",
+    "Yasser Lahbibi"
   ],
   "license": "MIT",
   "type": "module",
