@@ -1,6 +1,6 @@
 {
   "name": "@nuxt-modules/algolia",
-  "version": "0.5.2",
+  "version": "0.5.4",
   "description": "Algolia module for Nuxt 3",
   "repository": {
     "type": "git",
