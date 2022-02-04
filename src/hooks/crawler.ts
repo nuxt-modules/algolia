@@ -4,7 +4,7 @@ import algoliasearch from 'algoliasearch'
 import scraper from 'metadata-scraper'
 import type { SearchClient, SearchIndex } from 'algoliasearch'
 import type { MetaData } from 'metadata-scraper/lib/types'
-import type { AlgoliaOptions } from './../module'
+import type { ModuleOptions } from './../module'
 
 export type GeneratePageArg = Parameters<NuxtHooks['generate:page']>[0]
 
@@ -13,7 +13,7 @@ export type CrawlerPage = { href: string } & MetaData
 /**
  * Create a function to specify which routes should be indexed.
  */
-function createShouldInclude (options: AlgoliaOptions) {
+function createShouldInclude (options: ModuleOptions) {
   const { include } = options.crawler
 
   return typeof include === 'function'
@@ -24,7 +24,7 @@ function createShouldInclude (options: AlgoliaOptions) {
 /**
  * Create a function to collect the routes' metadata.
  */
-function createMetaGetter (options: AlgoliaOptions) {
+function createMetaGetter (options: ModuleOptions) {
   const { meta } = options.crawler
 
   if (typeof meta === 'function') {
@@ -59,7 +59,7 @@ function createDefaultMetaGetter () {
 /**
  * Create the "page:generate" hook callback to collect all the included routes' metadata.
  */
-export function createPageGenerateHook (nuxt: Nuxt, options: AlgoliaOptions, pages: CrawlerPage[]) {
+export function createPageGenerateHook (nuxt: Nuxt, options: ModuleOptions, pages: CrawlerPage[]) {
   const shouldInclude = createShouldInclude(options)
   const getMeta = createMetaGetter(options)
 
@@ -90,7 +90,7 @@ export function createPageGenerateHook (nuxt: Nuxt, options: AlgoliaOptions, pag
 /**
    * Create the "generate:done" hook callback to index the collected routes' metadata.
    */
-export function createGenerateDoneHook (nuxt: Nuxt, options: AlgoliaOptions, pages: CrawlerPage[]) {
+export function createGenerateDoneHook (nuxt: Nuxt, options: ModuleOptions, pages: CrawlerPage[]) {
   return async () => {
     if (pages.length > 0 && options.crawler) {
       const { crawler: { apiKey, indexName }, applicationId } = options
@@ -118,11 +118,13 @@ export function createGenerateDoneHook (nuxt: Nuxt, options: AlgoliaOptions, pag
   }
 }
 
-  declare module '@nuxt/schema' {
-      interface NuxtHooks {
-          'crawler:add:before': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
-          'crawler:add:after': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
-          'crawler:index:before': (arg: { options: AlgoliaOptions, pages: CrawlerPage[], client: SearchClient, index: SearchIndex }) => void
-          'crawler:index:after': (arg: { options: AlgoliaOptions, pages: CrawlerPage[], client: SearchClient, index: SearchIndex }) => void
-      }
-  }
+export interface CrawlerHooks {
+  'crawler:add:before': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
+  'crawler:add:after': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
+  'crawler:index:before': (arg: { options: ModuleOptions, pages: CrawlerPage[], client: SearchClient, index: SearchIndex }) => void
+  'crawler:index:after': (arg: { options: ModuleOptions, pages: CrawlerPage[], client: SearchClient, index: SearchIndex }) => void
+}
+
+declare module '@nuxt/schema' {
+  interface NuxtHooks extends CrawlerHooks {}
+}

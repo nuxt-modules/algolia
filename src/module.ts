@@ -3,9 +3,9 @@ import { fileURLToPath } from 'url'
 import { defineNuxtModule, addPlugin } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
-import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage } from './hooks'
+import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
 
-export interface AlgoliaOptions {
+export interface ModuleOptions {
   applicationId: string;
   apiKey: string;
   lite: boolean;
@@ -19,7 +19,9 @@ export interface AlgoliaOptions {
   }
 };
 
-export default defineNuxtModule<AlgoliaOptions>({
+export interface ModuleHooks extends CrawlerHooks {}
+
+export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@nuxt-modules/algolia',
     configKey: 'algolia'
@@ -64,7 +66,6 @@ export default defineNuxtModule<AlgoliaOptions>({
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
-      // Use Lite version by default
       lite: options.lite
     })
 
@@ -73,7 +74,7 @@ export default defineNuxtModule<AlgoliaOptions>({
     addPlugin(resolve(runtimeDir, 'plugin'))
 
     nuxt.hook('autoImports:dirs', (dirs) => {
-      dirs.push(resolve(__dirname, 'composables'))
+      dirs.push(resolve(runtimeDir, 'composables'))
     })
   }
 })
