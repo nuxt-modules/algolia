@@ -23,7 +23,7 @@ export interface ModuleHooks extends CrawlerHooks {}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@nuxt-modules/algolia',
+    name: '@nuxtjs/algolia',
     configKey: 'algolia'
   },
   defaults: {
