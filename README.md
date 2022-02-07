@@ -78,7 +78,7 @@ onMounted(async () => {
 [npm-downloads-src]: https://img.shields.io/npm/dt/@nuxt-modules/algolia.svg
 [npm-downloads-href]: https://npmjs.com/package/@nuxt-modules/algolia
 
-[github-actions-ci-src]: https://github.com/nuxt-modules/algolia/workflows/ci/badge.svg
+[github-actions-ci-src]: https://github.com/nuxt-modules/algolia/actions/workflows/ci.yml/badge.svg
 [github-actions-ci-href]: https://github.com/nuxt-modules/algolia/actions?query=workflow%3Aci
 
 [codecov-src]: https://img.shields.io/codecov/c/github/nuxt-modules/algolia.svg
