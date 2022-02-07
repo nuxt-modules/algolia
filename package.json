@@ -35,7 +35,8 @@
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
     "algoliasearch": "^4.11.0",
-    "metadata-scraper": "^0.2.49"
+    "metadata-scraper": "^0.2.49",
+    "vue-instantsearch": "^4.3.2"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
