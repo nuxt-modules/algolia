@@ -26,6 +26,8 @@
 
 ## Setup
 
+> **WARNING:** This package was recently moved to nuxt-community so it's name have changed from `@nuxt-modules/algolia` to `@nuxtjs/algolia`. There was no other changes than the name of the package.
+
 ```sh
 yarn add @nuxtjs/algolia # yarn
 npm i @nuxtjs/algolia # npm
