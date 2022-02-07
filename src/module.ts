@@ -9,6 +9,7 @@ export interface ModuleOptions {
   applicationId: string;
   apiKey: string;
   lite: boolean;
+  instantSearch: boolean;
   crawler: {
     apiKey: string;
     indexName: string;
@@ -30,6 +31,7 @@ export default defineNuxtModule<ModuleOptions>({
     applicationId: '',
     apiKey: '',
     lite: true,
+    instantSearch: true,
     crawler: {
       apiKey: '',
       indexName: '',
@@ -66,8 +68,13 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
-      lite: options.lite
+      lite: options.lite,
+      instantSearch: options.instantSearch
     })
+
+    if (options.instantSearch) {
+      nuxt.options.build.transpile.push('vue-instantsearch/vue3')
+    }
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir)
