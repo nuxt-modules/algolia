@@ -8,8 +8,8 @@ import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHoo
 export interface ModuleOptions {
   applicationId: string;
   apiKey: string;
-  lite: boolean;
-  crawler: {
+  lite?: boolean;
+  crawler?: {
     apiKey: string;
     indexName: string;
     meta:
