@@ -1,7 +1,8 @@
-import { defineNuxtPlugin, NuxtApp } from '#app'
+import { defineNuxtPlugin, NuxtApp, useRuntimeConfig } from '#app'
 
 export default defineNuxtPlugin(async (nuxtApp: NuxtApp) => {
-  const { applicationId, apiKey, lite, instantSearch } = nuxtApp.payload.config.algolia
+  const { applicationId, apiKey, lite, instantSearch } = useRuntimeConfig().algolia
+
   // Have to import algoliasearch directly from esm.browser because algoliasearch by default provides umd.js file which causes Nuxt to throw error
   // Also, cannot use simple string interpolation due to error 'Cannot read property 'stubModule' of undefined'
   const algoliasearch = lite
@@ -14,6 +15,7 @@ export default defineNuxtPlugin(async (nuxtApp: NuxtApp) => {
 
   if (instantSearch) {
     const { plugin } = await import('vue-instantsearch/vue3/es/src/plugin')
+
     nuxtApp.vueApp.use(plugin)
   }
 })

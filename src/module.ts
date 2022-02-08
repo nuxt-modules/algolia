@@ -5,11 +5,21 @@ import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
 
-export interface ModuleOptions {
+interface ModuleBaseOptions {
   applicationId: string;
   apiKey: string;
   lite?: boolean;
-  instantSearch?: boolean;
+  instantSearch?: boolean | { theme: 'reset'|'algolia'|'satellite' };
+
+}
+
+declare module '@nuxt/schema' {
+  interface PublicRuntimeConfig {
+    algolia: ModuleBaseOptions
+  }
+}
+
+export interface ModuleOptions extends ModuleBaseOptions {
   crawler?: {
     apiKey: string;
     indexName: string;
@@ -31,7 +41,7 @@ export default defineNuxtModule<ModuleOptions>({
     applicationId: '',
     apiKey: '',
     lite: true,
-    instantSearch: true,
+    instantSearch: { theme: 'satellite' },
     crawler: {
       apiKey: '',
       indexName: '',
@@ -74,6 +84,10 @@ export default defineNuxtModule<ModuleOptions>({
 
     if (options.instantSearch) {
       nuxt.options.build.transpile.push('vue-instantsearch/vue3')
+
+      if (typeof options.instantSearch === 'object' && options.instantSearch.theme) {
+        nuxt.options.css.push(`instantsearch.css/themes/${options.instantSearch.theme}.css`)
+      }
     }
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
