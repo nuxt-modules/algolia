@@ -5,10 +5,25 @@ import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
 
-export interface ModuleOptions {
+enum InstantSearchThemes {
+  'reset',
+  'algolia',
+  'satellite',
+}
+interface ModuleBaseOptions {
   applicationId: string;
   apiKey: string;
   lite?: boolean;
+  instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
+}
+
+declare module '@nuxt/schema' {
+  interface PublicRuntimeConfig {
+    algolia: ModuleBaseOptions
+  }
+}
+
+export interface ModuleOptions extends ModuleBaseOptions {
   crawler?: {
     apiKey: string;
     indexName: string;
@@ -30,6 +45,7 @@ export default defineNuxtModule<ModuleOptions>({
     applicationId: '',
     apiKey: '',
     lite: true,
+    instantSearch: false,
     crawler: {
       apiKey: '',
       indexName: '',
@@ -66,8 +82,24 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
-      lite: options.lite
+      lite: options.lite,
+      instantSearch: options.instantSearch
     })
+
+    if (options.instantSearch) {
+      nuxt.options.build.transpile.push('vue-instantsearch/vue3')
+
+      if (typeof options.instantSearch === 'object') {
+        const { theme } = options.instantSearch
+        if (theme) {
+          if (InstantSearchThemes[theme]) {
+            nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
+          } else {
+            console.error('[@nuxtjs/algolia] Invalid theme:', theme)
+          }
+        }
+      }
+    }
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir)
