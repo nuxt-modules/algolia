@@ -5,12 +5,16 @@ import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
 
+enum InstantSearchThemes {
+  'reset',
+  'algolia',
+  'satellite',
+}
 interface ModuleBaseOptions {
   applicationId: string;
   apiKey: string;
   lite?: boolean;
-  instantSearch?: boolean | { theme: 'reset'|'algolia'|'satellite' };
-
+  instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
 }
 
 declare module '@nuxt/schema' {
@@ -41,7 +45,7 @@ export default defineNuxtModule<ModuleOptions>({
     applicationId: '',
     apiKey: '',
     lite: true,
-    instantSearch: { theme: 'satellite' },
+    instantSearch: false,
     crawler: {
       apiKey: '',
       indexName: '',
@@ -85,8 +89,15 @@ export default defineNuxtModule<ModuleOptions>({
     if (options.instantSearch) {
       nuxt.options.build.transpile.push('vue-instantsearch/vue3')
 
-      if (typeof options.instantSearch === 'object' && options.instantSearch.theme) {
-        nuxt.options.css.push(`instantsearch.css/themes/${options.instantSearch.theme}.css`)
+      if (typeof options.instantSearch === 'object') {
+        const { theme } = options.instantSearch
+        if (theme) {
+          if (InstantSearchThemes[theme]) {
+            nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
+          } else {
+            console.error('[@nuxtjs/algolia] Invalid theme:', theme)
+          }
+        }
       }
     }
 

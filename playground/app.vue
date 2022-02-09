@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-const indexName = 'super_index'
+const indexName = 'test_index'
 const { result, search } = useSearch(indexName)
 const { result: searchForFacetValuesResult, search: searchForFacetValues } = useSearchForFacetValues(indexName)
 const algolia = useAlgolia()
