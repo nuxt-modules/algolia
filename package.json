@@ -30,7 +30,8 @@
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "docs": "cd docs && yarn dev",
-    "release": "nuxt-module-build && standard-version && git push --follow-tags"
+    "release": "nuxt-module-build && standard-version && git push --follow-tags",
+    "lint": "eslint --ext .js,.ts,.vue"
   },
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
