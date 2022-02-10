@@ -21,6 +21,9 @@ declare module '@nuxt/schema' {
   interface PublicRuntimeConfig {
     algolia: ModuleBaseOptions
   }
+  interface NuxtConfig {
+    algolia: ModuleBaseOptions
+  }
 }
 
 export interface ModuleOptions extends ModuleBaseOptions {

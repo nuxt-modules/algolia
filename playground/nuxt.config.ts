@@ -1,5 +1,5 @@
 import { defineNuxtConfig } from 'nuxt3'
-import AlgoliaModule from '..'
+import AlgoliaModule from '../src/module'
 
 export default defineNuxtConfig({
   modules: [
