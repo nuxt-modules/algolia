@@ -1,18 +1,54 @@
-import defu from 'defu'
-import { resolve } from 'pathe'
+import { resolve } from 'path'
+import { fileURLToPath } from 'url'
 import { defineNuxtModule, addPlugin } from '@nuxt/kit'
-import type { AlgoliaOptions, CrawlerPage } from './types'
-import { createGenerateDoneHook, createPageGenerateHook } from './hooks/crawler'
+import type { MetaData } from 'metadata-scraper/lib/types'
+import defu from 'defu'
+import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
 
-export default defineNuxtModule<AlgoliaOptions>({
+enum InstantSearchThemes {
+  'reset',
+  'algolia',
+  'satellite',
+}
+interface ModuleBaseOptions {
+  applicationId: string;
+  apiKey: string;
+  lite?: boolean;
+  instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
+}
+
+declare module '@nuxt/schema' {
+  interface PublicRuntimeConfig {
+    algolia: ModuleBaseOptions
+  }
+  interface NuxtConfig {
+    algolia: ModuleBaseOptions
+  }
+}
+
+export interface ModuleOptions extends ModuleBaseOptions {
+  crawler?: {
+    apiKey: string;
+    indexName: string;
+    meta:
+            | ((html: string, route: string) => MetaData|Promise<MetaData>)
+            | (keyof MetaData)[]
+    include: ((route: string) => boolean) | (string | RegExp)[]
+  }
+};
+
+export interface ModuleHooks extends CrawlerHooks {}
+
+export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@nuxt-modules/algolia',
+    name: '@nuxtjs/algolia',
     configKey: 'algolia'
   },
   defaults: {
     applicationId: '',
     apiKey: '',
     lite: true,
+    instantSearch: false,
     crawler: {
       apiKey: '',
       indexName: '',
@@ -49,30 +85,31 @@ export default defineNuxtModule<AlgoliaOptions>({
     nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
-      // Use Lite version by default
-      lite: options.lite
+      lite: options.lite,
+      instantSearch: options.instantSearch
     })
 
-    addPlugin(resolve(__dirname, './plugins/algolia'))
+    if (options.instantSearch) {
+      nuxt.options.build.transpile.push('vue-instantsearch/vue3')
+
+      if (typeof options.instantSearch === 'object') {
+        const { theme } = options.instantSearch
+        if (theme) {
+          if (InstantSearchThemes[theme]) {
+            nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
+          } else {
+            console.error('[@nuxtjs/algolia] Invalid theme:', theme)
+          }
+        }
+      }
+    }
+
+    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    nuxt.options.build.transpile.push(runtimeDir)
+    addPlugin(resolve(runtimeDir, 'plugin'))
 
     nuxt.hook('autoImports:dirs', (dirs) => {
-      dirs.push(resolve(__dirname, './composables'))
+      dirs.push(resolve(runtimeDir, 'composables'))
     })
   }
 })
-
-export * from './types'
-
-declare module '@nuxt/schema' {
-  interface ConfigSchema {
-    publicRuntimeConfig?: {
-      algolia?: AlgoliaOptions
-    }
-  }
-  interface NuxtConfig {
-    algolia?: AlgoliaOptions
-  }
-  interface NuxtOptions {
-    algolia?: AlgoliaOptions
-  }
-}

@@ -1,5 +1,6 @@
 import { computed } from 'vue'
-import { SearchForFacetValuesParams, SearchForFacetValuesResponse } from '../types'
+import type { SearchForFacetValuesResponse } from '@algolia/client-search'
+import type { SearchForFacetValuesParams } from './useSearch'
 import { useInitIndex } from './useInitIndex'
 import { useState } from '#app'
 

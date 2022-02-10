@@ -1,7 +1,7 @@
 {
-  "name": "@nuxt-modules/algolia-docs",
+  "name": "@nuxtjs/algolia-docs",
   "version": "1.0.0",
-  "description": "Docs for @nuxt-modules/algolia",
+  "description": "Docs for @nuxtjs/algolia",
   "author": "NuxtJS",
   "scripts": {
     "dev": "nuxt",
