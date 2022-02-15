@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/nuxt-community/algolia/compare/v0.5.1...v0.7.0) (2022-02-15)
+
+
+### Features
+
+* 0.7.0-rc.1 ([0d25d09](https://github.com/nuxt-community/algolia/commit/0d25d094a78c13695fac1be6436b94fc8a6d611c))
+* add docs about vue-instantsearch ([d059205](https://github.com/nuxt-community/algolia/commit/d0592054c0b08e3e4eafc7366dbb64cd073a8375))
+* add name change note ([5d0638e](https://github.com/nuxt-community/algolia/commit/5d0638e11c733d5c7ec460e0cb230ceb040b70f0))
+* add optional types and gitignore ([d7049b4](https://github.com/nuxt-community/algolia/commit/d7049b4826fcdd470f29d9b04cf5eafc65714a76))
+* add styles ([15ca72c](https://github.com/nuxt-community/algolia/commit/15ca72c0a74526d5ccf9af997ee601e0cc2da4b9))
+* instantsearch ([ba31313](https://github.com/nuxt-community/algolia/commit/ba31313ac117503f15b087682cb320cb08c31d2f))
+* update static assets ([90922cc](https://github.com/nuxt-community/algolia/commit/90922cc1e4a8180fdd79d0ed40d91f025eb3130e))
+* update to nuxt-community ([af94090](https://github.com/nuxt-community/algolia/commit/af94090bcc227b27343bff58383a88d09efb9c63))
+* use new module builder ([fa3983f](https://github.com/nuxt-community/algolia/commit/fa3983ff027e0423bacf0aa5b180ef491952adc8))
+
+
+### Bug Fixes
+
+* add default config to playground ([5e23f0a](https://github.com/nuxt-community/algolia/commit/5e23f0a3c7eb0ae2dd3fdb8585109b9afdbffc67))
+* gh badges ([01d8f1a](https://github.com/nuxt-community/algolia/commit/01d8f1ac0dacdd7b409b10088add1b3fd4c52632))
+* instantSearch default to false and theme name check ([ba49f2f](https://github.com/nuxt-community/algolia/commit/ba49f2f6cb83259abe7713243dca151c9ca4a0c5))
+* readme & lockfile ([cb84097](https://github.com/nuxt-community/algolia/commit/cb840972b136cacdbe2fdc830d3c9d91164b9952))
+* remove version bumps ([a5f1447](https://github.com/nuxt-community/algolia/commit/a5f1447d0a998a5d49594e7c286060a379ea9711))
+* update to new module builder ([67918d2](https://github.com/nuxt-community/algolia/commit/67918d2e79e6cb6462614e12be48fee2d5fbd343))
+
 ### [0.5.1](https://github.com/nuxt-modules/algolia/compare/v0.5.0...v0.5.1) (2022-01-28)
 
 
