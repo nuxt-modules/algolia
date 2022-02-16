@@ -18,6 +18,10 @@ const { result, search } = useSearch(indexName)
 const { result: searchForFacetValuesResult, search: searchForFacetValues } = useSearchForFacetValues(indexName)
 const algolia = useAlgolia()
 
+const { search: typedSearch } = useInitIndex('coolIndex')
+
+const typedFoo = await typedSearch('foo')
+
 onMounted(async () => {
   await search({ query: 'Samsung', requestOptions: { filters: 'objectID:ecommerce-sample-data-99' } })
   const facet = {

@@ -39,6 +39,8 @@ export interface ModuleOptions extends ModuleBaseOptions {
 
 export interface ModuleHooks extends CrawlerHooks {}
 
+export * from './types'
+
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@nuxtjs/algolia',
