@@ -10,6 +10,7 @@ enum InstantSearchThemes {
   'algolia',
   'satellite',
 }
+
 interface ModuleBaseOptions {
   applicationId: string;
   apiKey: string;
@@ -19,9 +20,6 @@ interface ModuleBaseOptions {
 
 declare module '@nuxt/schema' {
   interface PublicRuntimeConfig {
-    algolia: ModuleBaseOptions
-  }
-  interface NuxtConfig {
     algolia: ModuleBaseOptions
   }
 }
