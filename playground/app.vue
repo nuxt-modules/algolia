@@ -21,14 +21,6 @@ const algolia = useAlgolia()
 // Just add some indices in ./playground/types.d.ts, they should then be autocompleted here
 const { search: typedSearch } = useInitIndex('coolIndex')
 
-// Notice the type of typedFoo is inferred from the type of the result of the call to useInitIndex
-const typedFoo = await typedSearch('foo')
-
-// @ts-expect-error bar should be a number
-typedFoo.hits[0].bar = '1'
-// There should be no error
-typedFoo.hits[0].foo = '1'
-
 onMounted(async () => {
   await search({ query: 'Samsung', requestOptions: { filters: 'objectID:ecommerce-sample-data-99' } })
   const facet = {
@@ -36,5 +28,13 @@ onMounted(async () => {
     query: 'Cell Phones'
   }
   await searchForFacetValues({ facet })
+
+  // Notice the type of typedFoo is inferred from the type of the result of the call to useInitIndex
+  const typedFoo = await typedSearch('foo')
+
+  // @ts-expect-error bar should be a number
+  typedFoo.hits[0].bar = '1'
+  // There should be no error
+  typedFoo.hits[0].foo = '1'
 })
 </script>
