@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.1](https://github.com/nuxt-community/algolia/compare/v0.7.0...v0.7.1) (2022-03-01)
+
+
+### Features
+
+* typed search ([3490a45](https://github.com/nuxt-community/algolia/commit/3490a45bcc2bba193028a5ce81fab2c03093f13d))
+
+
+### Bug Fixes
+
+* add missing types due to build bug ([026f1e3](https://github.com/nuxt-community/algolia/commit/026f1e3f1968df74aa93553748923bb300825d16))
+* add types for composables and lint ([43d892f](https://github.com/nuxt-community/algolia/commit/43d892f7c040b05875ac98c33a48a0cb27b02e9f))
+* issue with playground ([12cf301](https://github.com/nuxt-community/algolia/commit/12cf301893b41b6cf4650e55e0b3602aa55d7105))
+* remove unnecessary @nuxt/schema declaration ([c092ed6](https://github.com/nuxt-community/algolia/commit/c092ed66fdf248ff525666942a4cb5262562f3a5))
+
 ## [0.7.0](https://github.com/nuxt-community/algolia/compare/v0.5.1...v0.7.0) (2022-02-15)
 
 
