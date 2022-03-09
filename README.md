@@ -18,7 +18,7 @@
 - Nuxt 3 ready
 - Easy integration with Algolia
 - Handy composables like useAlgolia, useSearch, etc
-- [Coming soon] Support for Vue Instantsearch components
+- Support for Vue Instantsearch components
 - Optional pages crawler support
 - TypeScript support
 

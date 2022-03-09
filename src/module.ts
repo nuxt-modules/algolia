@@ -58,20 +58,20 @@ export default defineNuxtModule<ModuleOptions>({
   },
   setup (options, nuxt) {
     if (!options.apiKey) {
-      throw new Error('Missing `apiKey`')
+      throw new Error('`[@nuxtjs/algolia]` Missing `apiKey`')
     }
 
     if (!options.applicationId) {
-      throw new Error('Missing `applicationId`')
+      throw new Error('`[@nuxtjs/algolia]` Missing `applicationId`')
     }
 
     if (options.crawler.apiKey || options.crawler.indexName) {
       if (!options.crawler.apiKey) {
-        throw new Error('Missing `crawler.apiKey`')
+        throw new Error('`[@nuxtjs/algolia]` Missing `crawler.apiKey`')
       }
 
       if (!options.crawler.indexName) {
-        throw new Error('Missing `crawler.indexName`')
+        throw new Error('`[@nuxtjs/algolia]` Missing `crawler.indexName`')
       }
 
       const pages: CrawlerPage[] = []
@@ -98,7 +98,7 @@ export default defineNuxtModule<ModuleOptions>({
           if (InstantSearchThemes[theme]) {
             nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
           } else {
-            console.error('[@nuxtjs/algolia] Invalid theme:', theme)
+            console.error('`[@nuxtjs/algolia]` Invalid theme:', theme)
           }
         }
       }
