@@ -16,10 +16,14 @@ interface ModuleBaseOptions {
   apiKey: string;
   lite?: boolean;
   instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
+  recommend?: boolean;
 }
 
 declare module '@nuxt/schema' {
   interface PublicRuntimeConfig {
+    algolia: ModuleBaseOptions
+  }
+  interface NuxtConfig {
     algolia: ModuleBaseOptions
   }
 }
@@ -86,7 +90,8 @@ export default defineNuxtModule<ModuleOptions>({
       apiKey: options.apiKey,
       applicationId: options.applicationId,
       lite: options.lite,
-      instantSearch: options.instantSearch
+      instantSearch: options.instantSearch,
+      recommend: options.recommend
     })
 
     if (options.instantSearch) {
