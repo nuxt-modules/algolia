@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     lite: false, // by default set to 'true',
     instantSearch: {
       theme: 'algolia'
-    }
+    },
+    recommend: true
   }
 })

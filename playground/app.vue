@@ -9,6 +9,7 @@
         <ais-hits />
       </ais-instant-search>
     </div>
+    <pre>{{ recommendResult?.results }}</pre>
   </div>
 </template>
 
@@ -17,17 +18,25 @@ const indexName = 'test_index'
 const { result, search } = useSearch(indexName)
 const { result: searchForFacetValuesResult, search: searchForFacetValues } = useSearchForFacetValues(indexName)
 const algolia = useAlgolia()
+const { result: recommendResult, get } = useAlgoliaRecommend()
 
 // Just add some indices in ./playground/types.d.ts, they should then be autocompleted here
 const { search: typedSearch } = useInitIndex('coolIndex')
 
 onMounted(async () => {
+  // useSearch
   await search({ query: 'Samsung', requestOptions: { filters: 'objectID:ecommerce-sample-data-99' } })
+
+  // useSearchForFacetValues
   const facet = {
     name: 'categories',
     query: 'Cell Phones'
   }
   await searchForFacetValues({ facet })
+
+  // useAlgoliaRecommend
+  await get({ queries: [{ indexName: indexName, model: 'related-products', objectID: 'ecommerce-sample-data-99' }] })
+
 
   // Notice the type of typedFoo is inferred from the type of the result of the call to useInitIndex
   const typedFoo = await typedSearch('foo')
