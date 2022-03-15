@@ -19,6 +19,7 @@
 - Easy integration with Algolia
 - Handy composables like useAlgolia, useSearch, etc
 - Support for Vue Instantsearch components
+- Support for Algolia Recommend
 - Optional pages crawler support
 - TypeScript support
 
