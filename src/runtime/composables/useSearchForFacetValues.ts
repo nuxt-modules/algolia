@@ -2,10 +2,16 @@
 import { computed } from 'vue'
 import type { SearchForFacetValuesResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
-import { AlgoliaIndices } from '../../types'
-import type { SearchForFacetValuesParams } from './useSearch'
+import { AlgoliaIndices, RequestOptionsObject } from '../../types'
 import { useInitIndex } from './useInitIndex'
 import { useState } from '#app'
+
+export type SearchForFacetValuesParams = {
+  facet: {
+    name: string;
+    query: string;
+  };
+} & RequestOptionsObject
 
 export type UseSearchForFacetValuesReturnType = {
   result: ComputedRef<SearchForFacetValuesResponse>,
