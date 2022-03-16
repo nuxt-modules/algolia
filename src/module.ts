@@ -113,5 +113,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.hook('autoImports:dirs', (dirs) => {
       dirs.push(resolve(runtimeDir, 'composables'))
     })
+
+    console.log('`[@nuxtjs/algolia]` Module loaded correctly 🚀')
   }
 })
