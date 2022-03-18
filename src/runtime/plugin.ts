@@ -21,7 +21,7 @@ export default defineNuxtPlugin(async (nuxtApp: NuxtApp) => {
   }
 
   if (recommend) {
-    const algoliaRecommend = await import('@algolia/recommend').then(lib => lib.default || lib)
+    const algoliaRecommend = await import('@algolia/recommend/dist/recommend.esm.browser').then(lib => lib.default || lib)
     nuxtApp.provide('algoliaRecommend', algoliaRecommend(applicationId, apiKey))
   }
 })
