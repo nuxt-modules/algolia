@@ -16,6 +16,7 @@ interface ModuleBaseOptions {
   apiKey: string;
   lite?: boolean;
   instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
+  recommend?: boolean;
 }
 
 declare module '@nuxt/schema' {
@@ -86,7 +87,8 @@ export default defineNuxtModule<ModuleOptions>({
       apiKey: options.apiKey,
       applicationId: options.applicationId,
       lite: options.lite,
-      instantSearch: options.instantSearch
+      instantSearch: options.instantSearch,
+      recommend: options.recommend
     })
 
     if (options.instantSearch) {
@@ -111,5 +113,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.hook('autoImports:dirs', (dirs) => {
       dirs.push(resolve(runtimeDir, 'composables'))
     })
+
+    console.log('`[@nuxtjs/algolia]` Module loaded correctly 🚀')
   }
 })

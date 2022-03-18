@@ -3,24 +3,11 @@ import { computed } from 'vue'
 import type { RequestOptions } from '@algolia/transporter'
 import type { SearchOptions, SearchResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
-import type { AlgoliaIndices } from '../../types'
+import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
 import { useInitIndex } from './useInitIndex'
 import { useState } from '#app'
 
-export type SearchParams = {
-  query: string;
-  requestOptions?: RequestOptions & SearchOptions;
-  [key: string]: any;
-};
-
-export type SearchForFacetValuesParams = {
-  facet: {
-    name: string;
-    query: string;
-  };
-  requestOptions?: RequestOptions & SearchOptions;
-  [key: string]: any;
-}
+export type SearchParams = { query: string } & RequestOptionsObject;
 
 export type UseSearchReturnType<T> = {
   result: ComputedRef<SearchResponse<T>>,

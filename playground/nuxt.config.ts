@@ -1,5 +1,5 @@
 import { defineNuxtConfig } from 'nuxt3'
-import AlgoliaModule from '../src/module'
+import AlgoliaModule from '..'
 
 export default defineNuxtConfig({
   modules: [
@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     lite: false, // by default set to 'true',
     instantSearch: {
       theme: 'algolia'
-    }
+    },
+    recommend: true
   }
 })
