@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/nuxt-community/algolia-module/compare/v0.7.1...v0.8.0) (2022-03-18)
+
+
+### Features
+
+* add algolia rec to plugin ([600e2c2](https://github.com/nuxt-community/algolia-module/commit/600e2c220317b7f53304506984781e68a056ee62))
+* add logging ([01c0408](https://github.com/nuxt-community/algolia-module/commit/01c0408e411102729711b743d1590130c9a20b74))
+* add recommend config option ([bb1b7ff](https://github.com/nuxt-community/algolia-module/commit/bb1b7ff830698d0e0395ec5cb77d9bbcc04d8d99))
+* create useAlgoliaRecommend ([e7ad1a0](https://github.com/nuxt-community/algolia-module/commit/e7ad1a035b115f3e309aa485ff1a66a575a3b821))
+* docs ([57e59f4](https://github.com/nuxt-community/algolia-module/commit/57e59f4325bcdb72fd04b1451f3f902c808f9561))
+* fix nuxtConfig type ([8df4124](https://github.com/nuxt-community/algolia-module/commit/8df41242d2bdefb4e493d3cde07b7b80ad068f6f))
+* install @algolia/recommend ([b4fe8cf](https://github.com/nuxt-community/algolia-module/commit/b4fe8cfef72408eaa223822c22e25777eb33efce))
+* playground example ([0ad71ca](https://github.com/nuxt-community/algolia-module/commit/0ad71ca9386bce2a8bced46e6a00da17985bd776))
+* reuse types ([744a747](https://github.com/nuxt-community/algolia-module/commit/744a747889a19f17b20ae4c715bdea01f7b50522))
+* reuse types ([3a8740f](https://github.com/nuxt-community/algolia-module/commit/3a8740fff471e8cd4de1892cddd53ee287f6fe27))
+
 ### [0.7.1](https://github.com/nuxt-community/algolia/compare/v0.7.0...v0.7.1) (2022-03-01)
 
 
