@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.1](https://github.com/nuxt-community/algolia-module/compare/v0.8.0...v0.8.1) (2022-03-18)
+
+
+### Bug Fixes
+
+* add undefined variable ([d7d8b24](https://github.com/nuxt-community/algolia-module/commit/d7d8b240e19c9d4c74df472d74bfdae272a5da7d))
+
 ## [0.8.0](https://github.com/nuxt-community/algolia-module/compare/v0.7.1...v0.8.0) (2022-03-18)
 
 
