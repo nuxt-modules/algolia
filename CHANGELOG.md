@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.2](https://github.com/nuxt-community/algolia-module/compare/v0.8.1...v0.8.2) (2022-03-18)
+
+
+### Bug Fixes
+
+* import computed ([648147a](https://github.com/nuxt-community/algolia-module/commit/648147a80d84720daea79f6321ac9cb171bd9137))
+
 ### [0.8.1](https://github.com/nuxt-community/algolia-module/compare/v0.8.0...v0.8.1) (2022-03-18)
 
 
