@@ -25,6 +25,10 @@
 
 [📖 &nbsp;Read the documentation](https://algolia.nuxtjs.org)
 
+## Preview
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/baroshem/nuxt3-algolia-stackblitz)
+
 ## Setup
 
 > **WARNING:** This package was recently moved to nuxt-community so it's name have changed from `@nuxt-modules/algolia` to `@nuxtjs/algolia`. There was no other changes than the name of the package.
