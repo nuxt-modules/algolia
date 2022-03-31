@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
@@ -17,6 +17,7 @@ interface ModuleBaseOptions {
   lite?: boolean;
   instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
   recommend?: boolean;
+  docSearch?: boolean;
 }
 
 declare module '@nuxt/schema' {
@@ -109,6 +110,16 @@ export default defineNuxtModule<ModuleOptions>({
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir)
     addPlugin(resolve(runtimeDir, 'plugin'))
+
+    if (options.docSearch) {
+      addComponentsDir({
+        path: resolve(runtimeDir, 'components'),
+        pathPrefix: false,
+        prefix: '',
+        level: 999,
+        global: true
+      })
+    }
 
     nuxt.hook('autoImports:dirs', (dirs) => {
       dirs.push(resolve(runtimeDir, 'composables'))
