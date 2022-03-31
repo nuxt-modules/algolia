@@ -51,6 +51,7 @@ export default defineNuxtModule<ModuleOptions>({
     apiKey: '',
     lite: true,
     instantSearch: false,
+    docSearch: false,
     crawler: {
       apiKey: '',
       indexName: '',
@@ -89,6 +90,7 @@ export default defineNuxtModule<ModuleOptions>({
       applicationId: options.applicationId,
       lite: options.lite,
       instantSearch: options.instantSearch,
+      docSearch: options.docSearch,
       recommend: options.recommend
     })
 
