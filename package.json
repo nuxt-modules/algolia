@@ -41,6 +41,10 @@
     "metadata-scraper": "^0.2.49",
     "vue-instantsearch": "^4.3.2"
   },
+  "peerDependencies": {
+    "@docsearch/css": "^3.0.0",
+    "@docsearch/js": "^3.0.0"
+  },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
@@ -65,5 +69,5 @@
     "recommend",
     "nuxt",
     "module"
-  ]
+  ],
 }
