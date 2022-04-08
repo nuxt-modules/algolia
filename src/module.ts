@@ -4,6 +4,7 @@ import { defineNuxtModule, addPlugin, addComponentsDir } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
+import type { DocSearchOptions } from './types'
 
 enum InstantSearchThemes {
   'reset',
@@ -17,7 +18,7 @@ interface ModuleBaseOptions {
   lite?: boolean;
   instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
   recommend?: boolean;
-  docSearch?: boolean;
+  docSearch?: boolean | Partial<DocSearchOptions>;
 }
 
 declare module '@nuxt/schema' {
@@ -45,7 +46,7 @@ export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@nuxtjs/algolia',
     configKey: 'algolia',
-	compatibility: {
+    compatibility: {
       nuxt: '^3.0.0 || ^2.16.0',
       bridge: true
     }

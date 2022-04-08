@@ -1,4 +1,9 @@
+
+import { AutocompleteOptions, AutocompleteState } from '@algolia/autocomplete-core'
+import { DocSearchTranslations } from '@docsearch/react'
+import { DocSearchHit, InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react/dist/esm/types'
 import type { SearchIndex } from 'algoliasearch'
+import { SearchClient } from 'algoliasearch/lite'
 
 export interface AlgoliaIndices {}
 
@@ -709,7 +714,6 @@ export type Hit<THit> = THit & {
   readonly _distinctSeqID?: number;
 };
 
-
 export type SearchResponse<TObject = {}> = {
   /**
    * The hits returned by the search.
@@ -898,3 +902,110 @@ export type SearchResponse<TObject = {}> = {
   appliedRelevancyStrictness?: number;
   renderingContent?: Settings['renderingContent'];
 };
+
+export interface DocSearchOptions {
+  /**
+   * Your Algolia application ID.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#appid}
+   */
+  applicationId: string;
+  /**
+   * Your Algolia Search API key.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#apikey}
+   */
+  apiKey: string;
+  /**
+   * Your Algolia index name.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#indexname}
+   */
+  indexName: string;
+  /**
+   * The placeholder of the input of the DocSearch pop-up modal.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#placeholder}
+   */
+  placeholder?: string;
+  /**
+   * The Algolia Search Parameters.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#searchparameters}
+   */
+  searchParameters?: SearchOptions;
+  /**
+   * Receives the items from the search response, and is called before displaying them.
+   * Should return a new array with the same shape as the original array.
+   * Useful for mapping over the items to transform, and remove or reorder them.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#transformitems}
+   */
+  transformItems?: (items: DocSearchHit[]) => DocSearchHit[];
+  /**
+   * The component to display each item.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#hitcomponent}
+   * {@link https://github.com/algolia/docsearch/blob/next/packages/docsearch-react/src/Hit.tsx}
+   */
+  hitComponent?: (props: {
+    hit: InternalDocSearchHit | StoredDocSearchHit;
+    // Avoid importing React types there
+    children: any; // React.ReactNode;
+  }) => JSX.Element;
+  /**
+   * Useful for transforming the Algolia Search Client, for example to debounce search queries.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#transformsearchclient}
+   */
+  transformSearchClient?: (searchClient: SearchClient) => SearchClient;
+  /**
+   * Disable saving recent searches and favorites to the local storage.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#transformsearchclient}
+   */
+  disableUserPersonalization?: boolean;
+  /**
+   * The search input initial query.
+   * {@link https://docsearch.algolia.com/docs/api#initialquery}
+   */
+  initialQuery?: string;
+  /**
+   * An implementation of Algolia Autocomplete’s Navigator API to redirect the user when opening a link.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#navigator}
+   */
+  navigator?: AutocompleteOptions<InternalDocSearchHit>['navigator'];
+  /**
+   * Allow translations of any raw text and aria-labels present in the DocSearch button or modal components.
+   * {@link https://docsearch.algolia.com/docs/api#translations}
+   */
+  translations?: DocSearchTranslations;
+  /**
+   * Function to return the URL of your documentation repository.
+   * When provided, an informative message wrapped with your link will be displayed on no results searches.
+   * The default text can be changed using the translations property.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#getmissingresultsurl}
+   */
+  getMissingResultsUrl?: ({ query: string }) => string;
+  /**
+   * The facetFilters to use in your search parameters.
+   * This is local shorthand and provided by @nuxtjs/algolia.
+   * This will be overwritten if you add `facetFilters` into your `searchOptions` object.
+   * {@link https://www.algolia.com/doc/api-reference/api-parameters/facetFilters/}
+   */
+  facetFilters?: string;
+  /**
+   * The language to prefix all your facetFitlers with.
+   * This will be overwritten if you add `facetFilters` into your `searchOptions` object.
+   * This is local shorthand and provided by @nuxtjs/algolia.
+   */
+  langAttribute?: string;
+  /**
+   * Default language to be used on the Algolia DocSearch client.
+   *
+   * @default 'en'
+   */
+  lang?: string
+}
