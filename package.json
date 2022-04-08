@@ -41,16 +41,14 @@
     "metadata-scraper": "^0.2.49",
     "vue-instantsearch": "^4.3.2"
   },
-  "peerDependencies": {
-    "@docsearch/css": "^3.0.0",
-    "@docsearch/js": "^3.0.0"
-  },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
     "nuxt3": "latest",
-    "standard-version": "^9.3.2"
+    "standard-version": "^9.3.2",
+    "@docsearch/css": "^3.0.0",
+    "@docsearch/js": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
