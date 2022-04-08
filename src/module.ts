@@ -44,7 +44,11 @@ export * from './types'
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@nuxtjs/algolia',
-    configKey: 'algolia'
+    configKey: 'algolia',
+	compatibility: {
+      nuxt: '^3.0.0 || ^2.16.0',
+      bridge: true
+    }
   },
   defaults: {
     applicationId: '',
