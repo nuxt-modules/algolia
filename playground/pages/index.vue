@@ -11,18 +11,33 @@
     </div>
     <pre>{{ recommendResult?.results }}</pre>
 
-    <div v-if="algoliaConfig.docSearch">
+    <div v-if="docSearch">
       <h3>DocSearch plugin</h3>
 
-      <DocSearch :options="algoliaConfig" />
+      <input v-model="indexName">
+
+      <AlgoliaDocSearch :options="docSearch" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const indexName = 'test_index'
+// Grab DocSearch config from nuxt.config
+// (the component does that by itself as well)
+const { algolia: { _docSearch } } = useRuntimeConfig()
 
-const { algolia: algoliaConfig } = useRuntimeConfig()
+// Used to try the refresh of the component on options changes
+const indexName = ref('nuxtjs')
+
+// Options passed to DocSearch
+const docSearch = computed(
+  () => {
+    return {
+      ..._docSearch,
+      indexName: indexName.value
+    }
+  }
+)
 
 const { result, search } = useSearch(indexName)
 const { result: searchForFacetValuesResult, search: searchForFacetValues } = useSearchForFacetValues(indexName)
