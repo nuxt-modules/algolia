@@ -997,7 +997,7 @@ export interface DocSearchOptions {
    */
   facetFilters?: string;
   /**
-   * The language to prefix all your facetFitlers with.
+   * The language to prefix all your facetFilters with.
    * This will be overwritten if you add `facetFilters` into your `searchOptions` object.
    * This is local shorthand and provided by @nuxtjs/algolia.
    */
