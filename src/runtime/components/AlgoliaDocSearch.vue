@@ -30,13 +30,13 @@ const props = defineProps({
  */
 const options = computed<DocSearchOptions>(
   () => {
-    if (!props.options) {
-      const { algolia } = useRuntimeConfig()
+    if (props.options) { return props.options }
 
-      if (algolia && algolia.docSearch) { return algolia.docSearch }
-    }
+    const { algolia } = useRuntimeConfig()
 
-    return props.options
+    if (algolia && algolia.docSearch) { return algolia.docSearch }
+
+    return {}
   }
 )
 
