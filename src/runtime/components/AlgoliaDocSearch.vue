@@ -7,10 +7,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { withoutTrailingSlash } from 'ufo'
-import { useRuntimeConfig } from 'nuxt3'
 import type { DocSearchOptions } from '../../types'
 // @ts-ignore - These are Nuxt3 aliases
-import { useRoute, useRouter, onMounted, watch, computed } from '#imports'
+import { useRuntimeConfig, useRoute, useRouter, onMounted, watch, computed } from '#imports'
 
 const route = useRoute()
 
@@ -80,7 +79,7 @@ const initialize = async (userOptions: DocSearchOptions) => {
   // Create DocSearch instance
   docsearch({
     /**
-     * Local implementation of this DocSearhch box uses a local element with an `docsearch` id.
+     * Local implementation of this DocSearch box uses a local element with an `docsearch` id.
      */
     container: '#docsearch',
     appId: userOptions.applicationId,
