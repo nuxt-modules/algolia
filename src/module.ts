@@ -119,6 +119,12 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolve(runtimeDir, 'plugin'))
 
     if (options.docSearch) {
+      const docSearchConfig = nuxt.options.publicRuntimeConfig.algolia.docSearch as Partial<DocSearchOptions>
+
+      // Defaults apiKey and applicationId to global Algolia keys
+      if (!docSearchConfig.apiKey && options.apiKey) { docSearchConfig.apiKey = options.apiKey }
+      if (!docSearchConfig.applicationId && options.applicationId) { docSearchConfig.apiKey = options.applicationId }
+
       addComponentsDir({
         path: resolve(runtimeDir, 'components'),
         pathPrefix: false,
