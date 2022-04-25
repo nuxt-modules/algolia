@@ -65,6 +65,9 @@ export default defineNuxtModule<ModuleOptions>({
     }
   },
   setup (options, nuxt) {
+    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    nuxt.options.build.transpile.push(runtimeDir)
+
     if (!options.apiKey) {
       throw new Error('`[@nuxtjs/algolia]` Missing `apiKey`')
     }
@@ -87,6 +90,25 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt.addHooks({
         'generate:page': createPageGenerateHook(nuxt, options, pages),
         'generate:done': createGenerateDoneHook(nuxt, options, pages)
+      })
+    }
+
+    if (options.docSearch) {
+      // Init DocSearch config if only enabled via `true`
+      if (typeof options.docSearch === 'boolean') { options.docSearch = {} }
+
+      const docSearchConfig = options.docSearch as Partial<DocSearchOptions>
+
+      // Defaults apiKey and applicationId to global Algolia keys if not specified by the user
+      if (!docSearchConfig.apiKey && options.apiKey) { docSearchConfig.apiKey = options.apiKey }
+      if (!docSearchConfig.applicationId && options.applicationId) { docSearchConfig.applicationId = options.applicationId }
+
+      addComponentsDir({
+        path: resolve(runtimeDir, 'components'),
+        pathPrefix: false,
+        prefix: '',
+        level: 999,
+        global: true
       })
     }
 
@@ -114,25 +136,7 @@ export default defineNuxtModule<ModuleOptions>({
       }
     }
 
-    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
-    nuxt.options.build.transpile.push(runtimeDir)
     addPlugin(resolve(runtimeDir, 'plugin'))
-
-    if (options.docSearch) {
-      const docSearchConfig = nuxt.options.publicRuntimeConfig.algolia.docSearch as Partial<DocSearchOptions>
-
-      // Defaults apiKey and applicationId to global Algolia keys
-      if (!docSearchConfig.apiKey && options.apiKey) { docSearchConfig.apiKey = options.apiKey }
-      if (!docSearchConfig.applicationId && options.applicationId) { docSearchConfig.apiKey = options.applicationId }
-
-      addComponentsDir({
-        path: resolve(runtimeDir, 'components'),
-        pathPrefix: false,
-        prefix: '',
-        level: 999,
-        global: true
-      })
-    }
 
     nuxt.hook('autoImports:dirs', (dirs) => {
       dirs.push(resolve(runtimeDir, 'composables'))
