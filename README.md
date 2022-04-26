@@ -62,9 +62,14 @@ Then you can start using `@nuxtjs/algolia` in your setup function!
 <script setup>
 const { result, search } = useSearch("test_index"); // pass your index as param
 
+// Client side only
 onMounted(async () => {
   await search({ query: "Samsung" });
 });
+
+// Server / client side
+await search({ query: "Samsung" });
+
 </script>
 ```
 
@@ -72,7 +77,8 @@ onMounted(async () => {
 
 1. Clone this repository
 2. Install dependencies using `yarn install` or `npm install`
-3. Start development server using `yarn dev` or `npm run dev`
+3. Prepare environment using `yarn run dev:prepare` or `npm run yarn run dev:prepare`
+4. Start development server using `yarn dev` or `npm run dev`
 
 ## License
 
