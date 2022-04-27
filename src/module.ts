@@ -109,7 +109,7 @@ export default defineNuxtModule<ModuleOptions>({
       })
     }
 
-    nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
+    nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.public.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
       lite: options.lite,
