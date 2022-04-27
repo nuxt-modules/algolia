@@ -46,7 +46,9 @@
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
     "nuxt3": "latest",
-    "standard-version": "^9.3.2"
+    "standard-version": "^9.3.2",
+    "@docsearch/css": "^3.0.0",
+    "@docsearch/js": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
