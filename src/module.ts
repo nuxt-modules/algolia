@@ -18,7 +18,7 @@ interface ModuleBaseOptions {
   lite?: boolean;
   instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
   recommend?: boolean;
-  docSearch?: boolean | Partial<DocSearchOptions>;
+  docSearch?: Partial<DocSearchOptions>;
 }
 
 declare module '@nuxt/schema' {
@@ -56,7 +56,7 @@ export default defineNuxtModule<ModuleOptions>({
     apiKey: '',
     lite: true,
     instantSearch: false,
-    docSearch: false,
+    docSearch: {},
     crawler: {
       apiKey: '',
       indexName: '',
@@ -93,11 +93,8 @@ export default defineNuxtModule<ModuleOptions>({
       })
     }
 
-    if (options.docSearch) {
-      // Init DocSearch config if only enabled via `true`
-      if (typeof options.docSearch === 'boolean') { options.docSearch = {} }
-
-      const docSearchConfig = options.docSearch as Partial<DocSearchOptions>
+    if (Object.keys(options.docSearch).length) {
+      const docSearchConfig = options.docSearch
 
       // Defaults apiKey and applicationId to global Algolia keys if not specified by the user
       if (!docSearchConfig.apiKey && options.apiKey) { docSearchConfig.apiKey = options.apiKey }

@@ -13,9 +13,6 @@
 
     <div v-if="docSearch">
       <h3>DocSearch plugin</h3>
-
-      <input v-model="indexName">
-
       <AlgoliaDocSearch :options="docSearch" />
     </div>
   </div>
@@ -24,28 +21,18 @@
 <script lang="ts" setup>
 // Grab DocSearch config from nuxt.config
 // (the component does that by itself as well)
-const { algolia: { _docSearch } } = useRuntimeConfig()
+const { algolia: { docSearch } } = useRuntimeConfig()
 
 // Used to try the refresh of the component on options changes
-const indexName = ref('nuxtjs')
+const indexName = ref('test_index')
 
-// Options passed to DocSearch
-const docSearch = computed(
-  () => {
-    return {
-      ..._docSearch,
-      indexName: indexName.value
-    }
-  }
-)
-
-const { result, search } = useSearch(indexName)
-const { result: searchForFacetValuesResult, search: searchForFacetValues } = useSearchForFacetValues(indexName)
+const { result, search } = useSearch(indexName.value)
+const { result: searchForFacetValuesResult, search: searchForFacetValues } = useSearchForFacetValues(indexName.value)
 const algolia = useAlgolia()
 const { result: recommendResult, get } = useAlgoliaRecommend()
 
 // Just add some indices in ./playground/types.d.ts, they should then be autocompleted here
-const { search: typedSearch } = useInitIndex('coolIndex')
+const { search: typedSearch } = useInitIndex('test_index')
 
 onMounted(async () => {
   // useSearch
@@ -59,7 +46,7 @@ onMounted(async () => {
   await searchForFacetValues({ facet })
 
   // useAlgoliaRecommend
-  await get({ queries: [{ indexName, model: 'related-products', objectID: 'ecommerce-sample-data-99' }] })
+  await get({ queries: [{ indexName: indexName.value, model: 'related-products', objectID: 'ecommerce-sample-data-99' }] })
 
   // Notice the type of typedFoo is inferred from the type of the result of the call to useInitIndex
   const typedFoo = await typedSearch('foo')
