@@ -4,7 +4,7 @@ import type { SearchForFacetValuesResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
 import { AlgoliaIndices, RequestOptionsObject } from '../../types'
 import { useInitIndex } from './useInitIndex'
-import { useState } from '#app'
+import { useState } from '#imports'
 
 export type SearchForFacetValuesParams = {
   facet: {

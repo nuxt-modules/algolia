@@ -1,7 +1,7 @@
-import { useNuxtApp, useState } from '#app'
 import { RecommendationsQuery, RecommendClient } from '@algolia/recommend'
 import { ComputedRef, computed } from 'vue'
 import { RequestOptionsObject, SearchResponse } from '../../types'
+import { useNuxtApp, useState } from '#imports'
 
 export type RecommendParams = { queries: RecommendationsQuery[] } & RequestOptionsObject
 
@@ -14,7 +14,7 @@ export type UseAlgoliaRecommend<T> = {
   get: (params: RecommendParams) => Promise<MultipleQueriesResponse<T>>
 }
 
-export function useAlgoliaRecommend<T>(): UseAlgoliaRecommend<T> {
+export function useAlgoliaRecommend<T> (): UseAlgoliaRecommend<T> {
   const { $algoliaRecommend } = useNuxtApp()
   const algoliaRecommend: RecommendClient = $algoliaRecommend
 
