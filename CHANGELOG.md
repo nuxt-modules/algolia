@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.1](https://github.com/nuxt-community/algolia-module/compare/v0.9.0...v0.9.1) (2022-05-02)
+
+
+### Features
+
+* **docs:** rework preview images ([7c2494d](https://github.com/nuxt-community/algolia-module/commit/7c2494d4d82f2cc1bd03ae65069c6703edfd608f))
+* **imports:** update imports (#app => #imports) ([6027a67](https://github.com/nuxt-community/algolia-module/commit/6027a67f085bf11acb23c0f947aac68e52927547))
+* **module:** update module runtimeConfig usage ([c1008cd](https://github.com/nuxt-community/algolia-module/commit/c1008cdaa48952b5ccc8e5bcbc437953b0089837))
+
+
+### Bug Fixes
+
+* **docs:** rewrited buildModules to modules ([226eaad](https://github.com/nuxt-community/algolia-module/commit/226eaad763132b38f4b5dca6b67230d92fcbe273))
+
 ## [0.9.0](https://github.com/nuxt-community/algolia-module/compare/v0.8.3...v0.9.0) (2022-04-27)
 
 
