@@ -1,9 +1,9 @@
-import { defineNuxtPlugin, NuxtApp, useRuntimeConfig } from '#app'
 import { SearchClient } from 'algoliasearch/lite'
 import { createNodeHttpRequester } from '@algolia/requester-node-http';
 import { createBrowserXhrRequester } from '@algolia/requester-browser-xhr';
+import { defineNuxtPlugin, useRuntimeConfig } from '#imports'
 
-export default defineNuxtPlugin(async (nuxtApp: NuxtApp) => {
+export default defineNuxtPlugin(async (nuxtApp) => {
   const { applicationId, apiKey, lite, instantSearch, recommend } = useRuntimeConfig().algolia
 
   // Have to import algoliasearch directly from esm.browser because algoliasearch by default provides umd.js file which causes Nuxt to throw error

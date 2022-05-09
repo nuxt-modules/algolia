@@ -1,11 +1,10 @@
 /* eslint-disable no-redeclare */
 import { computed } from 'vue'
-import type { RequestOptions } from '@algolia/transporter'
-import type { SearchOptions, SearchResponse } from '@algolia/client-search'
+import type { SearchResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
 import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
 import { useInitIndex } from './useInitIndex'
-import { useState } from '#app'
+import { useState } from '#imports'
 
 export type SearchParams = { query: string } & RequestOptionsObject;
 

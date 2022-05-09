@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/algolia",
-  "version": "0.8.3",
+  "version": "0.9.1",
   "description": "Algolia module for Nuxt",
   "repository": {
     "type": "git",
@@ -45,8 +45,10 @@
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt3": "latest",
-    "standard-version": "^9.3.2"
+    "nuxt": "npm:nuxt3@latest",
+    "standard-version": "^9.3.2",
+    "@docsearch/css": "^3.0.0",
+    "@docsearch/js": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
@@ -63,6 +65,8 @@
     "algolia",
     "search",
     "recommend",
+    "vue-instantsearch",
+    "docsearch",
     "nuxt",
     "module"
   ]
