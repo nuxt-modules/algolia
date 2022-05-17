@@ -95,7 +95,7 @@ export default defineNuxtModule<ModuleOptions>({
       if (typeof options.instantSearch === 'object') {
         const { theme } = options.instantSearch
         if (theme) {
-          if (InstantSearchThemes[theme]) {
+          if (theme in InstantSearchThemes) {
             nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
           } else {
             console.error('[@nuxtjs/algolia] Invalid theme:', theme)
