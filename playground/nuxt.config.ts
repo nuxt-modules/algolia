@@ -1,5 +1,5 @@
-import { defineNuxtConfig } from 'nuxt3'
-import AlgoliaModule from '../src/module'
+import { defineNuxtConfig } from 'nuxt'
+import AlgoliaModule from '..'
 
 export default defineNuxtConfig({
   modules: [
@@ -8,7 +8,11 @@ export default defineNuxtConfig({
   algolia: {
     apiKey: process.env.ALGOLIA_SEARCH_API_KEY ?? 'apiKey',
     applicationId: process.env.ALGOLIA_APPLICATION_ID ?? 'applicationId',
-    lite: false, // by default set to 'true',
+    lite: false, // by default set to 'true'
+    docSearch: {
+      indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'indexName',
+      facetFilters: process.env.ALGOLIA_DOCSEARCH_FACET_FILTERS ?? ''
+    },
     instantSearch: {
       theme: 'reset'
     }

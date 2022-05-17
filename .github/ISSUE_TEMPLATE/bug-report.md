@@ -1,17 +1,17 @@
 ---
 name: Bug report
 about: Report a bug report to help us improve the module.
-title: ''
-labels: 'bug'
-assignees: ''
-
+title: ""
+labels: "bug"
+assignees: ""
 ---
 
 <!-- **IMPORTANT!**
 Before reporting a bug, please make sure that you have read through our documentation and you think your problem is indeed an issue related to our module. -->
 
 ### Version
-@nuxtjs/strapi: <!-- ex: v0.1.0 -->
+
+@nuxtjs/algolia: <!-- ex: v0.1.0 -->
 nuxt: <!-- ex: v2.13.0 -->
 
 ### Reproduction Link
@@ -23,8 +23,6 @@ A minimal test case based on one of:
 
 ### Steps to reproduce
 
-
 ### What is Expected?
-
 
 ### What is actually happening?

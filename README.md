@@ -18,11 +18,16 @@
 - Nuxt 3 ready
 - Easy integration with Algolia
 - Handy composables like useAlgolia, useSearch, etc
-- [Coming soon] Support for Vue Instantsearch components
+- Support for Vue Instantsearch components
+- Support for Algolia Recommend
 - Optional pages crawler support
 - TypeScript support
 
 [📖 &nbsp;Read the documentation](https://algolia.nuxtjs.org)
+
+## Preview
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/baroshem/nuxt3-algolia-stackblitz)
 
 ## Setup
 
@@ -41,7 +46,7 @@ Firstly, you need to add `@nuxtjs/algolia` to your Nuxt config.
 // nuxt.config.js
 
 {
-    buildModules: [
+    modules: [
         "@nuxtjs/algolia",
     ],
     algolia: {

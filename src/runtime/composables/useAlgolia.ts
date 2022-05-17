@@ -1,5 +1,5 @@
 import { SearchClient } from 'algoliasearch/lite'
-import { useNuxtApp } from '#app'
+import { useNuxtApp } from '#imports'
 
 export const useAlgolia = (): SearchClient => {
   const nuxtApp = useNuxtApp()

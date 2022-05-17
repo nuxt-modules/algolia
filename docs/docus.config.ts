@@ -16,7 +16,7 @@ export default {
       }
     }
   },
-  twitter: '@theandrewsky',
+  twitter: '@jacobandrewsky',
   github: {
     repo: 'nuxt-community/algolia',
     branch: 'main',
