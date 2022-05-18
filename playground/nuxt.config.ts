@@ -14,7 +14,8 @@ export default defineNuxtConfig({
       facetFilters: process.env.ALGOLIA_DOCSEARCH_FACET_FILTERS ?? ''
     },
     instantSearch: {
-      theme: 'reset'
-    }
+      theme: 'algolia'
+    },
+    recommend: true
   }
 })
