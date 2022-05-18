@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://github.com/nuxt-community/algolia-module/compare/v0.9.1...v0.9.2) (2022-05-18)
+
+
+### Features
+
+* 0.9.2 ([6e421e5](https://github.com/nuxt-community/algolia-module/commit/6e421e5e639cb12f48a1061996d68deb1feb8a20))
+* 0.9.2-rc.1 ([4f1d2c3](https://github.com/nuxt-community/algolia-module/commit/4f1d2c38b4286bbd01dbb183f7164b5d80078894))
+* 0.9.3-rc.1 ([1e9ad76](https://github.com/nuxt-community/algolia-module/commit/1e9ad76f9d537df56ce715b229aeae3d77ccec86))
+
+
+### Bug Fixes
+
+* [#50](https://github.com/nuxt-community/algolia-module/issues/50) fix docs about vue-instantsearch ([703b008](https://github.com/nuxt-community/algolia-module/commit/703b008d3c65593f47654ce75b3c412754294150))
+* theme selection ([ff7fc19](https://github.com/nuxt-community/algolia-module/commit/ff7fc196667e530fa1608e970e7702595d60a9d9))
+
 ### [0.9.1](https://github.com/nuxt-community/algolia-module/compare/v0.9.0...v0.9.1) (2022-05-02)
 
 
