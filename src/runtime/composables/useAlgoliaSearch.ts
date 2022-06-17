@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import type { SearchResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
 import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
-import { useInitIndex } from './useInitIndex'
+import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useState } from '#imports'
 
 export type SearchParams = { query: string } & RequestOptionsObject;
@@ -16,7 +16,7 @@ export type UseSearchReturnType<T> = {
 export function useAlgoliaSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchReturnType<AlgoliaIndices[K]>
 export function useAlgoliaSearch<T>(indexName: string): UseSearchReturnType<T>
 export function useAlgoliaSearch (indexName: string) {
-  const algoliaIndex = useInitIndex(indexName)
+  const algoliaIndex = useAlgoliaInitIndex(indexName)
   const result = useState(`${indexName}-search-result`, () => null)
 
   const search = async ({ query, requestOptions }: SearchParams) => {

@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import type { SearchForFacetValuesResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
 import { AlgoliaIndices, RequestOptionsObject } from '../../types'
-import { useInitIndex } from './useInitIndex'
+import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useState } from '#imports'
 
 export type SearchForFacetValuesParams = {
@@ -21,7 +21,7 @@ export type UseSearchForFacetValuesReturnType = {
 export function useAlgoliaFacetedSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchForFacetValuesReturnType
 export function useAlgoliaFacetedSearch(indexName: string): UseSearchForFacetValuesReturnType
 export function useAlgoliaFacetedSearch (indexName: string) {
-  const algoliaIndex = useInitIndex(indexName)
+  const algoliaIndex = useAlgoliaInitIndex(indexName)
   const result = useState(`${indexName}-search-for-facet-values-result`, () => null)
 
   const search = async ({ facet, requestOptions }: SearchForFacetValuesParams) => {
