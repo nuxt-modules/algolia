@@ -18,11 +18,9 @@ export type UseSearchForFacetValuesReturnType = {
   search: (params: SearchForFacetValuesParams) => Promise<SearchForFacetValuesResponse>,
 }
 
-export function useSearchForFacetValues<K extends keyof AlgoliaIndices>(indexName: K): UseSearchForFacetValuesReturnType
-export function useSearchForFacetValues(indexName: string): UseSearchForFacetValuesReturnType
-export function useSearchForFacetValues (indexName: string) {
-  console.warn('`[@nuxtjs/algolia]` This composable was deprecated and will be removed with the next major release. Please use `useAlgoliaFacetedSearch` instead.')
-
+export function useAlgoliaFacetedSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchForFacetValuesReturnType
+export function useAlgoliaFacetedSearch(indexName: string): UseSearchForFacetValuesReturnType
+export function useAlgoliaFacetedSearch (indexName: string) {
   const algoliaIndex = useInitIndex(indexName)
   const result = useState(`${indexName}-search-for-facet-values-result`, () => null)
 

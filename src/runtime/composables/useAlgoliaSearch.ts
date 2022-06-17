@@ -13,11 +13,9 @@ export type UseSearchReturnType<T> = {
   search: (params: SearchParams) => Promise<SearchResponse<T>>,
 }
 
-export function useSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchReturnType<AlgoliaIndices[K]>
-export function useSearch<T>(indexName: string): UseSearchReturnType<T>
-export function useSearch (indexName: string) {
-  console.warn('`[@nuxtjs/algolia]` This composable was deprecated and will be removed with the next major release. Please use `useAlgoliaSearch` instead.')
-
+export function useAlgoliaSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchReturnType<AlgoliaIndices[K]>
+export function useAlgoliaSearch<T>(indexName: string): UseSearchReturnType<T>
+export function useAlgoliaSearch (indexName: string) {
   const algoliaIndex = useInitIndex(indexName)
   const result = useState(`${indexName}-search-result`, () => null)
 
