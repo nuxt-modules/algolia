@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts" setup>
+import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
 // Grab DocSearch config from nuxt.config
 // (the component does that by itself as well)
 const { algolia: { docSearch } } = useRuntimeConfig()
