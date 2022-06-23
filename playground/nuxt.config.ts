@@ -16,6 +16,14 @@ export default defineNuxtConfig({
     instantSearch: {
       theme: 'algolia'
     },
-    recommend: true
+    recommend: true,
+    indexer: {
+      storyblok: {
+        secret: process.env.INDEXER_SECRET,
+        algoliaAdminApiKey: process.env.ALGOLIA_ADMIN_KEY,
+        indexName: process.env.ALGOLIA_INDEX_NAME,
+        accessToken: process.env.STORYBLOK_ACCESS_TOKEN
+      }
+    }
   }
 })
