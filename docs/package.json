@@ -4,14 +4,14 @@
   "description": "Docs for @nuxtjs/algolia",
   "author": "NuxtJS",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "preview": "nuxi preview",
+    "generate": "nuxi generate"
   },
-  "dependencies": {
-    "docus": "^0.5.14",
-    "nuxt": "^2.15.6"
-  },
-  "devDependencies": {}
+  "devDependencies": {
+    "@docus/docs-theme": "npm:@docus/docs-theme-edge@latest",
+    "@docus/github": "npm:@docus/github-edge@latest",
+    "nuxt": "3.0.0-rc.4"
+  }
 }

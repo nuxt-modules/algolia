@@ -1,0 +1,30 @@
+title: "@nuxtjs/algolia"
+description: "@nuxtjs/algolia is a Nuxt module for first class integration with Algolia."
+layout: docs
+url: "https://algolia.nuxtjs.org"
+debug: false
+socials:
+  twitter: "@jacobandrewsky"
+  github: "nuxt-community/algolia-module"
+github:
+  root: docs/content
+  edit: true
+  releases: true
+cover:
+  src: /preview.png
+  alt: "Content made easy for Vue developers"
+header:
+  title: false
+  logo: true
+footer:
+  credits:
+    icon: IconDocus
+    text: Powered by Docus
+    href: https://docus.com
+  icons:
+  - label: NuxtJS
+    href: https://nuxtjs.org
+    component: IconNuxt
+  - label: Vue Telescope
+    href: https://vuetelescope.com
+    component: IconVueTelescope
