@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import type { SearchResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
 import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
-import { useInitIndex } from './useInitIndex'
+import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useState } from '#imports'
 
 export type SearchParams = { query: string } & RequestOptionsObject;
@@ -13,12 +13,10 @@ export type UseSearchReturnType<T> = {
   search: (params: SearchParams) => Promise<SearchResponse<T>>,
 }
 
-export function useSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchReturnType<AlgoliaIndices[K]>
-export function useSearch<T>(indexName: string): UseSearchReturnType<T>
-export function useSearch (indexName: string) {
-  console.warn('`[@nuxtjs/algolia]` This composable was deprecated and will be removed with the next major release. Please use `useAlgoliaSearch` instead.')
-
-  const algoliaIndex = useInitIndex(indexName)
+export function useAlgoliaSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchReturnType<AlgoliaIndices[K]>
+export function useAlgoliaSearch<T>(indexName: string): UseSearchReturnType<T>
+export function useAlgoliaSearch (indexName: string) {
+  const algoliaIndex = useAlgoliaInitIndex(indexName)
   const result = useState(`${indexName}-search-result`, () => null)
 
   const search = async ({ query, requestOptions }: SearchParams) => {
