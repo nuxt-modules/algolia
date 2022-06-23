@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
@@ -12,6 +12,15 @@ enum InstantSearchThemes {
   'satellite',
 }
 
+interface Indexer {
+  storyblok: {
+    accessToken: string,
+    algoliaAdminApiKey: string,
+    indexName: string,
+    secret: string;
+  }
+}
+
 interface ModuleBaseOptions {
   applicationId: string;
   apiKey: string;
@@ -19,6 +28,7 @@ interface ModuleBaseOptions {
   instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
   recommend?: boolean;
   docSearch?: Partial<DocSearchOptions>;
+  indexer?: Indexer;
 }
 
 declare module '@nuxt/schema' {
@@ -139,6 +149,17 @@ export default defineNuxtModule<ModuleOptions>({
       dirs.push(resolve(runtimeDir, 'composables'))
     })
 
-    console.log('`[@nuxtjs/algolia]` Module loaded correctly 🚀')
+    if (Object.keys(options?.indexer).length) {
+      const cmsProvider = Object.keys(options.indexer)[0]
+
+      nuxt.options.runtimeConfig.algoliaIndexer = defu(nuxt.options.runtimeConfig.algoliaIndexer, {
+        [cmsProvider]: options.indexer[cmsProvider]
+      })
+
+      addServerHandler({
+        route: '/api/indexer',
+        handler: resolve(runtimeDir, `server/api/${cmsProvider}`),
+      })
+    }
   }
 })

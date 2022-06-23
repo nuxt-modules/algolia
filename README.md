@@ -21,6 +21,7 @@
 - Support for Vue Instantsearch components
 - Support for Algolia Recommend
 - Support for Docsearch
+- Support for Automatic Indexing
 - TypeScript support
 
 [📖 &nbsp;Read the documentation](https://algolia.nuxtjs.org)
