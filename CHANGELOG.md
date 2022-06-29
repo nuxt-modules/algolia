@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/nuxt-community/algolia-module/compare/v0.9.2...v1.0.0) (2022-06-29)
+
+
+### Features
+
+* [#47](https://github.com/nuxt-community/algolia-module/issues/47) adjust docs ([9198059](https://github.com/nuxt-community/algolia-module/commit/9198059a9677d0209e55353cfae1100282569a1c))
+* [#47](https://github.com/nuxt-community/algolia-module/issues/47) rename composables to algolia ([733a901](https://github.com/nuxt-community/algolia-module/commit/733a901ed43c25f1ca093184d3cfbf16cfafb1a0))
+* [#47](https://github.com/nuxt-community/algolia-module/issues/47) rename nested composables ([392daa4](https://github.com/nuxt-community/algolia-module/commit/392daa43388eff144648b403c697c3448d57f6f8))
+* [#47](https://github.com/nuxt-community/algolia-module/issues/47) update README ([4d1980e](https://github.com/nuxt-community/algolia-module/commit/4d1980e0566a5ae353d9201fdd38f7015f93af37))
+* [#54](https://github.com/nuxt-community/algolia-module/issues/54) AlgoliaStoryblokIndexer ([78d1862](https://github.com/nuxt-community/algolia-module/commit/78d1862c3a8f2ee92ec9e6cb2248fb3e2735c319))
+* **docs:** upgrade docs to use latest docus (nuxt3) ([f3287c2](https://github.com/nuxt-community/algolia-module/commit/f3287c210def09aaca74aa55dce1708f11bdeec9))
+
+
+### Bug Fixes
+
+* [#61](https://github.com/nuxt-community/algolia-module/issues/61) remove commented code ([f13e789](https://github.com/nuxt-community/algolia-module/commit/f13e789c10aaf036c7b7a50efa2d5d7c7c2f7e10))
+* [#61](https://github.com/nuxt-community/algolia-module/issues/61) vue-instantsearch plugin ([f372eb7](https://github.com/nuxt-community/algolia-module/commit/f372eb71b9d2922945641cf434644bbc76290da5))
+* docs ([3f9c787](https://github.com/nuxt-community/algolia-module/commit/3f9c7875567115e1ecd598aa06dfea6fcd052aaf))
+
 ### [0.9.2](https://github.com/nuxt-community/algolia-module/compare/v0.9.1...v0.9.2) (2022-05-18)
 
 
