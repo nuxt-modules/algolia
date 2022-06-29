@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts" setup>
+import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
 // Grab DocSearch config from nuxt.config
 // (the component does that by itself as well)
 const { algolia: { docSearch } } = useRuntimeConfig()
@@ -26,13 +27,13 @@ const { algolia: { docSearch } } = useRuntimeConfig()
 // Used to try the refresh of the component on options changes
 const indexName = ref('test_index')
 
-const { result, search } = useSearch(indexName.value)
-const { result: searchForFacetValuesResult, search: searchForFacetValues } = useSearchForFacetValues(indexName.value)
-const algolia = useAlgolia()
+const { result, search } = useAlgoliaSearch(indexName.value)
+const { result: searchForFacetValuesResult, search: searchForFacetValues } = useAlgoliaFacetedSearch(indexName.value)
+const algolia = useAlgoliaRef()
 const { result: recommendResult, get } = useAlgoliaRecommend()
 
 // Just add some indices in ./playground/types.d.ts, they should then be autocompleted here
-const { search: typedSearch } = useInitIndex('test_index')
+const { search: typedSearch } = useAlgoliaInitIndex('test_index')
 
 onMounted(async () => {
   // useSearch

@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import type { SearchForFacetValuesResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
 import { AlgoliaIndices, RequestOptionsObject } from '../../types'
-import { useInitIndex } from './useInitIndex'
+import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useState } from '#imports'
 
 export type SearchForFacetValuesParams = {
@@ -18,12 +18,10 @@ export type UseSearchForFacetValuesReturnType = {
   search: (params: SearchForFacetValuesParams) => Promise<SearchForFacetValuesResponse>,
 }
 
-export function useSearchForFacetValues<K extends keyof AlgoliaIndices>(indexName: K): UseSearchForFacetValuesReturnType
-export function useSearchForFacetValues(indexName: string): UseSearchForFacetValuesReturnType
-export function useSearchForFacetValues (indexName: string) {
-  console.warn('`[@nuxtjs/algolia]` This composable was deprecated and will be removed with the next major release. Please use `useAlgoliaFacetedSearch` instead.')
-
-  const algoliaIndex = useInitIndex(indexName)
+export function useAlgoliaFacetedSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchForFacetValuesReturnType
+export function useAlgoliaFacetedSearch(indexName: string): UseSearchForFacetValuesReturnType
+export function useAlgoliaFacetedSearch (indexName: string) {
+  const algoliaIndex = useAlgoliaInitIndex(indexName)
   const result = useState(`${indexName}-search-for-facet-values-result`, () => null)
 
   const search = async ({ facet, requestOptions }: SearchForFacetValuesParams) => {

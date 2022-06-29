@@ -20,7 +20,8 @@
 - Handy composables like useAlgolia, useSearch, etc
 - Support for Vue Instantsearch components
 - Support for Algolia Recommend
-- Optional pages crawler support
+- Support for Docsearch
+- Support for Automatic Indexing
 - TypeScript support
 
 [📖 &nbsp;Read the documentation](https://algolia.nuxtjs.org)
@@ -30,8 +31,6 @@
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/baroshem/nuxt3-algolia-stackblitz)
 
 ## Setup
-
-> **WARNING:** This package was recently moved to nuxt-community so it's name have changed from `@nuxt-modules/algolia` to `@nuxtjs/algolia`. There was no other changes than the name of the package.
 
 ```sh
 yarn add @nuxtjs/algolia # yarn
@@ -60,7 +59,7 @@ Then you can start using `@nuxtjs/algolia` in your setup function!
 
 ```vue
 <script setup>
-const { result, search } = useSearch("test_index"); // pass your index as param
+const { result, search } = useAlgoliaSearch("test_index"); // pass your index as param
 
 onMounted(async () => {
   await search({ query: "Samsung" });
