@@ -72,7 +72,8 @@ export default defineNuxtModule<ModuleOptions>({
       indexName: '',
       include: () => true,
       meta: ['title', 'description']
-    }
+    },
+    indexer: {}
   },
   setup (options, nuxt) {
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
