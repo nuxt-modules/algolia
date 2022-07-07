@@ -149,7 +149,7 @@ export default defineNuxtModule<ModuleOptions>({
       dirs.push(resolve(runtimeDir, 'composables'))
     })
 
-    if (Object.keys(options?.indexer).length) {
+    if (options?.indexer && Object.keys(options?.indexer).length) {
       const cmsProvider = Object.keys(options.indexer)[0]
 
       nuxt.options.runtimeConfig.algoliaIndexer = defu(nuxt.options.runtimeConfig.algoliaIndexer, {
