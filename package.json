@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/algolia",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Algolia module for Nuxt",
   "repository": {
     "type": "git",
@@ -39,7 +39,7 @@
     "algoliasearch": "^4.11.0",
     "instantsearch.css": "^7.4.5",
     "metadata-scraper": "^0.2.49",
-    "storyblok-algolia-indexer": "^1.0.2",
+    "storyblok-algolia-indexer": "^1.0.3",
     "vue-instantsearch": "^4.3.2"
   },
   "devDependencies": {
