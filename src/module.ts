@@ -24,6 +24,7 @@ interface Indexer {
 interface ModuleBaseOptions {
   applicationId: string;
   apiKey: string;
+  globalIndex: string;
   lite?: boolean;
   instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
   recommend?: boolean;
@@ -64,6 +65,7 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     applicationId: '',
     apiKey: '',
+    globalIndex: '',
     lite: true,
     instantSearch: false,
     docSearch: {},
@@ -125,7 +127,8 @@ export default defineNuxtModule<ModuleOptions>({
       lite: options.lite,
       instantSearch: options.instantSearch,
       docSearch: options.docSearch,
-      recommend: options.recommend
+      recommend: options.recommend,
+      globalIndex: options.globalIndex
     })
 
     if (options.instantSearch) {
