@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/nuxt-community/algolia-module/compare/v1.0.3...v1.1.0) (2022-07-22)
+
+
+### Features
+
+* [#69](https://github.com/nuxt-community/algolia-module/issues/69) remove deprecated composables ([5fd3b10](https://github.com/nuxt-community/algolia-module/commit/5fd3b10b9c94688530da3dd60499fccb8803883a))
+* [#69](https://github.com/nuxt-community/algolia-module/issues/69) remove deprecated composables ([6c627fa](https://github.com/nuxt-community/algolia-module/commit/6c627fad8e47e4a1e19d27baa266091bd8bb7973))
+* [#69](https://github.com/nuxt-community/algolia-module/issues/69) update docs ([3649f08](https://github.com/nuxt-community/algolia-module/commit/3649f085fa240454a59088f3e30419c014afe6dd))
+* [#69](https://github.com/nuxt-community/algolia-module/issues/69) update docs ([1147bd5](https://github.com/nuxt-community/algolia-module/commit/1147bd5dcc1cbbbb4ea1e58faf833cc644f3be9a))
+* [#73](https://github.com/nuxt-community/algolia-module/issues/73) add globalIndex ([074b2fb](https://github.com/nuxt-community/algolia-module/commit/074b2fb38b0cb197c9c4a49cc0866a3a86d2d6b8))
+* [#73](https://github.com/nuxt-community/algolia-module/issues/73) update docs ([6a01d41](https://github.com/nuxt-community/algolia-module/commit/6a01d41ad766419ac8d126bbd0102eaf7a1ccc7c))
+
 ### [1.0.1](https://github.com/nuxt-community/algolia-module/compare/v1.0.0...v1.0.1) (2022-07-07)
 
 
