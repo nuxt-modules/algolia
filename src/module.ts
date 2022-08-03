@@ -121,15 +121,29 @@ export default defineNuxtModule<ModuleOptions>({
       })
     }
 
-    nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.public.algolia, {
-      apiKey: options.apiKey,
-      applicationId: options.applicationId,
-      lite: options.lite,
-      instantSearch: options.instantSearch,
-      docSearch: options.docSearch,
-      recommend: options.recommend,
-      globalIndex: options.globalIndex
-    })
+    if (nuxt?.options?.runtimeConfig?.public?.algolia) {
+      // Nuxt 3
+      nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
+        apiKey: options.apiKey,
+        applicationId: options.applicationId,
+        lite: options.lite,
+        instantSearch: options.instantSearch,
+        docSearch: options.docSearch,
+        recommend: options.recommend,
+        globalIndex: options.globalIndex
+      });
+    } else {
+      // Nuxt 2 (Edge)
+      nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
+        apiKey: options.apiKey,
+        applicationId: options.applicationId,
+        lite: options.lite,
+        instantSearch: options.instantSearch,
+        docSearch: options.docSearch,
+        recommend: options.recommend,
+        globalIndex: options.globalIndex
+      });
+    }
 
     if (options.instantSearch) {
       nuxt.options.build.transpile.push('vue-instantsearch/vue3')
