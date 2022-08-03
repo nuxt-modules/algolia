@@ -122,6 +122,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     if (nuxt?.options?.runtimeConfig?.public?.algolia) {
+      // Nuxt 3
       nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
         apiKey: options.apiKey,
         applicationId: options.applicationId,
@@ -132,6 +133,7 @@ export default defineNuxtModule<ModuleOptions>({
         globalIndex: options.globalIndex
       });
     } else {
+      // Nuxt 2 (Edge)
       nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
         apiKey: options.apiKey,
         applicationId: options.applicationId,
