@@ -65,7 +65,7 @@ const initialize = async (userOptions: DocSearchOptions) => {
     // @ts-ignore
     import(/* webpackChunkName: "docsearch" */ '@docsearch/js'),
     // @ts-ignore
-    import(/* webpackChunkName: "docsearch" */ '@docsearch/css')
+    process.client && import(/* webpackChunkName: "docsearch" */ '@docsearch/css')
   ]).then(([docsearch]) => docsearch.default)
 
   // TODO: Maybe bind this with @nuxt/i18n ?
