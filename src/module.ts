@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addAutoImportDir } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
@@ -58,7 +58,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@nuxtjs/algolia',
     configKey: 'algolia',
     compatibility: {
-      nuxt: '^3.0.0 || ^2.16.0',
+      nuxt: '^3.0.0-rc.9 || ^2.16.0',
       bridge: true
     }
   },
@@ -161,10 +161,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     addPlugin(resolve(runtimeDir, 'plugin'))
-
-    nuxt.hook('autoImports:dirs', (dirs) => {
-      dirs.push(resolve(runtimeDir, 'composables'))
-    })
+    addAutoImportDir(resolve(runtimeDir, 'composables'))
 
     if (options?.indexer && Object.keys(options?.indexer).length) {
       const cmsProvider = Object.keys(options.indexer)[0]
