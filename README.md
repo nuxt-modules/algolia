@@ -10,7 +10,7 @@
 
 > [Algolia](https://www.algolia.com/) module for [Nuxt](https://v3.nuxtjs.org)
 
-- [✨ &nbsp;Release Notes](https://github.com/nuxt-community/algolia/releases)
+- [✨ &nbsp;Release Notes](https://github.com/nuxt-modules/algolia/releases)
 - [📖 &nbsp;Read the documentation](https://algolia.nuxtjs.org)
 
 ## Features
@@ -84,8 +84,8 @@ onMounted(async () => {
 [npm-downloads-src]: https://img.shields.io/npm/dt/@nuxtjs/algolia.svg
 [npm-downloads-href]: https://npmjs.com/package/@nuxtjs/algolia
 [github-actions-ci-src]: https://github.com/nuxt-modules/algolia/actions/workflows/ci.yml/badge.svg
-[github-actions-ci-href]: https://github.com/nuxt-community/algolia/actions?query=workflow%3Aci
-[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-community/algolia.svg
-[codecov-href]: https://codecov.io/gh/nuxt-community/algolia
+[github-actions-ci-href]: https://github.com/nuxt-modules/algolia/actions?query=workflow%3Aci
+[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-modules/algolia.svg
+[codecov-href]: https://codecov.io/gh/nuxt-modules/algolia
 [license-src]: https://img.shields.io/npm/l/@nuxtjs/algolia.svg
 [license-href]: https://npmjs.com/package/@nuxtjs/algolia
