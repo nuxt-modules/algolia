@@ -4,7 +4,7 @@
   "description": "Algolia module for Nuxt",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nuxt-community/algolia-module.git"
+    "url": "git+https://github.com/nuxt-modules/algolia.git"
   },
   "author": "Jakub Andrzejewski",
   "contributors": [

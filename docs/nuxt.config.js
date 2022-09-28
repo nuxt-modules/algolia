@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   modules: ['@docus/github'],
 
   github: {
-    owner: 'nuxt-community',
+    owner: 'nuxt-modules',
     repo: 'algolia',
     branch: 'main'
   },

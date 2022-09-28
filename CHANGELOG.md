@@ -2,136 +2,136 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [1.1.0](https://github.com/nuxt-community/algolia-module/compare/v1.0.3...v1.1.0) (2022-07-22)
+## [1.1.0](https://github.com/nuxt-modules/algolia/compare/v1.0.3...v1.1.0) (2022-07-22)
 
 
 ### Features
 
-* [#69](https://github.com/nuxt-community/algolia-module/issues/69) remove deprecated composables ([5fd3b10](https://github.com/nuxt-community/algolia-module/commit/5fd3b10b9c94688530da3dd60499fccb8803883a))
-* [#69](https://github.com/nuxt-community/algolia-module/issues/69) remove deprecated composables ([6c627fa](https://github.com/nuxt-community/algolia-module/commit/6c627fad8e47e4a1e19d27baa266091bd8bb7973))
-* [#69](https://github.com/nuxt-community/algolia-module/issues/69) update docs ([3649f08](https://github.com/nuxt-community/algolia-module/commit/3649f085fa240454a59088f3e30419c014afe6dd))
-* [#69](https://github.com/nuxt-community/algolia-module/issues/69) update docs ([1147bd5](https://github.com/nuxt-community/algolia-module/commit/1147bd5dcc1cbbbb4ea1e58faf833cc644f3be9a))
-* [#73](https://github.com/nuxt-community/algolia-module/issues/73) add globalIndex ([074b2fb](https://github.com/nuxt-community/algolia-module/commit/074b2fb38b0cb197c9c4a49cc0866a3a86d2d6b8))
-* [#73](https://github.com/nuxt-community/algolia-module/issues/73) update docs ([6a01d41](https://github.com/nuxt-community/algolia-module/commit/6a01d41ad766419ac8d126bbd0102eaf7a1ccc7c))
+* [#69](https://github.com/nuxt-modules/algolia/issues/69) remove deprecated composables ([5fd3b10](https://github.com/nuxt-modules/algolia/commit/5fd3b10b9c94688530da3dd60499fccb8803883a))
+* [#69](https://github.com/nuxt-modules/algolia/issues/69) remove deprecated composables ([6c627fa](https://github.com/nuxt-modules/algolia/commit/6c627fad8e47e4a1e19d27baa266091bd8bb7973))
+* [#69](https://github.com/nuxt-modules/algolia/issues/69) update docs ([3649f08](https://github.com/nuxt-modules/algolia/commit/3649f085fa240454a59088f3e30419c014afe6dd))
+* [#69](https://github.com/nuxt-modules/algolia/issues/69) update docs ([1147bd5](https://github.com/nuxt-modules/algolia/commit/1147bd5dcc1cbbbb4ea1e58faf833cc644f3be9a))
+* [#73](https://github.com/nuxt-modules/algolia/issues/73) add globalIndex ([074b2fb](https://github.com/nuxt-modules/algolia/commit/074b2fb38b0cb197c9c4a49cc0866a3a86d2d6b8))
+* [#73](https://github.com/nuxt-modules/algolia/issues/73) update docs ([6a01d41](https://github.com/nuxt-modules/algolia/commit/6a01d41ad766419ac8d126bbd0102eaf7a1ccc7c))
 
-### [1.0.1](https://github.com/nuxt-community/algolia-module/compare/v1.0.0...v1.0.1) (2022-07-07)
+### [1.0.1](https://github.com/nuxt-modules/algolia/compare/v1.0.0...v1.0.1) (2022-07-07)
 
 
 ### Bug Fixes
 
-* indexer causing errors when undefined ([53e1c27](https://github.com/nuxt-community/algolia-module/commit/53e1c273c9a451c0d275b26a1ac0e6c98fccf8bc))
+* indexer causing errors when undefined ([53e1c27](https://github.com/nuxt-modules/algolia/commit/53e1c273c9a451c0d275b26a1ac0e6c98fccf8bc))
 
-## [1.0.0](https://github.com/nuxt-community/algolia-module/compare/v0.9.2...v1.0.0) (2022-06-29)
+## [1.0.0](https://github.com/nuxt-modules/algolia/compare/v0.9.2...v1.0.0) (2022-06-29)
 
 
 ### Features
 
-* [#47](https://github.com/nuxt-community/algolia-module/issues/47) adjust docs ([9198059](https://github.com/nuxt-community/algolia-module/commit/9198059a9677d0209e55353cfae1100282569a1c))
-* [#47](https://github.com/nuxt-community/algolia-module/issues/47) rename composables to algolia ([733a901](https://github.com/nuxt-community/algolia-module/commit/733a901ed43c25f1ca093184d3cfbf16cfafb1a0))
-* [#47](https://github.com/nuxt-community/algolia-module/issues/47) rename nested composables ([392daa4](https://github.com/nuxt-community/algolia-module/commit/392daa43388eff144648b403c697c3448d57f6f8))
-* [#47](https://github.com/nuxt-community/algolia-module/issues/47) update README ([4d1980e](https://github.com/nuxt-community/algolia-module/commit/4d1980e0566a5ae353d9201fdd38f7015f93af37))
-* [#54](https://github.com/nuxt-community/algolia-module/issues/54) AlgoliaStoryblokIndexer ([78d1862](https://github.com/nuxt-community/algolia-module/commit/78d1862c3a8f2ee92ec9e6cb2248fb3e2735c319))
-* **docs:** upgrade docs to use latest docus (nuxt3) ([f3287c2](https://github.com/nuxt-community/algolia-module/commit/f3287c210def09aaca74aa55dce1708f11bdeec9))
+* [#47](https://github.com/nuxt-modules/algolia/issues/47) adjust docs ([9198059](https://github.com/nuxt-modules/algolia/commit/9198059a9677d0209e55353cfae1100282569a1c))
+* [#47](https://github.com/nuxt-modules/algolia/issues/47) rename composables to algolia ([733a901](https://github.com/nuxt-modules/algolia/commit/733a901ed43c25f1ca093184d3cfbf16cfafb1a0))
+* [#47](https://github.com/nuxt-modules/algolia/issues/47) rename nested composables ([392daa4](https://github.com/nuxt-modules/algolia/commit/392daa43388eff144648b403c697c3448d57f6f8))
+* [#47](https://github.com/nuxt-modules/algolia/issues/47) update README ([4d1980e](https://github.com/nuxt-modules/algolia/commit/4d1980e0566a5ae353d9201fdd38f7015f93af37))
+* [#54](https://github.com/nuxt-modules/algolia/issues/54) AlgoliaStoryblokIndexer ([78d1862](https://github.com/nuxt-modules/algolia/commit/78d1862c3a8f2ee92ec9e6cb2248fb3e2735c319))
+* **docs:** upgrade docs to use latest docus (nuxt3) ([f3287c2](https://github.com/nuxt-modules/algolia/commit/f3287c210def09aaca74aa55dce1708f11bdeec9))
 
 
 ### Bug Fixes
 
-* [#61](https://github.com/nuxt-community/algolia-module/issues/61) remove commented code ([f13e789](https://github.com/nuxt-community/algolia-module/commit/f13e789c10aaf036c7b7a50efa2d5d7c7c2f7e10))
-* [#61](https://github.com/nuxt-community/algolia-module/issues/61) vue-instantsearch plugin ([f372eb7](https://github.com/nuxt-community/algolia-module/commit/f372eb71b9d2922945641cf434644bbc76290da5))
-* docs ([3f9c787](https://github.com/nuxt-community/algolia-module/commit/3f9c7875567115e1ecd598aa06dfea6fcd052aaf))
+* [#61](https://github.com/nuxt-modules/algolia/issues/61) remove commented code ([f13e789](https://github.com/nuxt-modules/algolia/commit/f13e789c10aaf036c7b7a50efa2d5d7c7c2f7e10))
+* [#61](https://github.com/nuxt-modules/algolia/issues/61) vue-instantsearch plugin ([f372eb7](https://github.com/nuxt-modules/algolia/commit/f372eb71b9d2922945641cf434644bbc76290da5))
+* docs ([3f9c787](https://github.com/nuxt-modules/algolia/commit/3f9c7875567115e1ecd598aa06dfea6fcd052aaf))
 
-### [0.9.2](https://github.com/nuxt-community/algolia-module/compare/v0.9.1...v0.9.2) (2022-05-18)
+### [0.9.2](https://github.com/nuxt-modules/algolia/compare/v0.9.1...v0.9.2) (2022-05-18)
 
 
 ### Features
 
-* 0.9.2 ([6e421e5](https://github.com/nuxt-community/algolia-module/commit/6e421e5e639cb12f48a1061996d68deb1feb8a20))
-* 0.9.2-rc.1 ([4f1d2c3](https://github.com/nuxt-community/algolia-module/commit/4f1d2c38b4286bbd01dbb183f7164b5d80078894))
-* 0.9.3-rc.1 ([1e9ad76](https://github.com/nuxt-community/algolia-module/commit/1e9ad76f9d537df56ce715b229aeae3d77ccec86))
+* 0.9.2 ([6e421e5](https://github.com/nuxt-modules/algolia/commit/6e421e5e639cb12f48a1061996d68deb1feb8a20))
+* 0.9.2-rc.1 ([4f1d2c3](https://github.com/nuxt-modules/algolia/commit/4f1d2c38b4286bbd01dbb183f7164b5d80078894))
+* 0.9.3-rc.1 ([1e9ad76](https://github.com/nuxt-modules/algolia/commit/1e9ad76f9d537df56ce715b229aeae3d77ccec86))
 
 
 ### Bug Fixes
 
-* [#50](https://github.com/nuxt-community/algolia-module/issues/50) fix docs about vue-instantsearch ([703b008](https://github.com/nuxt-community/algolia-module/commit/703b008d3c65593f47654ce75b3c412754294150))
-* theme selection ([ff7fc19](https://github.com/nuxt-community/algolia-module/commit/ff7fc196667e530fa1608e970e7702595d60a9d9))
+* [#50](https://github.com/nuxt-modules/algolia/issues/50) fix docs about vue-instantsearch ([703b008](https://github.com/nuxt-modules/algolia/commit/703b008d3c65593f47654ce75b3c412754294150))
+* theme selection ([ff7fc19](https://github.com/nuxt-modules/algolia/commit/ff7fc196667e530fa1608e970e7702595d60a9d9))
 
-### [0.9.1](https://github.com/nuxt-community/algolia-module/compare/v0.9.0...v0.9.1) (2022-05-02)
+### [0.9.1](https://github.com/nuxt-modules/algolia/compare/v0.9.0...v0.9.1) (2022-05-02)
 
 
 ### Features
 
-* **docs:** rework preview images ([7c2494d](https://github.com/nuxt-community/algolia-module/commit/7c2494d4d82f2cc1bd03ae65069c6703edfd608f))
-* **imports:** update imports (#app => #imports) ([6027a67](https://github.com/nuxt-community/algolia-module/commit/6027a67f085bf11acb23c0f947aac68e52927547))
-* **module:** update module runtimeConfig usage ([c1008cd](https://github.com/nuxt-community/algolia-module/commit/c1008cdaa48952b5ccc8e5bcbc437953b0089837))
+* **docs:** rework preview images ([7c2494d](https://github.com/nuxt-modules/algolia/commit/7c2494d4d82f2cc1bd03ae65069c6703edfd608f))
+* **imports:** update imports (#app => #imports) ([6027a67](https://github.com/nuxt-modules/algolia/commit/6027a67f085bf11acb23c0f947aac68e52927547))
+* **module:** update module runtimeConfig usage ([c1008cd](https://github.com/nuxt-modules/algolia/commit/c1008cdaa48952b5ccc8e5bcbc437953b0089837))
 
 
 ### Bug Fixes
 
-* **docs:** rewrited buildModules to modules ([226eaad](https://github.com/nuxt-community/algolia-module/commit/226eaad763132b38f4b5dca6b67230d92fcbe273))
+* **docs:** rewrited buildModules to modules ([226eaad](https://github.com/nuxt-modules/algolia/commit/226eaad763132b38f4b5dca6b67230d92fcbe273))
 
-## [0.9.0](https://github.com/nuxt-community/algolia-module/compare/v0.8.3...v0.9.0) (2022-04-27)
+## [0.9.0](https://github.com/nuxt-modules/algolia/compare/v0.8.3...v0.9.0) (2022-04-27)
 
 
 ### Features
 
-* **component:** import initial implementation for the component ([48cd3e4](https://github.com/nuxt-community/algolia-module/commit/48cd3e4d0e760341a6f5b13976fee82be2fdc575))
-* **doc-search:** add DocSearchOptions type and use it in ModuleOptions ([46a2c5a](https://github.com/nuxt-community/algolia-module/commit/46a2c5a845126a32b450f1e8e3d5c49ffc991590))
-* **doc-search:** update DocSearch component ([c551950](https://github.com/nuxt-community/algolia-module/commit/c5519507f02fb37ac896486665e5763654c2edf9))
-* **docsearch:** change options priority ([e018b81](https://github.com/nuxt-community/algolia-module/commit/e018b8144b70866865629e1789058f6d1bf01aac))
-* **docsearch:** defaults apiKey and applicationId to global ones ([4ee3ffb](https://github.com/nuxt-community/algolia-module/commit/4ee3ffbc89d29825983b163cb34f7b85a5aea673))
-* **docsearch:** rename component (add Algolia prefix) ([43cd2cb](https://github.com/nuxt-community/algolia-module/commit/43cd2cb2814aa3f72f9140edfd0dda05ac79e255))
-* **docsearch:** update docsearch implementation ([c82e46a](https://github.com/nuxt-community/algolia-module/commit/c82e46a828f3227528ab97e23ac0e0033edc189a))
-* **docsearch:** update imports and fix typo (review) ([1433572](https://github.com/nuxt-community/algolia-module/commit/1433572313657198b2a2f35c710fcd598e13da24))
-* **module:** add docSearch config option, push components dir if true ([b56b6a9](https://github.com/nuxt-community/algolia-module/commit/b56b6a9908953bafbdad3473a5d747a7baa1213e))
-* **playground:** update playground ([da6fa7e](https://github.com/nuxt-community/algolia-module/commit/da6fa7e028e39ea39fdf2ea5cbd92554347077f8))
-* **playground:** update playground to show docSearch feature ([bb4f516](https://github.com/nuxt-community/algolia-module/commit/bb4f5169a7d390a5f73653d7b2c4570e3444b93f))
-* rc ([8416d72](https://github.com/nuxt-community/algolia-module/commit/8416d72ccaf0306370b80156c60705ad64a6c9da))
-* small adjustements after docsearch ([11bc881](https://github.com/nuxt-community/algolia-module/commit/11bc8810c30cb853f302e4859dc8003fcacdc4c0))
+* **component:** import initial implementation for the component ([48cd3e4](https://github.com/nuxt-modules/algolia/commit/48cd3e4d0e760341a6f5b13976fee82be2fdc575))
+* **doc-search:** add DocSearchOptions type and use it in ModuleOptions ([46a2c5a](https://github.com/nuxt-modules/algolia/commit/46a2c5a845126a32b450f1e8e3d5c49ffc991590))
+* **doc-search:** update DocSearch component ([c551950](https://github.com/nuxt-modules/algolia/commit/c5519507f02fb37ac896486665e5763654c2edf9))
+* **docsearch:** change options priority ([e018b81](https://github.com/nuxt-modules/algolia/commit/e018b8144b70866865629e1789058f6d1bf01aac))
+* **docsearch:** defaults apiKey and applicationId to global ones ([4ee3ffb](https://github.com/nuxt-modules/algolia/commit/4ee3ffbc89d29825983b163cb34f7b85a5aea673))
+* **docsearch:** rename component (add Algolia prefix) ([43cd2cb](https://github.com/nuxt-modules/algolia/commit/43cd2cb2814aa3f72f9140edfd0dda05ac79e255))
+* **docsearch:** update docsearch implementation ([c82e46a](https://github.com/nuxt-modules/algolia/commit/c82e46a828f3227528ab97e23ac0e0033edc189a))
+* **docsearch:** update imports and fix typo (review) ([1433572](https://github.com/nuxt-modules/algolia/commit/1433572313657198b2a2f35c710fcd598e13da24))
+* **module:** add docSearch config option, push components dir if true ([b56b6a9](https://github.com/nuxt-modules/algolia/commit/b56b6a9908953bafbdad3473a5d747a7baa1213e))
+* **playground:** update playground ([da6fa7e](https://github.com/nuxt-modules/algolia/commit/da6fa7e028e39ea39fdf2ea5cbd92554347077f8))
+* **playground:** update playground to show docSearch feature ([bb4f516](https://github.com/nuxt-modules/algolia/commit/bb4f5169a7d390a5f73653d7b2c4570e3444b93f))
+* rc ([8416d72](https://github.com/nuxt-modules/algolia/commit/8416d72ccaf0306370b80156c60705ad64a6c9da))
+* small adjustements after docsearch ([11bc881](https://github.com/nuxt-modules/algolia/commit/11bc8810c30cb853f302e4859dc8003fcacdc4c0))
 
 
 ### Bug Fixes
 
-* **build:** update build externals to support [@docsearch](https://github.com/docsearch) ([cf17c28](https://github.com/nuxt-community/algolia-module/commit/cf17c2868dcff042b9cba936b78c6f71798c7164))
-* fixed issue templates ([a343047](https://github.com/nuxt-community/algolia-module/commit/a343047d97a2b68455d79e987728f6b372febc91))
-* provided compatibility options ([f744382](https://github.com/nuxt-community/algolia-module/commit/f74438259254b91b6beb2624a7dbdc8d58585996))
-* **types:** fix typo ([2f19c76](https://github.com/nuxt-community/algolia-module/commit/2f19c76d00a39c2ff57918bef9a97c1d3c722476))
+* **build:** update build externals to support [@docsearch](https://github.com/docsearch) ([cf17c28](https://github.com/nuxt-modules/algolia/commit/cf17c2868dcff042b9cba936b78c6f71798c7164))
+* fixed issue templates ([a343047](https://github.com/nuxt-modules/algolia/commit/a343047d97a2b68455d79e987728f6b372febc91))
+* provided compatibility options ([f744382](https://github.com/nuxt-modules/algolia/commit/f74438259254b91b6beb2624a7dbdc8d58585996))
+* **types:** fix typo ([2f19c76](https://github.com/nuxt-modules/algolia/commit/2f19c76d00a39c2ff57918bef9a97c1d3c722476))
 
-### [0.8.3](https://github.com/nuxt-community/algolia-module/compare/v0.8.2...v0.8.3) (2022-03-18)
-
-
-### Bug Fixes
-
-* import of @algolia/recommend in prod ([c71bc71](https://github.com/nuxt-community/algolia-module/commit/c71bc71775fd5ce1db0a95339541048ab106bd5b))
-
-### [0.8.2](https://github.com/nuxt-community/algolia-module/compare/v0.8.1...v0.8.2) (2022-03-18)
+### [0.8.3](https://github.com/nuxt-modules/algolia/compare/v0.8.2...v0.8.3) (2022-03-18)
 
 
 ### Bug Fixes
 
-* import computed ([648147a](https://github.com/nuxt-community/algolia-module/commit/648147a80d84720daea79f6321ac9cb171bd9137))
+* import of @algolia/recommend in prod ([c71bc71](https://github.com/nuxt-modules/algolia/commit/c71bc71775fd5ce1db0a95339541048ab106bd5b))
 
-### [0.8.1](https://github.com/nuxt-community/algolia-module/compare/v0.8.0...v0.8.1) (2022-03-18)
+### [0.8.2](https://github.com/nuxt-modules/algolia/compare/v0.8.1...v0.8.2) (2022-03-18)
 
 
 ### Bug Fixes
 
-* add undefined variable ([d7d8b24](https://github.com/nuxt-community/algolia-module/commit/d7d8b240e19c9d4c74df472d74bfdae272a5da7d))
+* import computed ([648147a](https://github.com/nuxt-modules/algolia/commit/648147a80d84720daea79f6321ac9cb171bd9137))
 
-## [0.8.0](https://github.com/nuxt-community/algolia-module/compare/v0.7.1...v0.8.0) (2022-03-18)
+### [0.8.1](https://github.com/nuxt-modules/algolia/compare/v0.8.0...v0.8.1) (2022-03-18)
+
+
+### Bug Fixes
+
+* add undefined variable ([d7d8b24](https://github.com/nuxt-modules/algolia/commit/d7d8b240e19c9d4c74df472d74bfdae272a5da7d))
+
+## [0.8.0](https://github.com/nuxt-modules/algolia/compare/v0.7.1...v0.8.0) (2022-03-18)
 
 
 ### Features
 
-* add algolia rec to plugin ([600e2c2](https://github.com/nuxt-community/algolia-module/commit/600e2c220317b7f53304506984781e68a056ee62))
-* add logging ([01c0408](https://github.com/nuxt-community/algolia-module/commit/01c0408e411102729711b743d1590130c9a20b74))
-* add recommend config option ([bb1b7ff](https://github.com/nuxt-community/algolia-module/commit/bb1b7ff830698d0e0395ec5cb77d9bbcc04d8d99))
-* create useAlgoliaRecommend ([e7ad1a0](https://github.com/nuxt-community/algolia-module/commit/e7ad1a035b115f3e309aa485ff1a66a575a3b821))
-* docs ([57e59f4](https://github.com/nuxt-community/algolia-module/commit/57e59f4325bcdb72fd04b1451f3f902c808f9561))
-* fix nuxtConfig type ([8df4124](https://github.com/nuxt-community/algolia-module/commit/8df41242d2bdefb4e493d3cde07b7b80ad068f6f))
-* install @algolia/recommend ([b4fe8cf](https://github.com/nuxt-community/algolia-module/commit/b4fe8cfef72408eaa223822c22e25777eb33efce))
-* playground example ([0ad71ca](https://github.com/nuxt-community/algolia-module/commit/0ad71ca9386bce2a8bced46e6a00da17985bd776))
-* reuse types ([744a747](https://github.com/nuxt-community/algolia-module/commit/744a747889a19f17b20ae4c715bdea01f7b50522))
-* reuse types ([3a8740f](https://github.com/nuxt-community/algolia-module/commit/3a8740fff471e8cd4de1892cddd53ee287f6fe27))
+* add algolia rec to plugin ([600e2c2](https://github.com/nuxt-modules/algolia/commit/600e2c220317b7f53304506984781e68a056ee62))
+* add logging ([01c0408](https://github.com/nuxt-modules/algolia/commit/01c0408e411102729711b743d1590130c9a20b74))
+* add recommend config option ([bb1b7ff](https://github.com/nuxt-modules/algolia/commit/bb1b7ff830698d0e0395ec5cb77d9bbcc04d8d99))
+* create useAlgoliaRecommend ([e7ad1a0](https://github.com/nuxt-modules/algolia/commit/e7ad1a035b115f3e309aa485ff1a66a575a3b821))
+* docs ([57e59f4](https://github.com/nuxt-modules/algolia/commit/57e59f4325bcdb72fd04b1451f3f902c808f9561))
+* fix nuxtConfig type ([8df4124](https://github.com/nuxt-modules/algolia/commit/8df41242d2bdefb4e493d3cde07b7b80ad068f6f))
+* install @algolia/recommend ([b4fe8cf](https://github.com/nuxt-modules/algolia/commit/b4fe8cfef72408eaa223822c22e25777eb33efce))
+* playground example ([0ad71ca](https://github.com/nuxt-modules/algolia/commit/0ad71ca9386bce2a8bced46e6a00da17985bd776))
+* reuse types ([744a747](https://github.com/nuxt-modules/algolia/commit/744a747889a19f17b20ae4c715bdea01f7b50522))
+* reuse types ([3a8740f](https://github.com/nuxt-modules/algolia/commit/3a8740fff471e8cd4de1892cddd53ee287f6fe27))
 
 ### [0.7.1](https://github.com/nuxt-community/algolia/compare/v0.7.0...v0.7.1) (2022-03-01)
 
