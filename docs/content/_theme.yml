@@ -5,7 +5,7 @@ url: "https://algolia.nuxtjs.org"
 debug: false
 socials:
   twitter: "@jacobandrewsky"
-  github: "nuxt-community/algolia-module"
+  github: "nuxt-modules/algolia"
 github:
   root: docs/content
   edit: true
