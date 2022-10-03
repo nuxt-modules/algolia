@@ -132,7 +132,7 @@ export default defineNuxtModule<ModuleOptions>({
         recommend: options.recommend,
         globalIndex: options.globalIndex
       });
-    } else {
+    }
       // Nuxt 3
       nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
         apiKey: options.apiKey,
@@ -143,7 +143,6 @@ export default defineNuxtModule<ModuleOptions>({
         recommend: options.recommend,
         globalIndex: options.globalIndex
       });
-    }
 
     if (options.instantSearch) {
       nuxt.options.build.transpile.push('vue-instantsearch/vue3')
