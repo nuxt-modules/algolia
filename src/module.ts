@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addAutoImportDir } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
@@ -131,18 +131,18 @@ export default defineNuxtModule<ModuleOptions>({
         docSearch: options.docSearch,
         recommend: options.recommend,
         globalIndex: options.globalIndex
-      });
+      })
     }
-      // Nuxt 3
-      nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
-        apiKey: options.apiKey,
-        applicationId: options.applicationId,
-        lite: options.lite,
-        instantSearch: options.instantSearch,
-        docSearch: options.docSearch,
-        recommend: options.recommend,
-        globalIndex: options.globalIndex
-      });
+    // Nuxt 3
+    nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
+      apiKey: options.apiKey,
+      applicationId: options.applicationId,
+      lite: options.lite,
+      instantSearch: options.instantSearch,
+      docSearch: options.docSearch,
+      recommend: options.recommend,
+      globalIndex: options.globalIndex
+    })
 
     if (options.instantSearch) {
       nuxt.options.build.transpile.push('vue-instantsearch/vue3')
@@ -160,7 +160,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     addPlugin(resolve(runtimeDir, 'plugin'))
-    addAutoImportDir(resolve(runtimeDir, 'composables'))
+    addImportsDir(resolve(runtimeDir, 'composables'))
 
     if (options?.indexer && Object.keys(options?.indexer).length) {
       const cmsProvider = Object.keys(options.indexer)[0]
@@ -171,7 +171,7 @@ export default defineNuxtModule<ModuleOptions>({
 
       addServerHandler({
         route: '/api/indexer',
-        handler: resolve(runtimeDir, `server/api/${cmsProvider}`),
+        handler: resolve(runtimeDir, `server/api/${cmsProvider}`)
       })
     }
   }
