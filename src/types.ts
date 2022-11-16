@@ -8,10 +8,12 @@ import { SearchClient } from 'algoliasearch/lite'
 export interface AlgoliaIndices {}
 
 export type RequestOptionsObject = {
+  // eslint-disable-next-line
   requestOptions?: RequestOptions & SearchOptions;
 }
 
 export type TypedSearchIndex<K extends keyof AlgoliaIndices> = {
+    // eslint-disable-next-line
     readonly search: (...args: Parameters<SearchIndex['search']>) => Readonly<Promise<SearchResponse<AlgoliaIndices[K]>>>
 } & Omit<SearchIndex, 'search'>
 
@@ -988,7 +990,7 @@ export interface DocSearchOptions {
    *
    * {@link https://docsearch.algolia.com/docs/api#getmissingresultsurl}
    */
-  getMissingResultsUrl?: ({ query: string }) => string;
+  getMissingResultsUrl?: (opts: { query: string }) => string;
   /**
    * The facetFilters to use in your search parameters.
    * This is local shorthand and provided by @nuxtjs/algolia.

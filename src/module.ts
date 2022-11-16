@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import { fileURLToPath } from 'url'
 import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2 } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
-import defu from 'defu'
+import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
 import type { DocSearchOptions } from './types'
 
@@ -30,12 +30,6 @@ interface ModuleBaseOptions {
   recommend?: boolean;
   docSearch?: Partial<DocSearchOptions>;
   indexer?: Indexer;
-}
-
-declare module '@nuxt/schema' {
-  interface PublicRuntimeConfig {
-    algolia: ModuleBaseOptions
-  }
 }
 
 export interface ModuleOptions extends ModuleBaseOptions {
@@ -88,34 +82,36 @@ export default defineNuxtModule<ModuleOptions>({
       throw new Error('`[@nuxtjs/algolia]` Missing `applicationId`')
     }
 
-    if (options.crawler.apiKey || options.crawler.indexName) {
-      if (!options.crawler.apiKey) {
+    if (options.crawler!.apiKey || options.crawler!.indexName) {
+      if (!options.crawler!.apiKey) {
         throw new Error('`[@nuxtjs/algolia]` Missing `crawler.apiKey`')
       }
 
-      if (!options.crawler.indexName) {
+      if (!options.crawler!.indexName) {
         throw new Error('`[@nuxtjs/algolia]` Missing `crawler.indexName`')
       }
 
       const pages: CrawlerPage[] = []
 
       nuxt.addHooks({
+        // @ts-expect-error Nuxt 2 only hook
         'generate:page': createPageGenerateHook(nuxt, options, pages),
         'generate:done': createGenerateDoneHook(nuxt, options, pages)
       })
     }
 
-    if (Object.keys(options.docSearch).length) {
+    if (Object.keys(options.docSearch!).length) {
       const docSearchConfig = options.docSearch
 
       // Defaults apiKey and applicationId to global Algolia keys if not specified by the user
-      if (!docSearchConfig.apiKey && options.apiKey) { docSearchConfig.apiKey = options.apiKey }
-      if (!docSearchConfig.applicationId && options.applicationId) { docSearchConfig.applicationId = options.applicationId }
+      if (!docSearchConfig!.apiKey && options.apiKey) { docSearchConfig!.apiKey = options.apiKey }
+      if (!docSearchConfig!.applicationId && options.applicationId) { docSearchConfig!.applicationId = options.applicationId }
 
       addComponentsDir({
         path: resolve(runtimeDir, 'components'),
         pathPrefix: false,
         prefix: '',
+        // @ts-ignore
         level: 999,
         global: true
       })
@@ -135,7 +131,7 @@ export default defineNuxtModule<ModuleOptions>({
       })
     }
     // Nuxt 3
-    // @ts-expect-error temporary workaround for rc.14
+    // @ts-expect-error TODO: Workaround for rc.14 only
     nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
     nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
       apiKey: options.apiKey,
@@ -169,6 +165,7 @@ export default defineNuxtModule<ModuleOptions>({
       const cmsProvider = Object.keys(options.indexer)[0]
 
       nuxt.options.runtimeConfig.algoliaIndexer = defu(nuxt.options.runtimeConfig.algoliaIndexer, {
+        // @ts-ignore
         [cmsProvider]: options.indexer[cmsProvider]
       })
 

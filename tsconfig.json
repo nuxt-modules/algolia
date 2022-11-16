@@ -1,6 +1,7 @@
 {
   "extends": "./playground/.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": ["./playground/types"]
+    "types": ["./playground/types"],
+    "strict": false
   }
 }
