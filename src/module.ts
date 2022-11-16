@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2 } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import defu from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
@@ -121,7 +121,7 @@ export default defineNuxtModule<ModuleOptions>({
       })
     }
 
-    if (!nuxt?.options?.runtimeConfig?.public?.algolia) {
+    if (isNuxt2() && !nuxt?.options?.runtimeConfig?.public?.algolia) {
       // Nuxt 2
       nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
         apiKey: options.apiKey,
