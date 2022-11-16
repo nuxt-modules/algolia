@@ -123,6 +123,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     if (isNuxt2() && !nuxt?.options?.runtimeConfig?.public?.algolia) {
       // Nuxt 2
+      // @ts-ignore
       nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
         apiKey: options.apiKey,
         applicationId: options.applicationId,
@@ -134,6 +135,8 @@ export default defineNuxtModule<ModuleOptions>({
       })
     }
     // Nuxt 3
+    // @ts-expect-error temporary workaround for rc.14
+    nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
     nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
