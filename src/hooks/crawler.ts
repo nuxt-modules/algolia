@@ -6,7 +6,9 @@ import type { SearchClient, SearchIndex } from 'algoliasearch'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import type { ModuleOptions } from './../module'
 
-export type GeneratePageArg = Parameters<NuxtHooks['generate:page']>[0]
+// TODO: Nuxt 2 only
+// export type GeneratePageArg = Parameters<NuxtHooks['generate:page']>[0]
+export type GeneratePageArg = any
 
 export type CrawlerPage = { href: string } & MetaData
 

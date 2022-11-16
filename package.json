@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@algolia/recommend": "^4.12.2",
-    "@nuxt/kit": "^3.0.0-rc.9",
+    "@nuxt/kit": "^3.0.0",
     "algoliasearch": "^4.11.0",
     "instantsearch.css": "^7.4.5",
     "metadata-scraper": "^0.2.49",
@@ -48,7 +48,7 @@
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt": "^3.0.0-rc.9",
+    "nuxt": "^3.0.0",
     "standard-version": "^9.3.2"
   },
   "publishConfig": {
