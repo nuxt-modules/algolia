@@ -26,6 +26,7 @@ interface ModuleBaseOptions {
   apiKey: string;
   globalIndex: string;
   lite?: boolean;
+  cache?: boolean;
   instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
   recommend?: boolean;
   docSearch?: Partial<DocSearchOptions>;
@@ -61,6 +62,7 @@ export default defineNuxtModule<ModuleOptions>({
     apiKey: '',
     globalIndex: '',
     lite: true,
+    cache: false,
     instantSearch: false,
     docSearch: {},
     crawler: {
@@ -137,6 +139,7 @@ export default defineNuxtModule<ModuleOptions>({
       apiKey: options.apiKey,
       applicationId: options.applicationId,
       lite: options.lite,
+      cache: options.cache,
       instantSearch: options.instantSearch,
       docSearch: options.docSearch,
       recommend: options.recommend,
