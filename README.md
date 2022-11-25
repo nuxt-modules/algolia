@@ -22,6 +22,7 @@
 - Support for Algolia Recommend
 - Support for Docsearch
 - Support for Automatic Indexing
+- Support for caching the requests and responses
 - TypeScript support
 
 [📖 &nbsp;Read the documentation](https://algolia.nuxtjs.org)
