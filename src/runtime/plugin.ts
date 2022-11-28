@@ -11,8 +11,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     ? await import('algoliasearch/dist/algoliasearch-lite.esm.browser').then(lib => lib.default || lib)
     : await import('algoliasearch/dist/algoliasearch.esm.browser').then(lib => lib.default || lib)
 
-    console.log(cache)
-
   const algoliaSearchClient: SearchClient = cache ? algoliasearch(applicationId, apiKey, { responsesCache: createInMemoryCache(), requestsCache: createInMemoryCache({ serializable: false }), }) : algoliasearch(applicationId, apiKey)
 
   nuxtApp.provide('algolia', algoliaSearchClient)
