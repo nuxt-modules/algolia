@@ -23,6 +23,7 @@
 - Support for Docsearch
 - Support for Automatic Indexing
 - Support for caching the requests and responses
+- Support for SSR requests
 - TypeScript support
 
 [📖 &nbsp;Read the documentation](https://algolia.nuxtjs.org)
@@ -65,6 +66,9 @@ const { result, search } = useAlgoliaSearch("test_index"); // pass your index as
 onMounted(async () => {
   await search({ query: "Samsung" });
 });
+
+// Or SSR
+const { data } = await useAsyncData('ssr-search-results', () => search({ query: 'Samsung' }))
 </script>
 ```
 
