@@ -38,7 +38,7 @@
     "@algolia/recommend": "^4.12.2",
     "@nuxt/kit": "^3.0.0",
     "algoliasearch": "^4.11.0",
-    "instantsearch.css": "^7.4.5",
+    "instantsearch.css": "^8.0.0",
     "metadata-scraper": "^0.2.49",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "storyblok-algolia-indexer": "^1.0.3",
