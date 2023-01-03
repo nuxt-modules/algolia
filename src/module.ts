@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2 } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2, extendViteConfig } from '@nuxt/kit'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
@@ -161,6 +161,22 @@ export default defineNuxtModule<ModuleOptions>({
       }
     }
 
+    // Polyfilling server packages for SSR support
+  extendViteConfig((config) => {
+    config.resolve = config.resolve || {}
+    config.resolve.alias = config.resolve.alias || {}
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'http': 'rollup-plugin-node-polyfills/polyfills/http',
+      'stream': 'rollup-plugin-node-polyfills/polyfills/stream',
+      'util': 'rollup-plugin-node-polyfills/polyfills/util',
+      'process': 'rollup-plugin-node-polyfills/polyfills/process-es6',
+      'events': 'rollup-plugin-node-polyfills/polyfills/events',
+      'url': 'rollup-plugin-node-polyfills/polyfills/url',
+      'querystring': 'rollup-plugin-node-polyfills/polyfills/qs',
+      'https': 'rollup-plugin-node-polyfills/polyfills/http',
+    }
+  })
     addPlugin(resolve(runtimeDir, 'plugin'))
     addImportsDir(resolve(runtimeDir, 'composables'))
 
