@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/algolia",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Algolia module for Nuxt",
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "algoliasearch": "^4.11.0",
     "instantsearch.css": "^7.4.5",
     "metadata-scraper": "^0.2.49",
+    "rollup-plugin-node-polyfills": "^0.2.1",
     "storyblok-algolia-indexer": "^1.0.3",
     "vue-instantsearch": "^4.3.2"
   },
@@ -50,7 +51,6 @@
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
     "nuxt": "^3.0.0",
-    "rollup-plugin-node-polyfills": "^0.2.1",
     "standard-version": "^9.3.2"
   },
   "publishConfig": {
