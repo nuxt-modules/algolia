@@ -58,8 +58,8 @@ export default defineNuxtModule<ModuleOptions>({
     }
   },
   defaults: {
-    applicationId: '',
-    apiKey: '',
+    applicationId: process.env.ALGOLIA_APPLICATION_ID || '',
+    apiKey: process.env.ALGOLIA_API_KEY || '',
     globalIndex: '',
     lite: true,
     cache: false,
