@@ -162,21 +162,13 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     // Polyfilling server packages for SSR support
-  extendViteConfig((config) => {
-    config.resolve = config.resolve || {}
-    config.resolve.alias = config.resolve.alias || {}
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      'http': 'rollup-plugin-node-polyfills/polyfills/http',
-      'stream': 'rollup-plugin-node-polyfills/polyfills/stream',
-      'util': 'rollup-plugin-node-polyfills/polyfills/util',
-      'process': 'rollup-plugin-node-polyfills/polyfills/process-es6',
-      'events': 'rollup-plugin-node-polyfills/polyfills/events',
-      'url': 'rollup-plugin-node-polyfills/polyfills/url',
-      'querystring': 'rollup-plugin-node-polyfills/polyfills/qs',
-      'https': 'rollup-plugin-node-polyfills/polyfills/http',
-    }
-  })
+    nuxt.hook('vite:extendConfig', (config, { isClient }) => {
+      if (isClient) {
+        (config as any).resolve.alias['@algolia/requester-node-http'] =
+          'unenv/runtime/mock/empty';
+      }
+    })
+
     addPlugin(resolve(runtimeDir, 'plugin'))
     addImportsDir(resolve(runtimeDir, 'composables'))
 
