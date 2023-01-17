@@ -28,7 +28,7 @@
 
 ## Preview
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/baroshem/nuxt3-algolia-stackblitz)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/github-epeint?file=app.vue)
 
 ## Setup
 
