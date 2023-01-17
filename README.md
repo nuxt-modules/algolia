@@ -15,16 +15,14 @@
 
 ## Features
 
-- Nuxt 3 ready
 - Easy integration with Algolia
-- Handy composables like useAlgolia, useSearch, etc
+- Handy composables like useAlgoliaSearch, useAsyncAlgoliaSearch
 - Support for Vue Instantsearch components
 - Support for Algolia Recommend
 - Support for Docsearch
 - Support for Automatic Indexing
 - Support for caching the requests and responses
 - Support for SSR requests
-- TypeScript support
 
 [📖 &nbsp;Read the documentation](https://algolia.nuxtjs.org)
 
@@ -43,38 +41,29 @@ npm i @nuxtjs/algolia # npm
 
 Firstly, you need to add `@nuxtjs/algolia` to your Nuxt config.
 
-```javascript
-// nuxt.config.js
-
-{
-    modules: [
-        "@nuxtjs/algolia",
-    ],
-    algolia: {
-        apiKey: "<YOUR_SEARCH_API_KEY>",
-        applicationId: "<YOUR_APPLICATION_ID>",
-    }
-}
+```js
+export default defineNuxtConfig({
+  modules: ['@nuxtjs/algolia']
+})
 ```
 
-Then you can start using `@nuxtjs/algolia` in your setup function!
+Furthermore, add `ALGOLIA_API_KEY` and `ALGOLIA_APPLICATION_ID` environment variables to .env file.
+
+```env
+ALGOLIA_API_KEY="0fd1c4eba2d831788333e77c9d855f1d"
+ALGOLIA_APPLICATION_ID="AGN9HEEKF3"
+```
+
+Now you can start using `@nuxtjs/algolia` in your app!
 
 ```vue
-<script setup>
-const { result, search } = useAlgoliaSearch("test_index"); // pass your index as param
-
-onMounted(async () => {
-  await search({ query: "Samsung" });
-});
-
-// Or SSR
-onServerPrefetch(async () => {
-  await search({ query: 'Samsung' })
-})
-
-// Or by using useAsyncData
-const { data } = await useAsyncData('ssr-search-results', () => search({ query: 'Samsung' }))
+<script setup lang="ts">
+const { data, error } = await useAsyncAlgoliaSearch({ indexName: 'test_index', query: 'Samsung' })
 </script>
+
+<template>
+  <div>{{ data.value.hits }}</div>
+</template>
 ```
 
 ## Development
