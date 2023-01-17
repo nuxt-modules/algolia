@@ -27,6 +27,9 @@ const { algolia: { docSearch } } = useRuntimeConfig()
 // Used to try the refresh of the component on options changes
 const indexName = ref('test_index')
 
+// AlgoliaSearch wrapped in useAsyncData
+const asyncResult = await useAsyncAlgoliaSearch({ query: 'Samsung', indexName: indexName.value })
+
 const { result, search } = useAlgoliaSearch(indexName.value)
 const { result: searchForFacetValuesResult, search: searchForFacetValues } = useAlgoliaFacetedSearch(indexName.value)
 const algolia = useAlgoliaRef()
