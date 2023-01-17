@@ -6,10 +6,10 @@ import { useNuxtApp, useAsyncData, useRuntimeConfig } from '#imports'
 export type SearchParams = { query: string, indexName?: string } & RequestOptionsObject;
 
 export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName }: SearchParams) {
-  if (!indexName) throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `indexName` passed as a parameter')
-
   const config = useRuntimeConfig();
   const index = indexName || config.algolia.globalIndex
+
+  if (!index) throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `indexName`')
 
   const algoliaIndex = useAlgoliaInitIndex(index)
 

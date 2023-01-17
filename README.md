@@ -58,7 +58,15 @@ Now you can start using `@nuxtjs/algolia` in your app!
 
 ```vue
 <script setup lang="ts">
-const { data, error } = await useAsyncAlgoliaSearch({ indexName: 'test_index', query: 'Samsung' })
+// Client side
+const { result: data, search } = useAlgoliaSearch('test_index')
+
+onMounted(async () => {
+  await search({ query: 'Samsung' })
+})
+
+// Or SSR
+const { data } = await useAsyncAlgoliaSearch({ indexName: 'test_index', query: 'Samsung' })
 </script>
 
 <template>
