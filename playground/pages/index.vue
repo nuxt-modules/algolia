@@ -45,22 +45,22 @@ onMounted(async () => {
   // useSearch
   await search({ query: 'Samsung', requestOptions: { filters: 'objectID:ecommerce-sample-data-99' } })
 
-  // // useSearchForFacetValues
+  // useSearchForFacetValues
   const facet = {
     name: 'categories',
     query: 'Cell Phones'
   }
   await searchForFacetValues({ facet })
 
-  // // useAlgoliaRecommend
+  // useAlgoliaRecommend
   await get({ queries: [{ indexName: indexName.value, model: 'related-products', objectID: 'ecommerce-sample-data-99' }] })
 
-  // // Notice the type of typedFoo is inferred from the type of the result of the call to useInitIndex
+  // Notice the type of typedFoo is inferred from the type of the result of the call to useInitIndex
   const typedFoo = await typedSearch('foo')
 
-  // // @ts-expect-error bar should be a number
+  // @ts-expect-error bar should be a number
   typedFoo.hits[0].bar = '1'
-  // // There should be no error
+  // There should be no error
   typedFoo.hits[0].foo = '1'
 })
 </script>
