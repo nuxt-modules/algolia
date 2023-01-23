@@ -68,7 +68,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>{{ result?.hits }}</div>
+  <div>{{ result }}</div>
 </template>
 ```
 
@@ -80,7 +80,7 @@ const { data } = await useAsyncAlgoliaSearch({ indexName: 'test_index', query: '
 </script>
 
 <template>
-  <div>{{ data?.value.hits }}</div>
+  <div>{{ data }}</div>
 </template>
 ```
 
