@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useSeoMeta } from '@unhead/vue'
 import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
 // Grab DocSearch config from nuxt.config
 // (the component does that by itself as well)
@@ -62,5 +63,13 @@ onMounted(async () => {
   typedFoo.hits[0].bar = '1'
   // There should be no error
   typedFoo.hits[0].foo = '1'
+})
+
+useHead({
+  title: 'Nuxt Algolia'
+})
+
+useSeoMeta({
+  description: 'Playground for @nuxtjs/algolia'
 })
 </script>

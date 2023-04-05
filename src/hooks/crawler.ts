@@ -65,7 +65,7 @@ export function createPageGenerateHook (nuxt, options: ModuleOptions, pages: Cra
   const shouldInclude = createShouldInclude(options)
   const getMeta = createMetaGetter(options)
 
-  return async ({ html, route }: GeneratePageArg) => {
+  return async (html: string, route: string) => {
     if (shouldInclude(route)) {
       const meta = await getMeta(html, route)
       const page = { href: route, ...meta }
