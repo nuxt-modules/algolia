@@ -1,21 +1,32 @@
 
-import type { Nuxt, NuxtHooks } from '@nuxt/schema'
 import algoliasearch from 'algoliasearch'
 import scraper from 'metadata-scraper'
 import type { SearchClient, SearchIndex } from 'algoliasearch'
 import type { MetaData } from 'metadata-scraper/lib/types'
+import { Nuxt } from '@nuxt/schema'
 import type { ModuleOptions } from './../module'
 
-// TODO: Nuxt 2 only
-// export type GeneratePageArg = Parameters<NuxtHooks['generate:page']>[0]
-export type GeneratePageArg = any
-
 export type CrawlerPage = { href: string } & MetaData
+
+type CrawlerMetaGetter = ((html: string, route: string) => MetaData | Promise<MetaData>)
+type CrawlerIncludeFilter = ((route: string) => boolean)
+
+export interface CrawlerOptions {
+  apiKey: string;
+  indexName: string;
+  meta?: CrawlerMetaGetter | (keyof MetaData)[]
+  include?: CrawlerIncludeFilter | (string | RegExp)[]
+}
+
+export interface CrawlerConfig extends CrawlerOptions {
+  meta: CrawlerMetaGetter
+  include: CrawlerIncludeFilter
+}
 
 /**
  * Create a function to specify which routes should be indexed.
  */
-function createShouldInclude (options: ModuleOptions) {
+function createShouldInclude (options: ModuleOptions): CrawlerIncludeFilter {
   const { include } = options.crawler
 
   return typeof include === 'function'
@@ -26,7 +37,7 @@ function createShouldInclude (options: ModuleOptions) {
 /**
  * Create a function to collect the routes' metadata.
  */
-function createMetaGetter (options: ModuleOptions) {
+function createMetaGetter (options: ModuleOptions): CrawlerMetaGetter {
   const { meta } = options.crawler
 
   if (typeof meta === 'function') {
@@ -61,7 +72,7 @@ function createDefaultMetaGetter () {
 /**
  * Create the "page:generate" hook callback to collect all the included routes' metadata.
  */
-export function createPageGenerateHook (nuxt, options: ModuleOptions, pages: CrawlerPage[]) {
+export function createPageGenerateHook (nuxt: Nuxt, options: ModuleOptions, pages: CrawlerPage[]) {
   const shouldInclude = createShouldInclude(options)
   const getMeta = createMetaGetter(options)
 
@@ -92,7 +103,7 @@ export function createPageGenerateHook (nuxt, options: ModuleOptions, pages: Cra
 /**
    * Create the "generate:done" hook callback to index the collected routes' metadata.
    */
-export function createGenerateDoneHook (nuxt, options: ModuleOptions, pages: CrawlerPage[]) {
+export function createGenerateDoneHook (nuxt: Nuxt, options: ModuleOptions, pages: CrawlerPage[]) {
   return async () => {
     if (pages.length > 0 && options.crawler) {
       const { crawler: { apiKey, indexName }, applicationId } = options
@@ -128,5 +139,5 @@ export interface CrawlerHooks {
 }
 
 declare module '@nuxt/schema' {
-  interface NuxtHooks extends CrawlerHooks {}
+  interface NuxtHooks extends CrawlerHooks { }
 }

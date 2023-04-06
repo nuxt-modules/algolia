@@ -15,6 +15,9 @@
       <h3>DocSearch plugin</h3>
       <AlgoliaDocSearch :options="docSearch" />
     </div>
+    <NuxtLink to="/other-page">
+      Other page
+    </NuxtLink>
   </div>
 </template>
 

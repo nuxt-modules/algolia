@@ -5,6 +5,9 @@ export default defineNuxtConfig({
     AlgoliaModule
   ],
   nitro: {
+    prerender: {
+      crawlLinks: true
+    },
     routeRules: {
       '/': {
         prerender: true

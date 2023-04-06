@@ -1,9 +1,8 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2, extendViteConfig } from '@nuxt/kit'
-import type { MetaData } from 'metadata-scraper/lib/types'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2 } from '@nuxt/kit'
 import { defu } from 'defu'
-import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks } from './hooks'
+import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
 import type { DocSearchOptions } from './types'
 
 enum InstantSearchThemes {
@@ -34,14 +33,7 @@ interface ModuleBaseOptions {
 }
 
 export interface ModuleOptions extends ModuleBaseOptions {
-  crawler?: {
-    apiKey: string;
-    indexName: string;
-    meta:
-            | ((html: string, route: string) => MetaData|Promise<MetaData>)
-            | (keyof MetaData)[]
-    include: ((route: string) => boolean) | (string | RegExp)[]
-  }
+  crawler?: CrawlerOptions
 };
 
 export interface ModuleHooks extends CrawlerHooks {}
