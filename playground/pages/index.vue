@@ -26,7 +26,7 @@ import { useSeoMeta } from '@unhead/vue'
 import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
 // Grab DocSearch config from nuxt.config
 // (the component does that by itself as well)
-const { algolia: { docSearch } } = useRuntimeConfig()
+const { algolia: { docSearch } } = useRuntimeConfig().public
 
 // Used to try the refresh of the component on options changes
 const indexName = ref('test_index')
