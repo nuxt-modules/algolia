@@ -7,7 +7,7 @@ export type SearchParams = { query: string, indexName?: string } & RequestOption
 
 export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName }: SearchParams) {
   const config = useRuntimeConfig();
-  const index = indexName || config.algolia.globalIndex
+  const index = indexName || config.public.algolia.globalIndex
 
   if (!index) throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `indexName`')
 

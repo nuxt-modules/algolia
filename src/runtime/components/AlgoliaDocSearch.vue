@@ -32,7 +32,7 @@ const options = computed<DocSearchOptions>(
   () => {
     if (props.options) { return props.options }
 
-    const { algolia } = useRuntimeConfig()
+    const { algolia } = useRuntimeConfig().public
 
     if (algolia && algolia.docSearch) { return algolia.docSearch }
 

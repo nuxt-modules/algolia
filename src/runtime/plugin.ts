@@ -3,7 +3,7 @@ import { defineNuxtPlugin, useRuntimeConfig } from '#imports'
 import { createInMemoryCache } from '@algolia/cache-in-memory';
 
 export default defineNuxtPlugin(async (nuxtApp) => {
-  const { applicationId, apiKey, lite, recommend, cache } = useRuntimeConfig().algolia
+  const { applicationId, apiKey, lite, recommend, cache } = useRuntimeConfig().public.algolia
 
   // Have to import algoliasearch directly from esm.browser because algoliasearch by default provides umd.js file which causes Nuxt to throw error
   // Also, cannot use simple string interpolation due to error 'Cannot read property 'stubModule' of undefined'

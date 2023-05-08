@@ -17,7 +17,7 @@ export function useAlgoliaSearch<K extends keyof AlgoliaIndices>(indexName?: K):
 export function useAlgoliaSearch<T>(indexName?: string): UseSearchReturnType<T>
 export function useAlgoliaSearch (indexName?: string) {
   const config = useRuntimeConfig();
-  const index = indexName || config.algolia.globalIndex
+  const index = indexName || config.public.algolia.globalIndex
 
   if (!index) throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `globalIndex` or `indexName` passed as a parameter')
 
