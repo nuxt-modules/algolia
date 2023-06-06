@@ -5,7 +5,7 @@ import { useNuxtApp, useAsyncData, useRuntimeConfig } from '#imports'
 
 export type SearchParams = { query: string, indexName?: string, key?: string } & RequestOptionsObject;
 
-export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName }: SearchParams) {
+export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName, key }: SearchParams) {
   const config = useRuntimeConfig();
   const index = indexName || config.public.algolia.globalIndex
 
