@@ -35,23 +35,23 @@
     "lint": "eslint --ext .js,.ts,.vue"
   },
   "dependencies": {
-    "@algolia/cache-in-memory": "^4.14.2",
-    "@algolia/recommend": "^4.12.2",
-    "@nuxt/kit": "^3.4.0",
-    "algoliasearch": "^4.11.0",
+    "@algolia/cache-in-memory": "^4.19.1",
+    "@algolia/recommend": "^4.19.1",
+    "@nuxt/kit": "^3.6.5",
+    "algoliasearch": "^4.19.1",
     "instantsearch.css": "^7.4.5",
-    "metadata-scraper": "^0.2.49",
+    "metadata-scraper": "^0.2.61",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "storyblok-algolia-indexer": "^1.1.0",
-    "vue-instantsearch": "^4.3.2"
+    "vue-instantsearch": "^4.10.8"
   },
   "devDependencies": {
-    "@docsearch/css": "^3.0.0",
-    "@docsearch/js": "^3.0.0",
+    "@docsearch/css": "^3.5.1",
+    "@docsearch/js": "^3.5.1",
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt": "^3.4.0",
+    "nuxt": "^3.6.5",
     "standard-version": "^9.3.2"
   },
   "publishConfig": {
