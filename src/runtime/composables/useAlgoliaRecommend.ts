@@ -14,7 +14,7 @@ export type UseAlgoliaRecommend<T> = {
   get: (params: RecommendParams) => Promise<MultipleQueriesResponse<T>>
 }
 
-export function useAlgoliaRecommend<T> (): UseAlgoliaRecommend<T> {
+export function useAlgoliaRecommend<T> (key: string = ''): UseAlgoliaRecommend<T> {
   const { $algoliaRecommend } = useNuxtApp()
   const algoliaRecommend: RecommendClient = $algoliaRecommend
 
@@ -22,7 +22,7 @@ export function useAlgoliaRecommend<T> (): UseAlgoliaRecommend<T> {
     throw new Error('`[@nuxtjs/algolia]` Cannot call useAlgoliaRecommend composable due to missing `algolia.recommend` option.')
   }
 
-  const result = useState('recommend-result', () => null)
+  const result = useState('recommend-result' + key, () => null)
 
   const get = async ({ queries, requestOptions }: RecommendParams) => {
     result.value = await algoliaRecommend.getRecommendations<T>(queries, requestOptions)
