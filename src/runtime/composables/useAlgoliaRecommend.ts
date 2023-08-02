@@ -22,7 +22,7 @@ export function useAlgoliaRecommend<T> (key: string = ''): UseAlgoliaRecommend<T
     throw new Error('`[@nuxtjs/algolia]` Cannot call useAlgoliaRecommend composable due to missing `algolia.recommend` option.')
   }
 
-  const result = useState('recommend-result' + key, () => null)
+  const result = useState(`recommend-result${key ? '-' + key : ''}`, () => null)
 
   const get = async ({ queries, requestOptions }: RecommendParams) => {
     result.value = await algoliaRecommend.getRecommendations<T>(queries, requestOptions)
