@@ -1,9 +1,11 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2 } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir,  useLogger,isNuxt2 } from '@nuxt/kit'
 import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
 import type { DocSearchOptions } from './types'
+
+const logger = useLogger('@nuxtjs:algolia')
 
 enum InstantSearchThemes {
   'reset',
@@ -34,7 +36,7 @@ interface ModuleBaseOptions {
 
 export interface ModuleOptions extends ModuleBaseOptions {
   crawler?: CrawlerOptions
-};
+}
 
 export interface ModuleHooks extends CrawlerHooks {}
 
@@ -69,20 +71,20 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.build.transpile.push(runtimeDir)
 
     if (!options.apiKey) {
-      throw new Error('`[@nuxtjs/algolia]` Missing `apiKey`')
+      logger.warn('Missing `apiKey`')
     }
 
     if (!options.applicationId) {
-      throw new Error('`[@nuxtjs/algolia]` Missing `applicationId`')
+      logger.warn('Missing `applicationId`')
     }
 
     if (options.crawler!.apiKey || options.crawler!.indexName) {
       if (!options.crawler!.apiKey) {
-        throw new Error('`[@nuxtjs/algolia]` Missing `crawler.apiKey`')
+        logger.warn('Missing `crawler.apiKey`')
       }
 
       if (!options.crawler!.indexName) {
-        throw new Error('`[@nuxtjs/algolia]` Missing `crawler.indexName`')
+        logger.warn('Missing `crawler.indexName`')
       }
 
       const pages: CrawlerPage[] = []
@@ -163,7 +165,7 @@ export default defineNuxtModule<ModuleOptions>({
           if (theme in InstantSearchThemes) {
             nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
           } else {
-            console.error('`[@nuxtjs/algolia]` Invalid theme:', theme)
+            logger.warn(`Invalid theme: \`${theme}\``)
           }
         }
       }

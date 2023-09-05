@@ -37,7 +37,7 @@
   "dependencies": {
     "@algolia/cache-in-memory": "^4.14.2",
     "@algolia/recommend": "^4.12.2",
-    "@nuxt/kit": "^3.4.0",
+    "@nuxt/kit": "^3.7.0",
     "algoliasearch": "^4.11.0",
     "instantsearch.css": "^7.4.5",
     "metadata-scraper": "^0.2.49",
