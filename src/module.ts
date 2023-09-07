@@ -1,11 +1,16 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir,  useLogger,isNuxt2 } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, useLogger, isNuxt2 } from '@nuxt/kit'
 import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
 import type { DocSearchOptions } from './types'
 
-const logger = useLogger('@nuxtjs:algolia')
+const MODULE_NAME = '@nuxtjs/algolia'
+const logger = useLogger(MODULE_NAME)
+
+function throwError (message: string) {
+  throw new Error(`\`[${MODULE_NAME}]\` ${message}`)
+}
 
 enum InstantSearchThemes {
   'reset',
@@ -36,7 +41,7 @@ interface ModuleBaseOptions {
 
 export interface ModuleOptions extends ModuleBaseOptions {
   crawler?: CrawlerOptions
-}
+};
 
 export interface ModuleHooks extends CrawlerHooks {}
 
@@ -70,21 +75,23 @@ export default defineNuxtModule<ModuleOptions>({
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir)
 
-    if (!options.apiKey) {
-      logger.warn('Missing `apiKey`')
+    const notRunningInPrepareScript = !nuxt.options._prepare
+
+    if (!options.apiKey && notRunningInPrepareScript) {
+      throwError('Missing `apiKey`')
     }
 
-    if (!options.applicationId) {
-      logger.warn('Missing `applicationId`')
+    if (!options.applicationId && notRunningInPrepareScript) {
+      throwError('Missing `applicationId`')
     }
 
     if (options.crawler!.apiKey || options.crawler!.indexName) {
-      if (!options.crawler!.apiKey) {
-        logger.warn('Missing `crawler.apiKey`')
+      if (!options.crawler!.apiKey && notRunningInPrepareScript) {
+        throwError('Missing `crawler.apiKey`')
       }
 
-      if (!options.crawler!.indexName) {
-        logger.warn('Missing `crawler.indexName`')
+      if (!options.crawler!.indexName && notRunningInPrepareScript) {
+        throwError('Missing `crawler.indexName`')
       }
 
       const pages: CrawlerPage[] = []
@@ -165,7 +172,7 @@ export default defineNuxtModule<ModuleOptions>({
           if (theme in InstantSearchThemes) {
             nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
           } else {
-            logger.warn(`Invalid theme: \`${theme}\``)
+            logger.error('Invalid theme:', theme)
           }
         }
       }
