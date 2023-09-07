@@ -51,7 +51,7 @@
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt": "^3.4.0",
+    "nuxt": "^3.7.0",
     "standard-version": "^9.3.2"
   },
   "publishConfig": {
