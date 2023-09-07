@@ -56,6 +56,21 @@ const getRelativePath = (absoluteUrl: string) => {
 }
 
 /**
+ * Removes [app.baseURL](https://nuxt.com/docs/api/composables/use-runtime-config#appbaseurl)
+ * from the start of the given URL.
+ */
+const withoutBaseUrl = (url: string) => {
+  const { app } = useRuntimeConfig()
+  const routerBase = withoutTrailingSlash(app.baseURL)
+  const hasBaseURL = routerBase !== '/'
+
+  if (hasBaseURL && url.startsWith(routerBase)) {
+    return url.substring(routerBase.length) || '/'
+  }
+  return url
+}
+
+/**
  * Initialize the DocSearch instance.
  * @param userOptions
  */
@@ -121,7 +136,7 @@ const initialize = async (userOptions: DocSearchOptions) => {
             if (route.path === hitPathname) {
               window.location.assign(window.location.origin + itemUrl)
             } else {
-              router.push(itemUrl)
+              router.push(withoutBaseUrl(itemUrl))
             }
           }
         },
@@ -149,7 +164,7 @@ const initialize = async (userOptions: DocSearchOptions) => {
                 // to leverage the Vue Router loading feature.
                 if (route.path !== hitPathname) { event.preventDefault() }
 
-                router.push(hit.url)
+                router.push(withoutBaseUrl(hit.url))
               }
             }
           }
