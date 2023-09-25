@@ -1,9 +1,16 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2 } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, useLogger, isNuxt2 } from '@nuxt/kit'
 import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
 import type { DocSearchOptions } from './types'
+
+const MODULE_NAME = '@nuxtjs/algolia'
+const logger = useLogger(MODULE_NAME)
+
+function throwError (message: string) {
+  throw new Error(`\`[${MODULE_NAME}]\` ${message}`)
+}
 
 enum InstantSearchThemes {
   'reset',
@@ -68,21 +75,23 @@ export default defineNuxtModule<ModuleOptions>({
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir)
 
-    if (!options.apiKey) {
-      throw new Error('`[@nuxtjs/algolia]` Missing `apiKey`')
+    const notRunningInPrepareScript = !nuxt.options._prepare
+
+    if (!options.apiKey && notRunningInPrepareScript) {
+      throwError('Missing `apiKey`')
     }
 
-    if (!options.applicationId) {
-      throw new Error('`[@nuxtjs/algolia]` Missing `applicationId`')
+    if (!options.applicationId && notRunningInPrepareScript) {
+      throwError('Missing `applicationId`')
     }
 
     if (options.crawler!.apiKey || options.crawler!.indexName) {
-      if (!options.crawler!.apiKey) {
-        throw new Error('`[@nuxtjs/algolia]` Missing `crawler.apiKey`')
+      if (!options.crawler!.apiKey && notRunningInPrepareScript) {
+        throwError('Missing `crawler.apiKey`')
       }
 
-      if (!options.crawler!.indexName) {
-        throw new Error('`[@nuxtjs/algolia]` Missing `crawler.indexName`')
+      if (!options.crawler!.indexName && notRunningInPrepareScript) {
+        throwError('Missing `crawler.indexName`')
       }
 
       const pages: CrawlerPage[] = []
@@ -163,7 +172,7 @@ export default defineNuxtModule<ModuleOptions>({
           if (theme in InstantSearchThemes) {
             nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
           } else {
-            console.error('`[@nuxtjs/algolia]` Invalid theme:', theme)
+            logger.error('Invalid theme:', theme)
           }
         }
       }
