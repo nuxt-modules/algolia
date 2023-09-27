@@ -30,6 +30,7 @@ interface ModuleBaseOptions {
   recommend?: boolean;
   docSearch?: Partial<DocSearchOptions>;
   indexer?: Indexer;
+  useFetch?: boolean;
 }
 
 export interface ModuleOptions extends ModuleBaseOptions {
@@ -57,6 +58,7 @@ export default defineNuxtModule<ModuleOptions>({
     cache: false,
     instantSearch: false,
     docSearch: {},
+    useFetch: false,
     crawler: {
       apiKey: '',
       indexName: '',
@@ -137,7 +139,8 @@ export default defineNuxtModule<ModuleOptions>({
         instantSearch: options.instantSearch,
         docSearch: options.docSearch,
         recommend: options.recommend,
-        globalIndex: options.globalIndex
+        globalIndex: options.globalIndex,
+        useFetch: options.useFetch
       })
     }
     // Nuxt 3
@@ -151,7 +154,8 @@ export default defineNuxtModule<ModuleOptions>({
       instantSearch: options.instantSearch,
       docSearch: options.docSearch,
       recommend: options.recommend,
-      globalIndex: options.globalIndex
+      globalIndex: options.globalIndex,
+      useFetch: options.useFetch
     })
 
     if (options.instantSearch) {
