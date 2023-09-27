@@ -20,7 +20,6 @@ export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName,
         nuxtApp.$algolia.transporter.requester = (await import("@algolia/requester-fetch").then((lib) => lib.default || lib)).createFetchRequester();
       } else {
         nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-node-http').then(lib => lib.default || lib)).createNodeHttpRequester()
-
       }
     }
     return await algoliaIndex.search(query, requestOptions)

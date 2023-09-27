@@ -27,7 +27,11 @@ export function useAlgoliaSearch (indexName?: string) {
   const search = async ({ query, requestOptions }: SearchParams) => {
     if (process.server) {
       const nuxtApp = useNuxtApp()
-      nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-node-http').then(lib => lib.default || lib)).createNodeHttpRequester()
+      if(config.public.algolia.useFetch) {
+        nuxtApp.$algolia.transporter.requester = (await import("@algolia/requester-fetch").then((lib) => lib.default || lib)).createFetchRequester();
+      } else {
+        nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-node-http').then(lib => lib.default || lib)).createNodeHttpRequester()
+      }
     }
 
     const searchResult = await algoliaIndex.search(query, requestOptions)
