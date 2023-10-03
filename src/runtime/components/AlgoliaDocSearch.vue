@@ -11,7 +11,7 @@ import { DocSearchProps, type docsearch as docsearchFunc } from 'docsearch'
 import type { DocSearchTranslations } from '@docsearch/react'
 import type { HitComponentFunc, ModuleBaseOptions, SearchOptions } from '../../types'
 // @ts-ignore - These are Nuxt3 aliases
-import { useRuntimeConfig, useRoute, useRouter, watch, onMounted, reactive } from '#imports'
+import { useRuntimeConfig, useRoute, useRouter, onMounted, watch } from '#imports'
 
 const route = useRoute()
 const router = useRouter()
