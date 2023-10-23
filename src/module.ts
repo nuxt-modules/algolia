@@ -3,40 +3,13 @@ import { fileURLToPath } from 'url'
 import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, useLogger, isNuxt2 } from '@nuxt/kit'
 import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
-import type { DocSearchOptions } from './types'
+import { InstantSearchThemes, type ModuleBaseOptions } from './types'
 
 const MODULE_NAME = '@nuxtjs/algolia'
 const logger = useLogger(MODULE_NAME)
 
 function throwError (message: string) {
   throw new Error(`\`[${MODULE_NAME}]\` ${message}`)
-}
-
-enum InstantSearchThemes {
-  'reset',
-  'algolia',
-  'satellite',
-}
-
-interface Indexer {
-  storyblok: {
-    accessToken: string,
-    algoliaAdminApiKey: string,
-    indexName: string,
-    secret: string;
-  }
-}
-
-interface ModuleBaseOptions {
-  applicationId: string;
-  apiKey: string;
-  globalIndex: string;
-  lite?: boolean;
-  cache?: boolean;
-  instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
-  recommend?: boolean;
-  docSearch?: Partial<DocSearchOptions>;
-  indexer?: Indexer;
 }
 
 export interface ModuleOptions extends ModuleBaseOptions {
@@ -120,12 +93,6 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     if (Object.keys(options.docSearch!).length) {
-      const docSearchConfig = options.docSearch
-
-      // Defaults apiKey and applicationId to global Algolia keys if not specified by the user
-      if (!docSearchConfig!.apiKey && options.apiKey) { docSearchConfig!.apiKey = options.apiKey }
-      if (!docSearchConfig!.applicationId && options.applicationId) { docSearchConfig!.applicationId = options.applicationId }
-
       addComponentsDir({
         path: resolve(runtimeDir, 'components'),
         pathPrefix: false,
@@ -152,6 +119,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Nuxt 3
     // @ts-expect-error TODO: Workaround for rc.14 only
     nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
+    // @ts-ignore
     nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
