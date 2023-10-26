@@ -965,8 +965,6 @@ export interface DocSearchOptions {
   langAttribute?: string;
   /**
    * Default language to be used on the Algolia DocSearch client.
-   *
-   * @default 'en'
    */
   lang?: string
 }
