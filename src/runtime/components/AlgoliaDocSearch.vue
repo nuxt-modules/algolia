@@ -7,38 +7,112 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { withoutTrailingSlash } from 'ufo'
-import type { DocSearchOptions } from '../../types'
+import { DocSearchProps, type docsearch as docsearchFunc } from 'docsearch'
+import type { DocSearchTranslations } from '@docsearch/react'
+import type { HitComponentFunc, ModuleBaseOptions, SearchOptions } from '../../types'
 // @ts-ignore - These are Nuxt3 aliases
-import { useRuntimeConfig, useRoute, useRouter, onMounted, watch, computed } from '#imports'
+import { useRuntimeConfig, useRoute, useRouter, onMounted, watch } from '#imports'
 
 const route = useRoute()
-
 const router = useRouter()
 
 const props = defineProps({
-  options: {
-    type: [Object, undefined] as PropType<DocSearchOptions | undefined>,
-    required: false,
+  applicationId: {
+    type: String,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.applicationId
+  },
+  apiKey: {
+    type: String,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.apiKey
+  },
+  indexName: {
+    type: String,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.indexName
+  },
+  placeholder: {
+    type: String,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.placeholder
+  },
+  searchParameters: {
+    type: Object as PropType<SearchOptions>,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.searchParameters
+  },
+  disableUserPersonalization: {
+    type: Boolean,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.disableUserPersonalization
+  },
+  initialQuery: {
+    type: String,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.initialQuery
+  },
+  translations: {
+    type: Object as PropType<DocSearchTranslations>,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.translations
+  },
+  facetFilters: {
+    type: [String, Array] as PropType<string | string[]>,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.facetFilters ?? []
+  },
+  langAttribute: {
+    type: String,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.langAttribute ?? 'language'
+  },
+  // TODO: Maybe bind this with @nuxt/i18n ?
+  lang: {
+    type: String,
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.lang ?? 'en'
+  },
+  /**
+   * Receives the items from the search response, and is called before displaying them.
+   * Should return a new array with the same shape as the original array.
+   * Useful for mapping over the items to transform, and remove or reorder them.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#transformitems}
+   */
+  transformItems: {
+    type: Function as PropType<DocSearchProps['transformItems'] | undefined>,
+    default: undefined
+  },
+  /**
+   * The component to display each item.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#hitcomponent}
+   * {@link https://github.com/algolia/docsearch/blob/next/packages/docsearch-react/src/Hit.tsx}
+   */
+  hitComponent: {
+    type: [Function, undefined] as PropType<HitComponentFunc | undefined>,
+    default: undefined
+  },
+  /**
+   * Useful for transforming the Algolia Search Client, for example to debounce search queries.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#transformsearchclient}
+   */
+  transformSearchClient: {
+    type: [Function, undefined] as PropType<DocSearchProps['transformSearchClient'] | undefined>,
+    default: undefined
+  },
+  /**
+   * An implementation of Algolia Autocomplete’s Navigator API to redirect the user when opening a link.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#navigator}
+   */
+  navigator: {
+    type: [Object, undefined] as PropType<DocSearchProps['navigator'] | undefined>,
+    default: undefined
+  },
+  /**
+   * Function to return the URL of your documentation repository.
+   * When provided, an informative message wrapped with your link will be displayed on no results searches.
+   * The default text can be changed using the translations property.
+   *
+   * {@link https://docsearch.algolia.com/docs/api#getmissingresultsurl}
+   */
+  getMissingResultsUrl: {
+    type: [Function, undefined] as PropType<DocSearchProps['getMissingResultsUrl'] | undefined>,
     default: undefined
   }
 })
-
-/**
- * Try to grab options from runtimeConfig.
- *
- * If not found, fallback on props.
- */
-const options = computed<DocSearchOptions>(
-  () => {
-    if (props.options) { return props.options }
-
-    const { algolia } = useRuntimeConfig().public
-
-    if (algolia && algolia.docSearch) { return algolia.docSearch }
-
-    return {}
-  }
-)
 
 /**
  * Check if event is special click to avoid closing the DocSearch too soon.
@@ -56,25 +130,37 @@ const getRelativePath = (absoluteUrl: string) => {
 }
 
 /**
- * Initialize the DocSearch instance.
- * @param userOptions
+ * Removes [app.baseURL](https://nuxt.com/docs/api/composables/use-runtime-config#appbaseurl)
+ * from the start of the given URL.
  */
-const initialize = async (userOptions: DocSearchOptions) => {
-  // Import @docsearch at runtime
-  const docsearch = await Promise.all([
+const withoutBaseUrl = (url: string) => {
+  const { app } = useRuntimeConfig()
+  const routerBase = withoutTrailingSlash(app.baseURL)
+  const hasBaseURL = routerBase !== '/'
+
+  if (hasBaseURL && url.startsWith(routerBase)) {
+    return url.substring(routerBase.length) || '/'
+  }
+  return url
+}
+
+const importDocSearchAtRuntime = async (): Promise<typeof docsearchFunc> => {
+  const [docsearch] = await Promise.all([
     // @ts-ignore
     import(/* webpackChunkName: "docsearch" */ '@docsearch/js'),
     // @ts-ignore
     process.client && import(/* webpackChunkName: "docsearch" */ '@docsearch/css')
-  ]).then(([docsearch]) => docsearch.default)
+  ])
 
-  // TODO: Maybe bind this with @nuxt/i18n ?
-  // Resolve lang
-  const lang = userOptions?.lang || 'en'
-  // Generate lang prefix
-  const langPrefix = `${userOptions.langAttribute || 'language'}:${lang}`
-  // Get facet filters
-  const userFacetFilters = userOptions.facetFilters || []
+  return docsearch.default
+}
+
+/**
+ * Initialize the DocSearch instance.
+ */
+const initialize = async () => {
+  const docsearch = await importDocSearchAtRuntime()
+  const langPrefix = `${props.langAttribute}:${props.lang}`
 
   // Create DocSearch instance
   docsearch({
@@ -82,27 +168,18 @@ const initialize = async (userOptions: DocSearchOptions) => {
      * Local implementation of this DocSearch box uses a local element with an `docsearch` id.
      */
     container: '#docsearch',
-    appId: userOptions.applicationId,
-    apiKey: userOptions.apiKey,
-    indexName: userOptions.indexName,
+    appId: props.applicationId,
+    apiKey: props.apiKey,
+    indexName: props.indexName,
     searchParameters: {
-      ...(
-        // Prefix facetFilters with langAttribute, otherwise use raw facetFilters
-        (!lang)
-          ? {
-              facetFilters: userFacetFilters
-            }
-          : {
-              facetFilters: [langPrefix].concat(userFacetFilters)
-            }
-      ),
-      ...userOptions.searchParameters
+      facetFilters: [langPrefix].concat(props.facetFilters),
+      ...props.searchParameters
     },
     /**
-     * Transform items into relative URL format (compatibiltiy with Vue Router).
+     * Transform items into relative URL format (compatibility with Vue Router).
      */
-    transformItems: userOptions.transformItems
-      ? userOptions.transformItems
+    transformItems: props.transformItems
+      ? props.transformItems
       : (items) => {
           return items.map((item) => {
             return {
@@ -111,8 +188,8 @@ const initialize = async (userOptions: DocSearchOptions) => {
             }
           })
         },
-    navigator: userOptions.navigator
-      ? userOptions.navigator
+    navigator: props.navigator
+      ? props.navigator
       : {
           navigate: ({ itemUrl }) => {
             const { pathname: hitPathname } = new URL(window.location.origin + itemUrl)
@@ -121,12 +198,12 @@ const initialize = async (userOptions: DocSearchOptions) => {
             if (route.path === hitPathname) {
               window.location.assign(window.location.origin + itemUrl)
             } else {
-              router.push(itemUrl)
+              router.push(withoutBaseUrl(itemUrl))
             }
           }
         },
-    hitComponent: userOptions.hitComponent
-      ? userOptions.hitComponent
+    hitComponent: props.hitComponent
+      ? props.hitComponent
       : ({ hit, children }) => {
           return {
             type: 'a',
@@ -149,31 +226,27 @@ const initialize = async (userOptions: DocSearchOptions) => {
                 // to leverage the Vue Router loading feature.
                 if (route.path !== hitPathname) { event.preventDefault() }
 
-                router.push(hit.url)
+                router.push(withoutBaseUrl(hit.url))
               }
             }
-          }
+          } as any
         },
-    // Spread user options, except the ones that are already used in the instance.
-    ...Object.entries(userOptions)
-      // Skip already used keys
-      .filter(
-        ([key]) => !['applicationId', 'apiKey', 'indexName', 'transformItems', 'navigator', 'hitComponent', 'facetFilters', 'langAttribute', 'lang'].includes(key)
-      )
-      // Recompose options
-      .reduce(
-        (acc, [key, value]) => {
-          acc[key] = value
-          return acc
-        },
-        {}
-      )
+    disableUserPersonalization: props.disableUserPersonalization,
+    getMissingResultsUrl: props.getMissingResultsUrl,
+    initialQuery: props.initialQuery,
+    placeholder: props.placeholder,
+    translations: props.translations,
+    transformSearchClient: props.transformSearchClient
   })
 }
 
-// Initialize when mounted.
-onMounted(() => initialize(options.value))
+onMounted(async () => {
+  await initialize()
+})
 
-// Watch options and restart the instance if needed.
-watch(options, (n: any) => initialize(n))
+if (process.client) {
+  watch(props, async () => {
+    await initialize()
+  })
+}
 </script>

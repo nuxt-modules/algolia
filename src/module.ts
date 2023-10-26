@@ -1,36 +1,15 @@
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, isNuxt2 } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, useLogger, isNuxt2 } from '@nuxt/kit'
 import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook, CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
-import type { DocSearchOptions } from './types'
+import { InstantSearchThemes, type ModuleBaseOptions } from './types'
 
-enum InstantSearchThemes {
-  'reset',
-  'algolia',
-  'satellite',
-}
+const MODULE_NAME = '@nuxtjs/algolia'
+const logger = useLogger(MODULE_NAME)
 
-interface Indexer {
-  storyblok: {
-    accessToken: string,
-    algoliaAdminApiKey: string,
-    indexName: string,
-    secret: string;
-  }
-}
-
-interface ModuleBaseOptions {
-  applicationId: string;
-  apiKey: string;
-  globalIndex: string;
-  lite?: boolean;
-  cache?: boolean;
-  instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
-  recommend?: boolean;
-  docSearch?: Partial<DocSearchOptions>;
-  indexer?: Indexer;
-  useFetch?: boolean;
+function throwError (message: string) {
+  throw new Error(`\`[${MODULE_NAME}]\` ${message}`)
 }
 
 export interface ModuleOptions extends ModuleBaseOptions {
@@ -70,21 +49,23 @@ export default defineNuxtModule<ModuleOptions>({
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir)
 
-    if (!options.apiKey) {
-      throw new Error('`[@nuxtjs/algolia]` Missing `apiKey`')
+    const notRunningInPrepareScript = !nuxt.options._prepare
+
+    if (!options.apiKey && notRunningInPrepareScript) {
+      throwError('Missing `apiKey`')
     }
 
-    if (!options.applicationId) {
-      throw new Error('`[@nuxtjs/algolia]` Missing `applicationId`')
+    if (!options.applicationId && notRunningInPrepareScript) {
+      throwError('Missing `applicationId`')
     }
 
     if (options.crawler!.apiKey || options.crawler!.indexName) {
-      if (!options.crawler!.apiKey) {
-        throw new Error('`[@nuxtjs/algolia]` Missing `crawler.apiKey`')
+      if (!options.crawler!.apiKey && notRunningInPrepareScript) {
+        throwError('Missing `crawler.apiKey`')
       }
 
-      if (!options.crawler!.indexName) {
-        throw new Error('`[@nuxtjs/algolia]` Missing `crawler.indexName`')
+      if (!options.crawler!.indexName && notRunningInPrepareScript) {
+        throwError('Missing `crawler.indexName`')
       }
 
       const pages: CrawlerPage[] = []
@@ -113,12 +94,6 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     if (Object.keys(options.docSearch!).length) {
-      const docSearchConfig = options.docSearch
-
-      // Defaults apiKey and applicationId to global Algolia keys if not specified by the user
-      if (!docSearchConfig!.apiKey && options.apiKey) { docSearchConfig!.apiKey = options.apiKey }
-      if (!docSearchConfig!.applicationId && options.applicationId) { docSearchConfig!.applicationId = options.applicationId }
-
       addComponentsDir({
         path: resolve(runtimeDir, 'components'),
         pathPrefix: false,
@@ -146,6 +121,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Nuxt 3
     // @ts-expect-error TODO: Workaround for rc.14 only
     nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
+    // @ts-ignore
     nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
@@ -167,7 +143,7 @@ export default defineNuxtModule<ModuleOptions>({
           if (theme in InstantSearchThemes) {
             nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
           } else {
-            console.error('`[@nuxtjs/algolia]` Invalid theme:', theme)
+            logger.error('Invalid theme:', theme)
           }
         }
       }
