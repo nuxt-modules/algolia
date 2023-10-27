@@ -7,8 +7,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { withoutTrailingSlash } from 'ufo'
-import { DocSearchProps, type docsearch as docsearchFunc } from 'docsearch'
-import type { DocSearchTranslations } from '@docsearch/react'
+import type { DocSearchTranslations, DocSearchProps } from '@docsearch/react'
 import type { HitComponentFunc, ModuleBaseOptions, SearchOptions } from '../../types'
 // @ts-ignore - These are Nuxt3 aliases
 import { useRuntimeConfig, useRoute, useRouter, onMounted, watch } from '#imports'
@@ -144,7 +143,9 @@ const withoutBaseUrl = (url: string) => {
   return url
 }
 
-const importDocSearchAtRuntime = async (): Promise<typeof docsearchFunc> => {
+type DocSearchFunc = (props: DocSearchProps & {container: HTMLElement | string}) => void
+
+const importDocSearchAtRuntime = async (): Promise<DocSearchFunc> => {
   const [docsearch] = await Promise.all([
     // @ts-ignore
     import(/* webpackChunkName: "docsearch" */ '@docsearch/js'),
