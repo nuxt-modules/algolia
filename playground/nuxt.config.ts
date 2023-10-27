@@ -15,13 +15,12 @@ export default defineNuxtConfig({
     }
   },
   algolia: {
-    // apiKey: process.env.ALGOLIA_API_KEY,
-    // applicationId: process.env.ALGOLIA_APPLICATION_ID,
+    apiKey: process.env.ALGOLIA_API_KEY ?? '599cec31baffa4868cae4e79f180729b',
+    applicationId: process.env.ALGOLIA_APPLICATION_ID ?? 'R2IYF7ETH7',
     lite: false, // by default set to 'true'
     cache: true,
     docSearch: {
-      indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'indexName',
-      facetFilters: process.env.ALGOLIA_DOCSEARCH_FACET_FILTERS ?? ''
+      indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'docsearch'
     },
     instantSearch: {
       theme: 'algolia'

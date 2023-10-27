@@ -16,7 +16,7 @@ export type UseSearchReturnType<T> = {
 export function useAlgoliaSearch<K extends keyof AlgoliaIndices>(indexName?: K): UseSearchReturnType<AlgoliaIndices[K]>
 export function useAlgoliaSearch<T>(indexName?: string): UseSearchReturnType<T>
 export function useAlgoliaSearch (indexName?: string) {
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig()
   const index = indexName || config.public.algolia.globalIndex
 
   if (!index) throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `globalIndex` or `indexName` passed as a parameter')
@@ -27,7 +27,11 @@ export function useAlgoliaSearch (indexName?: string) {
   const search = async ({ query, requestOptions }: SearchParams) => {
     if (process.server) {
       const nuxtApp = useNuxtApp()
-      nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-node-http').then(lib => lib.default || lib)).createNodeHttpRequester()
+      if (config.public.algolia.useFetch) {
+        nuxtApp.$algolia.transporter.requester = (await import("@algolia/requester-fetch").then((lib) => lib.default || lib)).createFetchRequester();
+      } else {
+        nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-node-http').then(lib => lib.default || lib)).createNodeHttpRequester()
+      }
     }
 
     const searchResult = await algoliaIndex.search(query, requestOptions)

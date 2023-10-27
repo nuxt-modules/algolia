@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <pre> {{ result?.hits }}</pre>
     <pre>{{ searchForFacetValuesResult }}</pre>
     <div>
@@ -11,23 +11,19 @@
     </div>
     <pre>{{ recommendResult?.results }}</pre>
 
-    <div v-if="docSearch">
-      <h3>DocSearch plugin</h3>
-      <AlgoliaDocSearch :options="docSearch" />
-    </div>
+    <NuxtLink to="/docsearch">
+      Docsearch
+    </NuxtLink>
+    <br>
     <NuxtLink to="/other-page">
       Other page
     </NuxtLink>
-  </div>
+  </main>
 </template>
 
 <script lang="ts" setup>
 import { useSeoMeta } from '@unhead/vue'
 import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
-// Grab DocSearch config from nuxt.config
-// (the component does that by itself as well)
-const { algolia: { docSearch } } = useRuntimeConfig().public
-
 // Used to try the refresh of the component on options changes
 const indexName = ref('test_index')
 
