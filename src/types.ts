@@ -1002,4 +1002,5 @@ export interface ModuleBaseOptions {
   recommend?: boolean;
   docSearch?: Partial<DocSearchOptions>;
   indexer?: Indexer;
+  useFetch?: boolean;
 }
