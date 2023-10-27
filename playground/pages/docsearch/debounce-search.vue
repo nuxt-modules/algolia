@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import { SearchClient } from 'algoliasearch'
-import { DocSearchProps } from 'docsearch'
+import type { SearchClient } from 'algoliasearch'
+import type { DocSearchProps } from 'docsearch'
 
 const transformSearchClient: DocSearchProps['transformSearchClient'] = (searchClient) => {
   return {

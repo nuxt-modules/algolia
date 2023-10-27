@@ -35,9 +35,9 @@
     "lint": "eslint --ext .js,.ts,.vue"
   },
   "dependencies": {
-    "@algolia/requester-fetch": "^4.20.0",
     "@algolia/cache-in-memory": "^4.14.2",
     "@algolia/recommend": "^4.12.2",
+    "@algolia/requester-fetch": "^4.20.0",
     "@nuxt/kit": "^3.7.0",
     "algoliasearch": "^4.11.0",
     "instantsearch.css": "^7.4.5",
@@ -51,8 +51,9 @@
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt": "^3.7.0",
-    "standard-version": "^9.3.2"
+    "nuxt": "^3.8.0",
+    "standard-version": "^9.3.2",
+    "typescript": "^5.2.2"
   },
   "publishConfig": {
     "access": "public"

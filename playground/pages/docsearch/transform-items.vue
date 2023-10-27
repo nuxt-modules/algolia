@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { DocSearchProps } from 'docsearch'
+import type { DocSearchProps } from 'docsearch'
 
 const transformItems: DocSearchProps['transformItems'] = (items) => {
   return items.map(item => ({
