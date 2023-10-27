@@ -1,6 +1,6 @@
 
-import { DocSearchTranslations } from '@docsearch/react'
-import { InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react/dist/esm/types'
+import type { DocSearchTranslations } from '@docsearch/react'
+import type { InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react/dist/esm/types'
 import type { SearchIndex } from 'algoliasearch'
 
 export interface AlgoliaIndices {}
