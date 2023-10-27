@@ -20,10 +20,7 @@ export default defineNuxtConfig({
     lite: false, // by default set to 'true'
     cache: true,
     docSearch: {
-      indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'docsearch',
-      searchParameters: {
-        facetFilters: []
-      }
+      indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'docsearch'
     },
     instantSearch: {
       theme: 'algolia'

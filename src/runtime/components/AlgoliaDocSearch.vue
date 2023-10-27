@@ -60,7 +60,7 @@ const props = defineProps({
   // TODO: Maybe bind this with @nuxt/i18n ?
   lang: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.lang ?? 'en'
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.lang
   },
   /**
    * Receives the items from the search response, and is called before displaying them.
@@ -160,7 +160,8 @@ const importDocSearchAtRuntime = async (): Promise<typeof docsearchFunc> => {
  */
 const initialize = async () => {
   const docsearch = await importDocSearchAtRuntime()
-  const langPrefix = `${props.langAttribute}:${props.lang}`
+  const langPrefix = props.lang ? `${props.langAttribute}:${props.lang}` : undefined
+  const facetFilters = langPrefix ? [langPrefix, ...props.facetFilters] : props.facetFilters
 
   // Create DocSearch instance
   docsearch({
@@ -172,7 +173,7 @@ const initialize = async () => {
     apiKey: props.apiKey,
     indexName: props.indexName,
     searchParameters: {
-      facetFilters: [langPrefix].concat(props.facetFilters),
+      facetFilters,
       ...props.searchParameters
     },
     /**
