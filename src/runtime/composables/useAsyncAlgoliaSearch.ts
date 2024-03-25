@@ -14,7 +14,7 @@ export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName,
   const algoliaIndex = useAlgoliaInitIndex(index)
 
   const result = await useAsyncData(`${index}-async-search-result-${key ?? ''}`, async () => {
-    if (process.server) {
+    if (import.meta.server) {
       const nuxtApp = useNuxtApp()
       if (config.public.algolia.useFetch) {
         nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-fetch').then((lib) => lib.default || lib)).createFetchRequester();

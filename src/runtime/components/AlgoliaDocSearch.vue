@@ -150,7 +150,7 @@ const importDocSearchAtRuntime = async (): Promise<DocSearchFunc> => {
     // @ts-ignore
     import(/* webpackChunkName: "docsearch" */ '@docsearch/js'),
     // @ts-ignore
-    process.client && import(/* webpackChunkName: "docsearch" */ '@docsearch/css')
+    import.meta.client && import(/* webpackChunkName: "docsearch" */ '@docsearch/css')
   ])
 
   return docsearch.default
@@ -246,7 +246,7 @@ onMounted(async () => {
   await initialize()
 })
 
-if (process.client) {
+if (import.meta.client) {
   watch(props, async () => {
     await initialize()
   })
