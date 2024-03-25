@@ -25,7 +25,7 @@ export function useAlgoliaSearch (indexName?: string) {
   const result = useState(`${index}-search-result`, () => null)
 
   const search = async ({ query, requestOptions }: SearchParams) => {
-    if (process.server) {
+    if (import.meta.server) {
       const nuxtApp = useNuxtApp()
       if (config.public.algolia.useFetch) {
         nuxtApp.$algolia.transporter.requester = (await import("@algolia/requester-fetch").then((lib) => lib.default || lib)).createFetchRequester();
