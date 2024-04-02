@@ -1,6 +1,7 @@
 import { SearchClient } from 'algoliasearch/lite'
 import { defineNuxtPlugin, useRuntimeConfig } from '#imports'
 import { createInMemoryCache } from '@algolia/cache-in-memory';
+import { createFetchRequester } from '@algolia/requester-fetch';
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const { applicationId, apiKey, lite, recommend, cache } = useRuntimeConfig().public.algolia
@@ -11,7 +12,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     ? await import('algoliasearch/dist/algoliasearch-lite.esm.browser').then(lib => lib.default || lib)
     : await import('algoliasearch/dist/algoliasearch.esm.browser').then(lib => lib.default || lib)
 
-  const algoliaSearchClient: SearchClient = cache ? algoliasearch(applicationId, apiKey, { responsesCache: createInMemoryCache(), requestsCache: createInMemoryCache({ serializable: false }), }) : algoliasearch(applicationId, apiKey)
+  const algoliaSearchClient: SearchClient = cache ? algoliasearch(applicationId, apiKey, { responsesCache: createInMemoryCache(), requestsCache: createInMemoryCache({ serializable: false }), requester: createFetchRequester() }) : algoliasearch(applicationId, apiKey, { requester: createFetchRequester() })
 
   nuxtApp.provide('algolia', algoliaSearchClient)
 

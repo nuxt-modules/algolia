@@ -144,12 +144,17 @@
   resolved "https://registry.yarnpkg.com/@algolia/requester-common/-/requester-common-4.20.0.tgz#65694b2263a8712b4360fef18680528ffd435b5c"
   integrity sha512-9h6ye6RY/BkfmeJp7Z8gyyeMrmmWsMOCRBXQDs4mZKKsyVlfIVICpcSibbeYcuUdurLhIlrOUkH3rQEgZzonng==
 
-"@algolia/requester-fetch@^4.20.0":
-  version "4.20.0"
-  resolved "https://registry.yarnpkg.com/@algolia/requester-fetch/-/requester-fetch-4.20.0.tgz#e32e1b501d2c21b37d3077d0d17cc9acb78c2d86"
-  integrity sha512-VVWlS/vIGBEFomjCig0lyY4kUVEHH2mj1PJlNOC9VSyLbJ7/fIxslFChq6kEh2RUqGs4ju6h5kdS+Mis9D2Vxg==
+"@algolia/requester-common@4.23.2":
+  version "4.23.2"
+  resolved "https://registry.yarnpkg.com/@algolia/requester-common/-/requester-common-4.23.2.tgz#9c2e5da4dc15e65f9b9bbe5bedb419cf23092ef1"
+  integrity sha512-3EfpBS0Hri0lGDB5H/BocLt7Vkop0bTTLVUBB844HH6tVycwShmsV6bDR7yXbQvFP1uNpgePRD3cdBCjeHmk6Q==
+
+"@algolia/requester-fetch@^4.23.2":
+  version "4.23.2"
+  resolved "https://registry.yarnpkg.com/@algolia/requester-fetch/-/requester-fetch-4.23.2.tgz#fd66ab41cdbff288b9054a156a93f77b3aa67695"
+  integrity sha512-ScmojcmwqGJMbpoAcSuufePl3XAg5CF1/m+jiMLyj4us3O+q9Ao+Js9MWeXBMj6BUwmuHa3uYz0HsBcl+5UsgA==
   dependencies:
-    "@algolia/requester-common" "4.20.0"
+    "@algolia/requester-common" "4.23.2"
 
 "@algolia/requester-node-http@4.20.0":
   version "4.20.0"
