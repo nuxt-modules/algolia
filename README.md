@@ -33,8 +33,8 @@
 ## Setup
 
 ```sh
-yarn add @nuxtjs/algolia # yarn
-npm i @nuxtjs/algolia # npm
+npx nuxi module add algolia
+npx nuxi module add algolia
 ```
 
 ## Basic usage
