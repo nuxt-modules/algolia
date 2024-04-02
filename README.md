@@ -33,8 +33,8 @@
 ## Setup
 
 ```sh
-npx nuxi module add algolia
-npx nuxi module add algolia
+npx nuxi@latest module add algolia
+npx nuxi@latest module add algolia
 ```
 
 ## Basic usage
