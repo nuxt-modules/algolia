@@ -33,21 +33,12 @@
 ## Setup
 
 ```sh
-yarn add @nuxtjs/algolia # yarn
-npm i @nuxtjs/algolia # npm
+npx nuxi@latest module add algolia
 ```
 
 ## Basic usage
 
-Firstly, you need to add `@nuxtjs/algolia` to your Nuxt config.
-
-```js
-export default defineNuxtConfig({
-  modules: ['@nuxtjs/algolia']
-})
-```
-
-Furthermore, add `ALGOLIA_API_KEY` and `ALGOLIA_APPLICATION_ID` environment variables to .env file.
+Add `ALGOLIA_API_KEY` and `ALGOLIA_APPLICATION_ID` environment variables to .env file.
 
 ```env
 ALGOLIA_API_KEY="0fd1c4eba2d831788333e77c9d855f1d"
