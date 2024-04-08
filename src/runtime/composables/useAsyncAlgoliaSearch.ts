@@ -1,11 +1,12 @@
 /* eslint-disable no-redeclare */
-import type { RequestOptionsObject } from '../../types'
+import type { RequestOptionsObject, SearchResponse } from '../../types'
 import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useNuxtApp, useAsyncData, useRuntimeConfig } from '#imports'
+import type { AsyncData } from '#app';
 
 export type AsyncSearchParams = { query: string, indexName?: string, key?: string } & RequestOptionsObject;
 
-export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName, key }: AsyncSearchParams) {
+export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName, key }: AsyncSearchParams): Promise<AsyncData<SearchResponse<unknown>, Error>> {
   const config = useRuntimeConfig()
   const index = indexName || config.public.algolia.globalIndex
 
