@@ -1,26 +1,25 @@
-/* eslint-disable no-redeclare */
 import { computed } from 'vue'
 import type { SearchForFacetValuesResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
-import { AlgoliaIndices, RequestOptionsObject } from '../../types'
+import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
 import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useState } from '#imports'
 
 export type SearchForFacetValuesParams = {
   facet: {
-    name: string;
-    query: string;
-  };
+    name: string
+    query: string
+  }
 } & RequestOptionsObject
 
 export type UseSearchForFacetValuesReturnType = {
-  result: ComputedRef<SearchForFacetValuesResponse>,
-  search: (params: SearchForFacetValuesParams) => Promise<SearchForFacetValuesResponse>,
+  result: ComputedRef<SearchForFacetValuesResponse>
+  search: (params: SearchForFacetValuesParams) => Promise<SearchForFacetValuesResponse>
 }
 
 export function useAlgoliaFacetedSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchForFacetValuesReturnType
 export function useAlgoliaFacetedSearch(indexName: string): UseSearchForFacetValuesReturnType
-export function useAlgoliaFacetedSearch (indexName: string) {
+export function useAlgoliaFacetedSearch(indexName: string) {
   const algoliaIndex = useAlgoliaInitIndex(indexName)
   const result = useState(`${indexName}-search-for-facet-values-result`, () => null)
 
@@ -33,6 +32,6 @@ export function useAlgoliaFacetedSearch (indexName: string) {
 
   return {
     result: computed(() => result.value),
-    search
+    search,
   }
 }

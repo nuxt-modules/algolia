@@ -1,4 +1,4 @@
-import { SearchClient } from 'algoliasearch/lite'
+import type { SearchClient } from 'algoliasearch/lite'
 import { useNuxtApp } from '#imports'
 
 export const useAlgoliaRef = (): SearchClient => {

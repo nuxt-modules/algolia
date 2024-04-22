@@ -1,6 +1,10 @@
 <template>
   <div id="docsearch">
-    <button type="button" class="DocSearch DocSearch-Button" aria-label="Search" />
+    <button
+      type="button"
+      class="DocSearch DocSearch-Button"
+      aria-label="Search"
+    />
   </div>
 </template>
 
@@ -9,7 +13,7 @@ import type { PropType } from 'vue'
 import { withoutTrailingSlash } from 'ufo'
 import type { DocSearchTranslations, DocSearchProps } from '@docsearch/react'
 import type { HitComponentFunc, ModuleBaseOptions, SearchOptions } from '../../types'
-// @ts-ignore - These are Nuxt3 aliases
+// @ts-expect-error - These are Nuxt3 aliases
 import { useRuntimeConfig, useRoute, useRouter, onMounted, watch } from '#imports'
 
 const route = useRoute()
@@ -18,48 +22,48 @@ const router = useRouter()
 const props = defineProps({
   applicationId: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.applicationId
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.applicationId,
   },
   apiKey: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.apiKey
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.apiKey,
   },
   indexName: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.indexName
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.indexName,
   },
   placeholder: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.placeholder
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.placeholder,
   },
   searchParameters: {
     type: Object as PropType<SearchOptions>,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.searchParameters
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.searchParameters,
   },
   disableUserPersonalization: {
     type: Boolean,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.disableUserPersonalization
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.disableUserPersonalization,
   },
   initialQuery: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.initialQuery
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.initialQuery,
   },
   translations: {
     type: Object as PropType<DocSearchTranslations>,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.translations
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.translations,
   },
   facetFilters: {
     type: [String, Array] as PropType<string | string[]>,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.facetFilters ?? []
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.facetFilters ?? [],
   },
   langAttribute: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.langAttribute ?? 'language'
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.langAttribute ?? 'language',
   },
   // TODO: Maybe bind this with @nuxt/i18n ?
   lang: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.lang
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.lang,
   },
   /**
    * Receives the items from the search response, and is called before displaying them.
@@ -70,7 +74,7 @@ const props = defineProps({
    */
   transformItems: {
     type: Function as PropType<DocSearchProps['transformItems'] | undefined>,
-    default: undefined
+    default: undefined,
   },
   /**
    * The component to display each item.
@@ -80,7 +84,7 @@ const props = defineProps({
    */
   hitComponent: {
     type: [Function, undefined] as PropType<HitComponentFunc | undefined>,
-    default: undefined
+    default: undefined,
   },
   /**
    * Useful for transforming the Algolia Search Client, for example to debounce search queries.
@@ -89,7 +93,7 @@ const props = defineProps({
    */
   transformSearchClient: {
     type: [Function, undefined] as PropType<DocSearchProps['transformSearchClient'] | undefined>,
-    default: undefined
+    default: undefined,
   },
   /**
    * An implementation of Algolia Autocomplete’s Navigator API to redirect the user when opening a link.
@@ -98,7 +102,7 @@ const props = defineProps({
    */
   navigator: {
     type: [Object, undefined] as PropType<DocSearchProps['navigator'] | undefined>,
-    default: undefined
+    default: undefined,
   },
   /**
    * Function to return the URL of your documentation repository.
@@ -109,8 +113,8 @@ const props = defineProps({
    */
   getMissingResultsUrl: {
     type: [Function, undefined] as PropType<DocSearchProps['getMissingResultsUrl'] | undefined>,
-    default: undefined
-  }
+    default: undefined,
+  },
 })
 
 /**
@@ -143,14 +147,14 @@ const withoutBaseUrl = (url: string) => {
   return url
 }
 
-type DocSearchFunc = (props: DocSearchProps & {container: HTMLElement | string}) => void
+type DocSearchFunc = (props: DocSearchProps & { container: HTMLElement | string }) => void
 
 const importDocSearchAtRuntime = async (): Promise<DocSearchFunc> => {
   const [docsearch] = await Promise.all([
-    // @ts-ignore
+    // @ts-expect-error
     import(/* webpackChunkName: "docsearch" */ '@docsearch/js'),
-    // @ts-ignore
-    import.meta.client && import(/* webpackChunkName: "docsearch" */ '@docsearch/css')
+    // @ts-expect-error
+    import.meta.client && import(/* webpackChunkName: "docsearch" */ '@docsearch/css'),
   ])
 
   return docsearch.default
@@ -175,7 +179,7 @@ const initialize = async () => {
     indexName: props.indexName,
     searchParameters: {
       facetFilters,
-      ...props.searchParameters
+      ...props.searchParameters,
     },
     /**
      * Transform items into relative URL format (compatibility with Vue Router).
@@ -186,7 +190,7 @@ const initialize = async () => {
           return items.map((item) => {
             return {
               ...item,
-              url: getRelativePath(item.url)
+              url: getRelativePath(item.url),
             }
           })
         },
@@ -199,10 +203,11 @@ const initialize = async () => {
             // the native browser location API for anchor navigation.
             if (route.path === hitPathname) {
               window.location.assign(window.location.origin + itemUrl)
-            } else {
+            }
+            else {
               router.push(withoutBaseUrl(itemUrl))
             }
-          }
+          },
         },
     hitComponent: props.hitComponent
       ? props.hitComponent
@@ -229,8 +234,8 @@ const initialize = async () => {
                 if (route.path !== hitPathname) { event.preventDefault() }
 
                 router.push(withoutBaseUrl(hit.url))
-              }
-            }
+              },
+            },
           } as any
         },
     disableUserPersonalization: props.disableUserPersonalization,
@@ -238,7 +243,7 @@ const initialize = async () => {
     initialQuery: props.initialQuery,
     placeholder: props.placeholder,
     translations: props.translations,
-    transformSearchClient: props.transformSearchClient
+    transformSearchClient: props.transformSearchClient,
   })
 }
 

@@ -14,7 +14,7 @@ import type { DocSearchProps } from 'docsearch'
 const transformItems: DocSearchProps['transformItems'] = (items) => {
   return items.map(item => ({
     ...item,
-    url: item.url.toUpperCase()
+    url: item.url.toUpperCase(),
   }))
 }
 </script>

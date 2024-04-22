@@ -1,5 +1,5 @@
-import { resolve } from 'path'
-import { fileURLToPath } from 'url'
+import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, useLogger, isNuxt2 } from '@nuxt/kit'
 import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook } from './hooks'
@@ -9,7 +9,7 @@ import { InstantSearchThemes, type ModuleBaseOptions } from './types'
 const MODULE_NAME = '@nuxtjs/algolia'
 const logger = useLogger(MODULE_NAME)
 
-function throwError (message: string) {
+function throwError(message: string) {
   throw new Error(`\`[${MODULE_NAME}]\` ${message}`)
 }
 
@@ -27,8 +27,8 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: 'algolia',
     compatibility: {
       nuxt: '^3.0.0-rc.9 || ^2.16.0',
-      bridge: true
-    }
+      bridge: true,
+    },
   },
   defaults: {
     applicationId: process.env.ALGOLIA_APPLICATION_ID || '',
@@ -43,10 +43,10 @@ export default defineNuxtModule<ModuleOptions>({
       apiKey: '',
       indexName: '',
       include: () => true,
-      meta: ['title', 'description']
-    }
+      meta: ['title', 'description'],
+    },
   },
-  setup (options, nuxt) {
+  setup(options, nuxt) {
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir)
 
@@ -78,9 +78,10 @@ export default defineNuxtModule<ModuleOptions>({
         nuxt.addHooks({
         // @ts-expect-error Nuxt 2 only hook
           'generate:page': createPageGenerateHook(nuxt, options, pages),
-          'generate:done': createGenerateDoneHook(nuxt, options, pages)
+          'generate:done': createGenerateDoneHook(nuxt, options, pages),
         })
-      } else {
+      }
+      else {
         nuxt.hooks.hookOnce('nitro:init', (nitro) => {
           nitro.hooks.hookOnce('prerender:routes', () => {
             nitro.hooks.hook('prerender:route', async ({ route, contents }) => {
@@ -99,15 +100,15 @@ export default defineNuxtModule<ModuleOptions>({
         path: resolve(runtimeDir, 'components'),
         pathPrefix: false,
         prefix: '',
-        // @ts-ignore
+        // @ts-expect-error
         level: 999,
-        global: true
+        global: true,
       })
     }
 
     if (isNuxt2() && !nuxt?.options?.runtimeConfig?.public?.algolia) {
       // Nuxt 2
-      // @ts-ignore
+      // @ts-expect-error
       nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
         apiKey: options.apiKey,
         applicationId: options.applicationId,
@@ -116,13 +117,13 @@ export default defineNuxtModule<ModuleOptions>({
         docSearch: options.docSearch,
         recommend: options.recommend,
         globalIndex: options.globalIndex,
-        useFetch: options.useFetch
+        useFetch: options.useFetch,
       })
     }
     // Nuxt 3
     // @ts-expect-error TODO: Workaround for rc.14 only
     nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
-    // @ts-ignore
+    // @ts-expect-error
     nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
@@ -132,7 +133,7 @@ export default defineNuxtModule<ModuleOptions>({
       docSearch: options.docSearch,
       recommend: options.recommend,
       globalIndex: options.globalIndex,
-      useFetch: options.useFetch
+      useFetch: options.useFetch,
     })
 
     if (options.instantSearch) {
@@ -143,7 +144,8 @@ export default defineNuxtModule<ModuleOptions>({
         if (theme) {
           if (theme in InstantSearchThemes) {
             nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
-          } else {
+          }
+          else {
             logger.error('Invalid theme:', theme)
           }
         }
@@ -153,8 +155,8 @@ export default defineNuxtModule<ModuleOptions>({
     // Polyfilling server packages for SSR support
     nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       if (isClient) {
-        (config as any).resolve.alias['@algolia/requester-node-http'] =
-          'unenv/runtime/mock/empty'
+        (config as any).resolve.alias['@algolia/requester-node-http']
+          = 'unenv/runtime/mock/empty'
       }
     })
 
@@ -165,14 +167,14 @@ export default defineNuxtModule<ModuleOptions>({
       const cmsProvider = Object.keys(options.indexer)[0]
 
       nuxt.options.runtimeConfig.algoliaIndexer = defu(nuxt.options.runtimeConfig.algoliaIndexer, {
-        // @ts-ignore
-        [cmsProvider]: options.indexer[cmsProvider]
+        // @ts-expect-error
+        [cmsProvider]: options.indexer[cmsProvider],
       })
 
       addServerHandler({
         route: '/api/indexer',
-        handler: resolve(runtimeDir, `server/api/${cmsProvider}`)
+        handler: resolve(runtimeDir, `server/api/${cmsProvider}`),
       })
     }
-  }
+  },
 })

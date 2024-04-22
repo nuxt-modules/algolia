@@ -6,6 +6,6 @@ export default defineBuildConfig({
     '@algolia/autocomplete-core',
     '@docsearch/js',
     '@docsearch/css',
-    '@docsearch/react'
-  ]
+    '@docsearch/react',
+  ],
 })

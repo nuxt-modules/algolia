@@ -15,11 +15,11 @@ import type { DocSearchProps } from 'docsearch'
 const transformSearchClient: DocSearchProps['transformSearchClient'] = (searchClient) => {
   return {
     ...searchClient,
-    search: debounce(searchClient.search, 5000)
+    search: debounce(searchClient.search, 5000),
   } as SearchClient
 }
 
-function debounce (func: (...args: unknown[]) => unknown, wait = 100) {
+function debounce(func: (...args: unknown[]) => unknown, wait = 100) {
   let lastTimeout = null
 
   return function (...args) {

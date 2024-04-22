@@ -1,7 +1,7 @@
-import { SearchClient } from 'algoliasearch/lite'
+import type { SearchClient } from 'algoliasearch/lite'
+import { createInMemoryCache } from '@algolia/cache-in-memory'
+import { createFetchRequester } from '@algolia/requester-fetch'
 import { defineNuxtPlugin, useRuntimeConfig } from '#imports'
-import { createInMemoryCache } from '@algolia/cache-in-memory';
-import { createFetchRequester } from '@algolia/requester-fetch';
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const { applicationId, apiKey, lite, recommend, cache } = useRuntimeConfig().public.algolia

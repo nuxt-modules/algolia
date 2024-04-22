@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   github: {
     owner: 'nuxt-modules',
     repo: 'algolia',
-    branch: 'main'
+    branch: 'main',
   },
 
   tailwindcss: {
@@ -27,11 +27,11 @@ export default defineNuxtConfig({
               600: '#1C36FF',
               700: '#001BE3',
               800: '#0014AB',
-              900: '#000D73'
-            }
-          }
-        }
-      }
-    }
-  }
+              900: '#000D73',
+            },
+          },
+        },
+      },
+    },
+  },
 })

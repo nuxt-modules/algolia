@@ -1,6 +1,6 @@
 import { defineEventHandler, getQuery } from 'h3'
+import StoryblokAlgoliaIndexer from 'storyblok-algolia-indexer'
 import { useRuntimeConfig } from '#imports'
-import StoryblokAlgoliaIndexer from 'storyblok-algolia-indexer';
 
 const config = useRuntimeConfig()
 

@@ -4,7 +4,10 @@
     <pre>{{ searchForFacetValuesResult }}</pre>
     <div>
       <h1>Instantsearch plugin</h1>
-      <ais-instant-search :index-name="indexName" :search-client="algolia">
+      <ais-instant-search
+        :index-name="indexName"
+        :search-client="algolia"
+      >
         <ais-search-box />
         <ais-hits />
       </ais-instant-search>
@@ -48,7 +51,7 @@ onMounted(async () => {
   // useSearchForFacetValues
   const facet = {
     name: 'categories',
-    query: 'Cell Phones'
+    query: 'Cell Phones',
   }
   await searchForFacetValues({ facet })
 
@@ -65,10 +68,10 @@ onMounted(async () => {
 })
 
 useHead({
-  title: 'Nuxt Algolia'
+  title: 'Nuxt Algolia',
 })
 
 useSeoMeta({
-  description: 'Playground for @nuxtjs/algolia'
+  description: 'Playground for @nuxtjs/algolia',
 })
 </script>

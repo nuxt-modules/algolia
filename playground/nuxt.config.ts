@@ -2,17 +2,17 @@ import AlgoliaModule from '..'
 
 export default defineNuxtConfig({
   modules: [
-    AlgoliaModule
+    AlgoliaModule,
   ],
   nitro: {
     prerender: {
-      crawlLinks: true
+      crawlLinks: true,
     },
     routeRules: {
       '/': {
-        prerender: true
-      }
-    }
+        prerender: true,
+      },
+    },
   },
   algolia: {
     apiKey: process.env.ALGOLIA_API_KEY ?? '599cec31baffa4868cae4e79f180729b',
@@ -20,10 +20,10 @@ export default defineNuxtConfig({
     lite: false, // by default set to 'true'
     cache: true,
     docSearch: {
-      indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'docsearch'
+      indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'docsearch',
     },
     instantSearch: {
-      theme: 'algolia'
+      theme: 'algolia',
     },
     recommend: true,
     indexer: {
@@ -31,12 +31,12 @@ export default defineNuxtConfig({
         secret: process.env.INDEXER_SECRET,
         algoliaAdminApiKey: process.env.ALGOLIA_ADMIN_KEY,
         indexName: process.env.ALGOLIA_INDEX_NAME,
-        accessToken: process.env.STORYBLOK_ACCESS_TOKEN
-      }
+        accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
+      },
     },
     crawler: {
       apiKey: process.env.ALGOLIA_CRAWLER_API_KEY,
-      indexName: process.env.ALGOLIA_CRAWLER_INDEX_NAME
-    }
-  }
+      indexName: process.env.ALGOLIA_CRAWLER_INDEX_NAME,
+    },
+  },
 })
