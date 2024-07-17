@@ -39,6 +39,10 @@ export function useAlgoliaSearch (indexName?: string) {
     return searchResult
   }
 
+  onUnmounted(() => {
+    result.value = undefined;
+  });
+
   return {
     result: computed(() => result.value),
     search
