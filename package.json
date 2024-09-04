@@ -48,7 +48,7 @@
   "devDependencies": {
     "@docsearch/css": "^3.0.0",
     "@docsearch/js": "^3.0.0",
-    "@nuxt/module-builder": "latest",
+    "@nuxt/module-builder": "0.8.3",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
     "nuxt": "^3.8.0",
