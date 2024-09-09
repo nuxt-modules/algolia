@@ -79,7 +79,8 @@ const { data } = await useAsyncAlgoliaSearch({ indexName: 'test_index', query: '
 
 1. Clone this repository
 2. Install dependencies using `yarn install` or `npm install`
-3. Start development server using `yarn dev` or `npm run dev`
+3. Use `yarn dev:prepare` or `npm run dev:prepare` to prepare the development environment
+4. Start development server using `yarn dev` or `npm run dev`
 
 ## License
 
