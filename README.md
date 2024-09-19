@@ -28,7 +28,9 @@
 
 ## Preview
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/github-epeint?file=app.vue)
+[![Open in
+StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)]
+(https://stackblitz.com/github/nuxt-modules/algolia?title=@nuxtjs/algolia example&file=stackblitz/vue.js)
 
 ## Setup
 
@@ -51,11 +53,11 @@ Client side:
 
 ```vue
 <script setup lang="ts">
-const { result, search } = useAlgoliaSearch('test_index')
+const { result, search } = useAlgoliaSearch("test_index");
 
 onMounted(async () => {
-  await search({ query: 'Samsung' })
-})
+  await search({ query: "Samsung" });
+});
 </script>
 
 <template>
@@ -67,7 +69,10 @@ Or SSR:
 
 ```vue
 <script setup lang="ts">
-const { data } = await useAsyncAlgoliaSearch({ indexName: 'test_index', query: 'Samsung' })
+const { data } = await useAsyncAlgoliaSearch({
+  indexName: "test_index",
+  query: "Samsung",
+});
 </script>
 
 <template>
