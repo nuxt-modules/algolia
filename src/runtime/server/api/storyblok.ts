@@ -22,7 +22,7 @@ export default defineEventHandler((event) => {
     options: {
       per_page: 100,
       page: 1,
-      version: config.algoliaIndexer.storyblok.contentVersion,
+      version: config.algoliaIndexer.storyblok.contentVersion || 'draft',
       ...config.algoliaIndexer.storyblok.options
     }
   })
