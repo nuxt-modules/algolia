@@ -40,8 +40,11 @@
     "@algolia/requester-fetch": "^4.23.2",
     "@nuxt/kit": "^3.7.0",
     "algoliasearch": "^4.11.0",
+    "defu": "^6.1.4",
+    "exsolve": "^1.0.4",
     "instantsearch.css": "^7.4.5",
     "metadata-scraper": "^0.2.49",
+    "mocked-exports": "^0.1.0",
     "storyblok-algolia-indexer": "^1.1.0",
     "vue-instantsearch": "^4.3.2"
   },
