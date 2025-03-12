@@ -36,10 +36,10 @@
   },
   "dependencies": {
     "@algolia/cache-in-memory": "^4.14.2",
-    "@algolia/recommend": "^4.12.2",
-    "@algolia/requester-fetch": "^4.23.2",
+    "@algolia/recommend": "^5.21.0",
+    "@algolia/requester-fetch": "^5.21.0",
     "@nuxt/kit": "^3.7.0",
-    "algoliasearch": "^4.11.0",
+    "algoliasearch": "^5.21.0",
     "instantsearch.css": "^7.4.5",
     "metadata-scraper": "^0.2.49",
     "storyblok-algolia-indexer": "^1.1.0",
