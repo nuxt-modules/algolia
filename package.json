@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/algolia",
-  "version": "1.10.2",
+  "version": "1.11.2",
   "description": "Algolia module for Nuxt",
   "repository": {
     "type": "git",
@@ -38,10 +38,14 @@
     "@algolia/cache-in-memory": "^4.14.2",
     "@algolia/recommend": "^4.12.2",
     "@algolia/requester-fetch": "^4.23.2",
+    "@algolia/requester-node-http": "^5.21.0",
     "@nuxt/kit": "^3.7.0",
     "algoliasearch": "^4.11.0",
+    "defu": "^6.1.4",
+    "exsolve": "^1.0.4",
     "instantsearch.css": "^7.4.5",
     "metadata-scraper": "^0.2.49",
+    "mocked-exports": "^0.1.1",
     "storyblok-algolia-indexer": "^1.1.0",
     "vue-instantsearch": "^4.3.2"
   },
@@ -51,7 +55,7 @@
     "@nuxt/module-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
-    "nuxt": "^3.8.0",
+    "nuxt": "^3.16.0",
     "standard-version": "^9.3.2",
     "typescript": "^5.2.2"
   },
@@ -70,5 +74,6 @@
     "docsearch",
     "nuxt",
     "module"
-  ]
+  ],
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

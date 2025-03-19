@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useSeoMeta } from '@unhead/vue'
+import { useSeoMeta } from '#imports'
 import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
 // Used to try the refresh of the component on options changes
 const indexName = ref('test_index')

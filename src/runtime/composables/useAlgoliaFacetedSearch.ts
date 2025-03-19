@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import type { SearchForFacetValuesResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
-import { AlgoliaIndices, RequestOptionsObject } from '../../types'
+import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
 import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useState } from '#imports'
 

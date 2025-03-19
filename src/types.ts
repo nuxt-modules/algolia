@@ -1,4 +1,3 @@
-
 import type { DocSearchTranslations } from '@docsearch/react'
 import type { InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react/dist/esm/types'
 import type { SearchIndex } from 'algoliasearch'
@@ -628,6 +627,9 @@ export declare type Settings = {
    * This is set via the settings for a default value and can be overridden via rules
    */
   readonly renderingContent?: {
+      readonly redirect?: {
+        url?: string
+      }
       /**
        * defining how facets should be ordered
        */
@@ -973,7 +975,7 @@ export type HitComponentFunc = (props: {
   hit: InternalDocSearchHit | StoredDocSearchHit;
   // Avoid importing React types there
   children: any; // React.ReactNode;
-}) => JSX.Element
+}) => any
 
 export enum InstantSearchThemes {
   'reset',
@@ -987,6 +989,7 @@ interface Indexer {
     algoliaAdminApiKey: string,
     indexName: string,
     secret: string;
+    contentVersion: 'draft' | 'published';
   }
 }
 

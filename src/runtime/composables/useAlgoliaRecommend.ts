@@ -1,6 +1,6 @@
-import { RecommendationsQuery, RecommendClient } from '@algolia/recommend'
-import { ComputedRef, computed } from 'vue'
-import { RequestOptionsObject, SearchResponse } from '../../types'
+import type { RecommendationsQuery, RecommendClient } from '@algolia/recommend'
+import { type ComputedRef, computed } from 'vue'
+import type { RequestOptionsObject, SearchResponse } from '../../types'
 import { useNuxtApp, useState } from '#imports'
 
 export type RecommendParams = { queries: RecommendationsQuery[] } & RequestOptionsObject

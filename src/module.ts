@@ -5,6 +5,7 @@ import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook } from './hooks'
 import type { CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
 import { InstantSearchThemes, type ModuleBaseOptions } from './types'
+import { resolveModulePath } from 'exsolve'
 
 const MODULE_NAME = '@nuxtjs/algolia'
 const logger = useLogger(MODULE_NAME)
@@ -26,7 +27,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@nuxtjs/algolia',
     configKey: 'algolia',
     compatibility: {
-      nuxt: '^3.0.0-rc.9 || ^2.16.0',
+      nuxt: '>=3.0.0-rc.9 || ^2.16.0',
       bridge: true
     }
   },
@@ -52,12 +53,9 @@ export default defineNuxtModule<ModuleOptions>({
 
     const notRunningInPrepareScript = !nuxt.options._prepare
 
-    if (!options.apiKey && notRunningInPrepareScript) {
-      throwError('Missing `apiKey`')
-    }
-
-    if (!options.applicationId && notRunningInPrepareScript) {
-      throwError('Missing `applicationId`')
+    if (notRunningInPrepareScript && (!options.apiKey || !options.applicationId)) {
+      console.warn('Missing `apiKey` or `applicationId` in `nuxt.config.js`')
+      return
     }
 
     if (options.crawler!.apiKey || options.crawler!.indexName) {
@@ -76,7 +74,7 @@ export default defineNuxtModule<ModuleOptions>({
 
       if (isNuxt2(nuxt)) {
         nuxt.addHooks({
-        // @ts-expect-error Nuxt 2 only hook
+        // Nuxt 2 only hook
           'generate:page': createPageGenerateHook(nuxt, options, pages),
           'generate:done': createGenerateDoneHook(nuxt, options, pages)
         })
@@ -120,7 +118,7 @@ export default defineNuxtModule<ModuleOptions>({
       })
     }
     // Nuxt 3
-    // @ts-expect-error TODO: Workaround for rc.14 only
+    // Workaround for rc.14 only
     nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
     // @ts-ignore
     nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
@@ -153,8 +151,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Polyfilling server packages for SSR support
     nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       if (isClient) {
-        (config as any).resolve.alias['@algolia/requester-node-http'] =
-          'unenv/runtime/mock/empty'
+        (config as any).resolve.alias['@algolia/requester-node-http'] = resolveModulePath('mocked-exports/empty', { from: import.meta.url })
       }
     })
 

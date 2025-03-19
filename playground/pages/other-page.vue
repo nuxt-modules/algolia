@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSeoMeta } from '@unhead/vue'
+import { useSeoMeta } from '#imports'
 
 useHead({
   title: 'Other Page'
