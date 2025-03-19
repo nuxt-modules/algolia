@@ -74,7 +74,7 @@ export default defineNuxtModule<ModuleOptions>({
 
       if (isNuxt2(nuxt)) {
         nuxt.addHooks({
-        // @ts-expect-error Nuxt 2 only hook
+        // Nuxt 2 only hook
           'generate:page': createPageGenerateHook(nuxt, options, pages),
           'generate:done': createGenerateDoneHook(nuxt, options, pages)
         })
@@ -118,7 +118,7 @@ export default defineNuxtModule<ModuleOptions>({
       })
     }
     // Nuxt 3
-    // @ts-expect-error TODO: Workaround for rc.14 only
+    // Workaround for rc.14 only
     nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
     // @ts-ignore
     nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {

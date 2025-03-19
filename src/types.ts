@@ -975,7 +975,7 @@ export type HitComponentFunc = (props: {
   hit: InternalDocSearchHit | StoredDocSearchHit;
   // Avoid importing React types there
   children: any; // React.ReactNode;
-}) => JSX.Element
+}) => any
 
 export enum InstantSearchThemes {
   'reset',
