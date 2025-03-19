@@ -627,6 +627,9 @@ export declare type Settings = {
    * This is set via the settings for a default value and can be overridden via rules
    */
   readonly renderingContent?: {
+      readonly redirect?: {
+        url?: string
+      }
       /**
        * defining how facets should be ordered
        */
