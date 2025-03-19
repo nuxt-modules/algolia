@@ -53,12 +53,9 @@ export default defineNuxtModule<ModuleOptions>({
 
     const notRunningInPrepareScript = !nuxt.options._prepare
 
-    if (!options.apiKey && notRunningInPrepareScript) {
-      throwError('Missing `apiKey`')
-    }
-
-    if (!options.applicationId && notRunningInPrepareScript) {
-      throwError('Missing `applicationId`')
+    if (notRunningInPrepareScript && (!options.apiKey || !options.applicationId)) {
+      console.warn('Missing `apiKey` or `applicationId` in `nuxt.config.js`')
+      return
     }
 
     if (options.crawler!.apiKey || options.crawler!.indexName) {
