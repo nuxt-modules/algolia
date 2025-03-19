@@ -39,7 +39,7 @@
     "@algolia/recommend": "^4.12.2",
     "@algolia/requester-fetch": "^4.23.2",
     "@algolia/requester-node-http": "^5.21.0",
-    "@nuxt/kit": "^3.7.0",
+    "@nuxt/kit": "^3.16.0",
     "algoliasearch": "^4.11.0",
     "defu": "^6.1.4",
     "exsolve": "^1.0.4",
