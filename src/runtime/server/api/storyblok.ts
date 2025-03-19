@@ -14,6 +14,12 @@ export default defineEventHandler((event) => {
     algoliaApiAdminToken: config.algoliaIndexer.storyblok.algoliaAdminApiKey,
     algoliaIndexName: config.algoliaIndexer.storyblok.indexName,
     storyblokContentDeliveryApiToken: config.algoliaIndexer.storyblok.accessToken,
+    options: {
+      per_page: 100,
+      page: 1,
+      version: config.algoliaIndexer.storyblok.contentVersion || 'draft',
+      ...config.algoliaIndexer.storyblok.options
+    }
   })
 
   return 'Algolia indexed with the data from Storyblok!'

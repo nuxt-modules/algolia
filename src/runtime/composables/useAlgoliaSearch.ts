@@ -1,4 +1,3 @@
-/* eslint-disable no-redeclare */
 import { computed } from 'vue'
 import type { SearchResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
@@ -19,7 +18,7 @@ export function useAlgoliaSearch (indexName?: string) {
   const config = useRuntimeConfig()
   const index = indexName || config.public.algolia.globalIndex
 
-  if (!index) throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `globalIndex` or `indexName` passed as a parameter')
+  if (!index) { throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `globalIndex` or `indexName` passed as a parameter') }
 
   const algoliaIndex = useAlgoliaInitIndex(index)
   const result = useState(`${index}-search-result`, () => null)
@@ -27,17 +26,17 @@ export function useAlgoliaSearch (indexName?: string) {
   const search = async ({ query, requestOptions }: SearchParams) => {
     if (import.meta.server) {
       const nuxtApp = useNuxtApp()
-      if (config.public.algolia.useFetch) {
-        nuxtApp.$algolia.transporter.requester = (await import("@algolia/requester-fetch").then((lib) => lib.default || lib)).createFetchRequester();
-      } else {
-        nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-node-http').then(lib => lib.default || lib)).createNodeHttpRequester()
-      }
+      nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-fetch').then(lib => lib.default || lib)).createFetchRequester()
     }
 
     const searchResult = await algoliaIndex.search(query, requestOptions)
     result.value = searchResult
     return searchResult
   }
+
+  onUnmounted(() => {
+    result.value = null
+  })
 
   return {
     result: computed(() => result.value),

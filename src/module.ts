@@ -5,6 +5,7 @@ import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook } from './hooks'
 import type { CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
 import { InstantSearchThemes, type ModuleBaseOptions } from './types'
+import { resolveModulePath } from 'exsolve'
 
 const MODULE_NAME = '@nuxtjs/algolia'
 const logger = useLogger(MODULE_NAME)
@@ -26,7 +27,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@nuxtjs/algolia',
     configKey: 'algolia',
     compatibility: {
-      nuxt: '^3.0.0-rc.9 || ^2.16.0',
+      nuxt: '>=3.0.0-rc.9 || ^2.16.0',
       bridge: true
     }
   },
@@ -153,8 +154,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Polyfilling server packages for SSR support
     nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       if (isClient) {
-        (config as any).resolve.alias['@algolia/requester-node-http'] =
-          'unenv/runtime/mock/empty'
+        (config as any).resolve.alias['@algolia/requester-node-http'] = resolveModulePath('mocked-exports/empty', { from: import.meta.url })
       }
     })
 

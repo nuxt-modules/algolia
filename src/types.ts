@@ -1,4 +1,3 @@
-
 import type { DocSearchTranslations } from '@docsearch/react'
 import type { InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react/dist/esm/types'
 import type { SearchIndex } from 'algoliasearch'
@@ -987,6 +986,7 @@ interface Indexer {
     algoliaAdminApiKey: string,
     indexName: string,
     secret: string;
+    contentVersion: 'draft' | 'published';
   }
 }
 
