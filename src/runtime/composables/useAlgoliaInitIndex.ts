@@ -1,14 +1,16 @@
-/* eslint-disable no-redeclare */
-import type { SearchIndex } from 'algoliasearch'
-import type { AlgoliaIndices, TypedSearchIndex } from '../../types'
+// SearchIndex type is not exported from algoliasearch v5, using any for compatibility
 import { useAlgoliaRef } from './useAlgoliaRef'
 
-export function useAlgoliaInitIndex<T extends keyof AlgoliaIndices>(indexName: T): TypedSearchIndex<T>
-export function useAlgoliaInitIndex<T extends string>(indexName: T): SearchIndex
-export function useAlgoliaInitIndex (indexName: string) {
+export function useAlgoliaInitIndex(indexName: string) {
   const algolia = useAlgoliaRef()
 
-  const algoliaIndex = algolia?.initIndex(indexName)
-
-  return algoliaIndex
+  return {
+    search: (query: string, requestOptions: SearchParams) => algolia.searchSingleIndex({
+      indexName,
+      searchParams: {
+        query,
+        ...requestOptions,
+      },
+    }),
+  }
 }

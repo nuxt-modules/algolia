@@ -1,24 +1,22 @@
-import { resolve } from 'path'
-import { fileURLToPath } from 'url'
-import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, useLogger, isNuxt2 } from '@nuxt/kit'
+import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, useLogger } from '@nuxt/kit'
 import { defu } from 'defu'
 import { createPageGenerateHook, createGenerateDoneHook } from './hooks'
-import type { CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
+import type { CrawlerPage, CrawlerOptions } from './hooks'
 import { InstantSearchThemes, type ModuleBaseOptions } from './types'
 import { resolveModulePath } from 'exsolve'
 
 const MODULE_NAME = '@nuxtjs/algolia'
 const logger = useLogger(MODULE_NAME)
 
-function throwError (message: string) {
+function throwError(message: string) {
   throw new Error(`\`[${MODULE_NAME}]\` ${message}`)
 }
 
 export interface ModuleOptions extends ModuleBaseOptions {
   crawler?: CrawlerOptions
 };
-
-export interface ModuleHooks extends CrawlerHooks {}
 
 export * from './types'
 
@@ -27,9 +25,8 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@nuxtjs/algolia',
     configKey: 'algolia',
     compatibility: {
-      nuxt: '>=3.0.0-rc.9 || ^2.16.0',
-      bridge: true
-    }
+      nuxt: '>=4.0.0',
+    },
   },
   defaults: {
     applicationId: process.env.ALGOLIA_APPLICATION_ID || '',
@@ -44,12 +41,29 @@ export default defineNuxtModule<ModuleOptions>({
       apiKey: '',
       indexName: '',
       include: () => true,
-      meta: ['title', 'description']
-    }
+      meta: ['title', 'description'],
+    },
   },
-  setup (options, nuxt) {
+  setup(options, nuxt) {
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
-    nuxt.options.build.transpile.push(runtimeDir)
+    const wrapperPath = fileURLToPath(new URL('./runtime/requester-node-http-wrapper.ts', import.meta.url))
+    nuxt.options.build.transpile.push(
+      runtimeDir,
+      '@algolia/cache-in-memory',
+      '@algolia/cache-common',
+      '@algolia/client-common',
+      '@algolia/client-search',
+      '@algolia/recommend',
+      '@algolia/requester-browser-xhr',
+      '@algolia/requester-fetch',
+      '@algolia/requester-node-http',
+      'algoliasearch',
+    )
+
+    // Ensure the wrapper is transpiled
+    nuxt.options.build.transpile.push(
+      resolve(runtimeDir, 'requester-node-http-wrapper'),
+    )
 
     const notRunningInPrepareScript = !nuxt.options._prepare
 
@@ -72,24 +86,16 @@ export default defineNuxtModule<ModuleOptions>({
       const pageGenerator = createPageGenerateHook(nuxt, options, pages)
       const doneGenerator = createGenerateDoneHook(nuxt, options, pages)
 
-      if (isNuxt2(nuxt)) {
-        nuxt.addHooks({
-        // Nuxt 2 only hook
-          'generate:page': createPageGenerateHook(nuxt, options, pages),
-          'generate:done': createGenerateDoneHook(nuxt, options, pages)
-        })
-      } else {
-        nuxt.hooks.hookOnce('nitro:init', (nitro) => {
-          nitro.hooks.hookOnce('prerender:routes', () => {
-            nitro.hooks.hook('prerender:route', async ({ route, contents }) => {
-              await pageGenerator(contents, route)
-            })
-            nitro.hooks.hookOnce('close', async () => {
-              await doneGenerator()
-            })
+      nuxt.hooks.hookOnce('nitro:init', (nitro) => {
+        nitro.hooks.hookOnce('prerender:routes', () => {
+          nitro.hooks.hook('prerender:route', async ({ route, contents }) => {
+            await pageGenerator(contents, route)
+          })
+          nitro.hooks.hookOnce('close', async () => {
+            await doneGenerator()
           })
         })
-      }
+      })
     }
 
     if (Object.keys(options.docSearch!).length) {
@@ -97,41 +103,30 @@ export default defineNuxtModule<ModuleOptions>({
         path: resolve(runtimeDir, 'components'),
         pathPrefix: false,
         prefix: '',
-        // @ts-ignore
-        level: 999,
-        global: true
+        global: true,
       })
     }
 
-    if (isNuxt2() && !nuxt?.options?.runtimeConfig?.public?.algolia) {
-      // Nuxt 2
-      // @ts-ignore
-      nuxt.options.publicRuntimeConfig.algolia = defu(nuxt.options.publicRuntimeConfig.algolia, {
-        apiKey: options.apiKey,
-        applicationId: options.applicationId,
-        lite: options.lite,
-        instantSearch: options.instantSearch,
-        docSearch: options.docSearch,
-        recommend: options.recommend,
-        globalIndex: options.globalIndex,
-        useFetch: options.useFetch
-      })
-    }
-    // Nuxt 3
-    // Workaround for rc.14 only
-    nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
-    // @ts-ignore
-    nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
+    // Assign runtime config directly
+    // Note: We merge manually to avoid TypeScript type conflicts with defu
+    const existingAlgoliaConfig = nuxt.options.runtimeConfig.public?.algolia
+
+    // Create config object with correct types matching ModuleBaseOptions
+    const algoliaConfig: ModuleBaseOptions = {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
-      lite: options.lite,
-      cache: options.cache,
-      instantSearch: options.instantSearch,
-      docSearch: options.docSearch,
-      recommend: options.recommend,
-      globalIndex: options.globalIndex,
-      useFetch: options.useFetch
-    })
+      globalIndex: options.globalIndex ?? existingAlgoliaConfig?.globalIndex ?? '',
+      lite: options.lite ?? existingAlgoliaConfig?.lite ?? true,
+      cache: options.cache ?? existingAlgoliaConfig?.cache ?? false,
+      instantSearch: options.instantSearch ?? existingAlgoliaConfig?.instantSearch ?? false,
+      docSearch: options.docSearch ?? existingAlgoliaConfig?.docSearch ?? {},
+      recommend: options.recommend ?? existingAlgoliaConfig?.recommend ?? false,
+      useFetch: options.useFetch ?? existingAlgoliaConfig?.useFetch ?? false,
+    }
+
+    // Assign with type assertion to PublicRuntimeConfig type
+    // The addTypeTemplate above ensures the types are compatible
+    nuxt.options.runtimeConfig.public.algolia = algoliaConfig as typeof nuxt.options.runtimeConfig.public.algolia
 
     if (options.instantSearch) {
       nuxt.options.build.transpile.push('vue-instantsearch/vue3')
@@ -141,7 +136,8 @@ export default defineNuxtModule<ModuleOptions>({
         if (theme) {
           if (theme in InstantSearchThemes) {
             nuxt.options.css.push(`instantsearch.css/themes/${theme}.css`)
-          } else {
+          }
+          else {
             logger.error('Invalid theme:', theme)
           }
         }
@@ -151,7 +147,13 @@ export default defineNuxtModule<ModuleOptions>({
     // Polyfilling server packages for SSR support
     nuxt.hook('vite:extendConfig', (config, { isClient }) => {
       if (isClient) {
-        (config as any).resolve.alias['@algolia/requester-node-http'] = resolveModulePath('mocked-exports/empty', { from: import.meta.url })
+        // On client, mock node-http requester
+        config.resolve.alias['@algolia/requester-node-http'] = resolveModulePath('mocked-exports/empty', { from: import.meta.url })
+      }
+      else {
+        // On server, use fetch requester wrapper instead of node-http
+        // wrapperPath is calculated before the hook to avoid issues with fileURLToPath in Vite context
+        config.resolve.alias['@algolia/requester-node-http'] = wrapperPath
       }
     })
 
@@ -162,14 +164,13 @@ export default defineNuxtModule<ModuleOptions>({
       const cmsProvider = Object.keys(options.indexer)[0]
 
       nuxt.options.runtimeConfig.algoliaIndexer = defu(nuxt.options.runtimeConfig.algoliaIndexer, {
-        // @ts-ignore
-        [cmsProvider]: options.indexer[cmsProvider]
+        [cmsProvider]: options.indexer[cmsProvider],
       })
 
       addServerHandler({
         route: '/api/indexer',
-        handler: resolve(runtimeDir, `server/api/${cmsProvider}`)
+        handler: resolve(runtimeDir, `server/api/${cmsProvider}`),
       })
     }
-  }
+  },
 })

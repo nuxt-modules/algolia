@@ -3,15 +3,20 @@
   "version": "1.0.0",
   "description": "Docs for @nuxtjs/algolia",
   "author": "NuxtJS",
+  "type": "module",
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "preview": "nuxi preview",
-    "generate": "nuxi generate"
+    "dev": "nuxt dev --extends docus",
+    "build": "nuxt build --extends docus"
+  },
+  "dependencies": {
+    "docus": "latest",
+    "@nuxt/image": "2.0.0",
+    "@nuxt/ui": "4.4.0",
+    "nuxt-og-image": "5.1.13",
+    "nuxt-studio": "1.2.0",
+    "@nuxt/content": "3.11.0",
+    "nuxt": "4.3.0"
   },
   "devDependencies": {
-    "@docus/docs-theme": "npm:@docus/docs-theme-edge@latest",
-    "@docus/github": "npm:@docus/github-edge@latest",
-    "nuxt": "3.0.0-rc.4"
   }
 }
