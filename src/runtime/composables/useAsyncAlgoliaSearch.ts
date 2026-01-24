@@ -16,7 +16,12 @@ export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName,
   const result = await useAsyncData(`${index}-async-search-result-${key ?? ''}`, async () => {
     if (import.meta.server) {
       const nuxtApp = useNuxtApp()
-      nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-fetch').then(lib => lib.default || lib)).createFetchRequester()
+      // Only SearchClient has transporter, LiteClient doesn't need it
+      const algoliaClient = nuxtApp.$algolia as any
+      if (algoliaClient.transporter) {
+        const requesterModule = await import('@algolia/requester-fetch')
+        algoliaClient.transporter.requester = requesterModule.createFetchRequester()
+      }
     }
     return await algoliaIndex.search(query, requestOptions)
   })

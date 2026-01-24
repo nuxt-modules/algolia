@@ -7,8 +7,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { withoutTrailingSlash } from 'ufo'
-import type { DocSearchTranslations, DocSearchProps } from '@docsearch/react'
-import type { HitComponentFunc, ModuleBaseOptions, SearchOptions } from '../../types'
+import type { ModuleBaseOptions, SearchOptions } from '../../types'
+import type { DocSearchTranslations } from '@docsearch/react'
+import type { DocSearchProps } from '@docsearch/react'
 // @ts-ignore - These are Nuxt3 aliases
 import { useRuntimeConfig, useRoute, useRouter, onMounted, watch } from '#imports'
 
@@ -69,7 +70,7 @@ const props = defineProps({
    * {@link https://docsearch.algolia.com/docs/api#transformitems}
    */
   transformItems: {
-    type: Function as PropType<DocSearchProps['transformItems'] | undefined>,
+    type: Function as PropType<DocSearchProps['transformItems']>,
     default: undefined
   },
   /**
@@ -79,7 +80,7 @@ const props = defineProps({
    * {@link https://github.com/algolia/docsearch/blob/next/packages/docsearch-react/src/Hit.tsx}
    */
   hitComponent: {
-    type: [Function, undefined] as PropType<HitComponentFunc | undefined>,
+    type: [Function, undefined] as PropType<DocSearchProps['hitComponent'] | undefined>,
     default: undefined
   },
   /**
@@ -88,7 +89,7 @@ const props = defineProps({
    * {@link https://docsearch.algolia.com/docs/api#transformsearchclient}
    */
   transformSearchClient: {
-    type: [Function, undefined] as PropType<DocSearchProps['transformSearchClient'] | undefined>,
+    type: [Function, undefined] as PropType<DocSearchProps['transformSearchClient']>,
     default: undefined
   },
   /**
@@ -97,7 +98,7 @@ const props = defineProps({
    * {@link https://docsearch.algolia.com/docs/api#navigator}
    */
   navigator: {
-    type: [Object, undefined] as PropType<DocSearchProps['navigator'] | undefined>,
+    type: [Object, undefined] as PropType<DocSearchProps['navigator']>,
     default: undefined
   },
   /**
@@ -108,7 +109,7 @@ const props = defineProps({
    * {@link https://docsearch.algolia.com/docs/api#getmissingresultsurl}
    */
   getMissingResultsUrl: {
-    type: [Function, undefined] as PropType<DocSearchProps['getMissingResultsUrl'] | undefined>,
+    type: [Function, undefined] as PropType<DocSearchProps['getMissingResultsUrl']>,
     default: undefined
   }
 })

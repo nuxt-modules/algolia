@@ -1,9 +1,8 @@
 import { computed, onUnmounted } from 'vue'
-import type { SearchResponse } from '@algolia/client-search'
+import type { SearchResponse } from 'algoliasearch'
 import type { ComputedRef } from 'vue'
 import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
-import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
-import { useState, useRuntimeConfig, useNuxtApp } from '#imports'
+import { useState, useRuntimeConfig } from '#imports'
 
 export type SearchParams = { query: string } & RequestOptionsObject;
 
@@ -20,16 +19,17 @@ export function useAlgoliaSearch (indexName?: string) {
 
   if (!index) { throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `globalIndex` or `indexName` passed as a parameter') }
 
-  const algoliaIndex = useAlgoliaInitIndex(index)
+  const algolia = useAlgoliaRef()
   const result = useState(`${index}-search-result`, () => null)
 
   const search = async ({ query, requestOptions }: SearchParams) => {
-    if (import.meta.server) {
-      const nuxtApp = useNuxtApp()
-      nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-fetch').then(lib => lib.default || lib)).createFetchRequester()
-    }
-
-    const searchResult = await algoliaIndex.search(query, requestOptions)
+    const searchResult = await algolia.searchSingleIndex({
+      indexName: index,
+      searchParams: {
+        query,
+        ...requestOptions
+      }
+    })
     result.value = searchResult
     return searchResult
   }

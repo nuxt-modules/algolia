@@ -1,6 +1,7 @@
 import type { DocSearchTranslations } from '@docsearch/react'
-import type { InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react/dist/esm/types'
-import type { SearchIndex } from 'algoliasearch'
+import type { InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react'
+// SearchIndex is not exported from algoliasearch v5, using any for compatibility
+type SearchIndex = any
 
 export interface AlgoliaIndices {}
 
@@ -977,10 +978,10 @@ export type HitComponentFunc = (props: {
   children: any; // React.ReactNode;
 }) => any
 
-export enum InstantSearchThemes {
-  'reset',
-  'algolia',
-  'satellite',
+export const InstantSearchThemes = {
+  reset: 'reset',
+  algolia: 'algolia',
+  satellite: 'satellite',
 }
 
 interface Indexer {
@@ -999,7 +1000,7 @@ export interface ModuleBaseOptions {
   globalIndex: string;
   lite?: boolean;
   cache?: boolean;
-  instantSearch?: boolean | { theme: keyof typeof InstantSearchThemes };
+  instantSearch?: boolean | { theme: typeof InstantSearchThemes[keyof typeof InstantSearchThemes] };
   recommend?: boolean;
   docSearch?: Partial<DocSearchOptions>;
   indexer?: Indexer;

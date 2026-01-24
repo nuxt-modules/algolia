@@ -1,7 +1,7 @@
 
-import algoliasearch from 'algoliasearch'
+import { algoliasearch } from 'algoliasearch'
 import scraper from 'metadata-scraper'
-import type { SearchClient, SearchIndex } from 'algoliasearch'
+import type { SearchClient } from 'algoliasearch'
 import type { MetaData } from 'metadata-scraper/lib/types'
 import type { Nuxt } from '@nuxt/schema'
 import type { ModuleOptions } from './../module'

@@ -1,9 +1,40 @@
-import { SearchClient } from 'algoliasearch/lite'
+import type { SearchClient } from 'algoliasearch'
+import type { LiteClient } from 'algoliasearch/lite'
+import type { SearchResponse } from 'algoliasearch'
 import { useNuxtApp } from '#imports'
 
-export const useAlgoliaRef = (): SearchClient => {
-  const nuxtApp = useNuxtApp()
-  const algolia: SearchClient = nuxtApp.$algolia
+// Helper type that adds searchSingleIndex method to both SearchClient and LiteClient
+type AlgoliaClientWithSingleIndex = (SearchClient | LiteClient) & {
+  searchSingleIndex<T = Record<string, unknown>>(params: {
+    indexName: string
+    searchParams: {
+      query: string
+      [key: string]: unknown
+    }
+  }): Promise<SearchResponse<T>>
+}
 
-  return algolia
+export const useAlgoliaRef = (): AlgoliaClientWithSingleIndex => {
+  const nuxtApp = useNuxtApp()
+  const algolia = nuxtApp.$algolia as SearchClient | LiteClient
+
+  // Add searchSingleIndex helper method that uses searchForHits internally
+  // SearchMethodParams has structure: { requests: Array<{ indexName: string, ...searchParams }> }
+  return {
+    ...algolia,
+    searchSingleIndex<T = Record<string, unknown>>(params: {
+      indexName: string
+      searchParams: {
+        query: string
+        [key: string]: unknown
+      }
+    }): Promise<SearchResponse<T>> {
+      return algolia.searchForHits<T>({
+        requests: [{
+          indexName: params.indexName,
+          ...params.searchParams
+        }]
+      }).then(result => result.results[0] as SearchResponse<T>)
+    }
+  } as AlgoliaClientWithSingleIndex
 }
