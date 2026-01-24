@@ -7,21 +7,30 @@
       </h1>
       <p class="text-lg text-muted max-w-3xl mx-auto">
         Example of search results customization using the <code
-          class="bg-elevated px-2 py-1 rounded">transformItems</code> function
+          class="bg-elevated px-2 py-1 rounded"
+        >transformItems</code> function
       </p>
     </div>
 
     <!-- Basic Example -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-arrows-clockwise" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-arrows-clockwise"
+          class="w-6 h-6"
+        />
         Uppercase URL Transformation
       </h2>
       <UPageCard>
         <template #header>
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Basic Example</h3>
-            <UBadge label="transformItems" color="primary" />
+            <h3 class="text-lg font-semibold">
+              Basic Example
+            </h3>
+            <UBadge
+              label="transformItems"
+              color="primary"
+            />
           </div>
         </template>
         <template #body>
@@ -29,8 +38,12 @@
             <p class="text-sm text-muted">
               This example transforms result URLs to uppercase. Each result is modified before being displayed.
             </p>
-            <UAlert color="info" variant="soft" title="Note"
-              description="This is just a demonstrative example. In a real case, you would use transformItems to normalize URLs, add parameters, filter results, etc." />
+            <UAlert
+              color="info"
+              variant="soft"
+              title="Note"
+              description="This is just a demonstrative example. In a real case, you would use transformItems to normalize URLs, add parameters, filter results, etc."
+            />
             <div class="mt-4 p-4 bg-elevated rounded-lg">
               <AlgoliaDocSearch :transform-items="transformItems" />
             </div>
@@ -42,12 +55,17 @@
     <!-- Code -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-code" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-code"
+          class="w-6 h-6"
+        />
         Implementation
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">Source Code</h3>
+          <h3 class="text-lg font-semibold">
+            Source Code
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -67,8 +85,12 @@ const transformItems: DocSearchProps['transformItems'] = (items) => {
   &lt;AlgoliaDocSearch :transform-items="transformItems" /&gt;
 &lt;/template&gt;</code></pre>
             </div>
-            <UAlert color="success" variant="soft" title="Tip"
-              description="The transformItems function receives an array of items and must return a new array with the same structure. You can modify any property of the items." />
+            <UAlert
+              color="success"
+              variant="soft"
+              title="Tip"
+              description="The transformItems function receives an array of items and must return a new array with the same structure. You can modify any property of the items."
+            />
           </div>
         </template>
       </UPageCard>
@@ -77,7 +99,10 @@ const transformItems: DocSearchProps['transformItems'] = (items) => {
     <!-- Common Use Cases -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-lightbulb" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-lightbulb"
+          class="w-6 h-6"
+        />
         Common Use Cases
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -127,12 +152,17 @@ const transformItems: DocSearchProps['transformItems'] = (items) => {
     <!-- Advanced Example -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-stack" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-stack"
+          class="w-6 h-6"
+        />
         Advanced Example
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">Complex Transformation</h3>
+          <h3 class="text-lg font-semibold">
+            Complex Transformation
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -175,15 +205,15 @@ import type { DocSearchProps } from '@docsearch/react'
 const transformItems: DocSearchProps['transformItems'] = (items) => {
   return items.map(item => ({
     ...item,
-    url: item.url.toUpperCase()
+    url: item.url.toUpperCase(),
   }))
 }
 
 useHead({
-  title: 'Transform Items - DocSearch'
+  title: 'Transform Items - DocSearch',
 })
 
 useSeoMeta({
-  description: 'Example of DocSearch results customization using transformItems'
+  description: 'Example of DocSearch results customization using transformItems',
 })
 </script>

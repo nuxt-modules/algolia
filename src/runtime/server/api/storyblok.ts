@@ -1,6 +1,6 @@
 import { defineEventHandler, getQuery } from 'h3'
 import { useRuntimeConfig } from '#imports'
-import StoryblokAlgoliaIndexer from 'storyblok-algolia-indexer';
+import StoryblokAlgoliaIndexer from 'storyblok-algolia-indexer'
 
 const config = useRuntimeConfig()
 
@@ -18,8 +18,8 @@ export default defineEventHandler((event) => {
       per_page: 100,
       page: 1,
       version: config.algoliaIndexer.storyblok.contentVersion || 'draft',
-      ...config.algoliaIndexer.storyblok.options
-    }
+      ...config.algoliaIndexer.storyblok.options,
+    },
   })
 
   return 'Algolia indexed with the data from Storyblok!'

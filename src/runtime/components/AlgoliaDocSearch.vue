@@ -1,6 +1,13 @@
 <template>
-  <div :id="containerId" :data-docsearch-id="containerId">
-    <button type="button" class="DocSearch DocSearch-Button" aria-label="Search" />
+  <div
+    :id="containerId"
+    :data-docsearch-id="containerId"
+  >
+    <button
+      type="button"
+      class="DocSearch DocSearch-Button"
+      aria-label="Search"
+    />
   </div>
 </template>
 
@@ -8,8 +15,7 @@
 import type { PropType } from 'vue'
 import { withoutTrailingSlash } from 'ufo'
 import type { ModuleBaseOptions, SearchOptions } from '../../types'
-import type { DocSearchTranslations } from '@docsearch/react'
-import type { DocSearchProps } from '@docsearch/react'
+import type { DocSearchTranslations, DocSearchProps } from '@docsearch/react'
 import { useRuntimeConfig, useRoute, useRouter, onMounted, onUnmounted, watch, nextTick } from '#imports'
 
 const route = useRoute()
@@ -23,7 +29,7 @@ const containerSelector = computed(() => `#${containerId.value}`)
 // Generate UUID function
 // TODO search for a better way to generate a unique ID
 const generateUUID = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     const r = Math.random() * 16 | 0
     const v = c === 'x' ? r : (r & 0x3 | 0x8)
     return v.toString(16)
@@ -31,53 +37,53 @@ const generateUUID = () => {
 }
 
 // Store DocSearch instance for cleanup
-let docSearchInstance: any = null
+let docSearchInstance: DocSearchFunc | null = null
 
 const props = defineProps({
   applicationId: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.applicationId
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.applicationId,
   },
   apiKey: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.apiKey
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.apiKey,
   },
   indexName: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.indexName
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.indexName,
   },
   placeholder: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.placeholder
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.placeholder,
   },
   searchParameters: {
     type: Object as PropType<SearchOptions>,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.searchParameters
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.searchParameters,
   },
   disableUserPersonalization: {
     type: Boolean,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.disableUserPersonalization
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.disableUserPersonalization,
   },
   initialQuery: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.initialQuery
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.initialQuery,
   },
   translations: {
     type: Object as PropType<DocSearchTranslations>,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.translations
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.translations,
   },
   facetFilters: {
     type: [String, Array] as PropType<string | string[]>,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.facetFilters ?? []
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.facetFilters ?? [],
   },
   langAttribute: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.langAttribute ?? 'language'
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.langAttribute ?? 'language',
   },
   // TODO: Maybe bind this with @nuxt/i18n ?
   lang: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.lang
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.lang,
   },
   /**
    * Receives the items from the search response, and is called before displaying them.
@@ -88,7 +94,7 @@ const props = defineProps({
    */
   transformItems: {
     type: Function as PropType<DocSearchProps['transformItems']>,
-    default: undefined
+    default: undefined,
   },
   /**
    * The component to display each item.
@@ -98,7 +104,7 @@ const props = defineProps({
    */
   hitComponent: {
     type: [Function, undefined] as PropType<DocSearchProps['hitComponent'] | undefined>,
-    default: undefined
+    default: undefined,
   },
   /**
    * Useful for transforming the Algolia Search Client, for example to debounce search queries.
@@ -107,7 +113,7 @@ const props = defineProps({
    */
   transformSearchClient: {
     type: [Function, undefined] as PropType<DocSearchProps['transformSearchClient']>,
-    default: undefined
+    default: undefined,
   },
   /**
    * An implementation of Algolia Autocomplete’s Navigator API to redirect the user when opening a link.
@@ -116,7 +122,7 @@ const props = defineProps({
    */
   navigator: {
     type: [Object, undefined] as PropType<DocSearchProps['navigator']>,
-    default: undefined
+    default: undefined,
   },
   /**
    * Function to return the URL of your documentation repository.
@@ -127,8 +133,8 @@ const props = defineProps({
    */
   getMissingResultsUrl: {
     type: [Function, undefined] as PropType<DocSearchProps['getMissingResultsUrl'] | undefined>,
-    default: undefined
-  }
+    default: undefined,
+  },
 })
 
 /**
@@ -150,18 +156,19 @@ const getRelativePath = (absoluteUrl: string) => {
     const url = new URL(absoluteUrl)
     const relativeUrl = url.pathname + url.hash
     return withoutTrailingSlash(relativeUrl)
-  } catch (error) {
+  }
+  catch (error) {
     // If URL parsing fails, try to extract pathname manually
     // This handles cases where the URL might be malformed
     const hashIndex = absoluteUrl.indexOf('#')
     const hash = hashIndex !== -1 ? absoluteUrl.substring(hashIndex) : ''
-    
+
     // Try to find the pathname part
     const originMatch = absoluteUrl.match(/^https?:\/\/[^/]+(\/.*?)(?:#|$)/)
     if (originMatch) {
       return withoutTrailingSlash(originMatch[1] + hash)
     }
-    
+
     // If all else fails, return the original URL
     console.warn('Failed to parse URL:', absoluteUrl, error)
     return absoluteUrl
@@ -183,15 +190,17 @@ const withoutBaseUrl = (url: string) => {
   return url
 }
 
-type DocSearchFunc = (props: DocSearchProps & {container: HTMLElement | string}) => void
+type DocSearchFunc = (props: DocSearchProps & { container: HTMLElement | string }) => void
 
 const importDocSearchAtRuntime = async (): Promise<DocSearchFunc> => {
-  const [docsearch] = await Promise.all([
-    // @ts-ignore
-    import(/* webpackChunkName: "docsearch" */ '@docsearch/js'),
-    // @ts-ignore
-    import.meta.client && import(/* webpackChunkName: "docsearch" */ '@docsearch/css')
-  ])
+  const imports = [import('@docsearch/js')]
+
+  if (import.meta.client) {
+    // @ts-expect-error - @docsearch/css is a CSS module without type declarations
+    imports.push(import('@docsearch/css'))
+  }
+
+  const [docsearch] = await Promise.all(imports)
 
   return docsearch.default
 }
@@ -203,16 +212,16 @@ const initialize = async () => {
   try {
     const docsearch = await importDocSearchAtRuntime()
     const langPrefix = props.lang ? `${props.langAttribute}:${props.lang}` : undefined
-    const baseFacetFilters: string[] = Array.isArray(props.facetFilters) 
-      ? [...props.facetFilters] 
-      : props.facetFilters 
-        ? [props.facetFilters] 
+    const baseFacetFilters: string[] = Array.isArray(props.facetFilters)
+      ? [...props.facetFilters]
+      : props.facetFilters
+        ? [props.facetFilters]
         : []
     const facetFilters: string[] = langPrefix ? [langPrefix, ...baseFacetFilters] : baseFacetFilters
 
     // Wait for next tick to ensure DOM is updated
     await nextTick()
-    
+
     // Verify container exists - try multiple selectors to handle ID updates
     let container = document.querySelector(containerSelector.value)
     if (!container) {
@@ -223,7 +232,7 @@ const initialize = async () => {
       console.error(`DocSearch: Container ${containerSelector.value} not found`)
       return
     }
-    
+
     // Ensure the container has the correct ID
     if (container.id !== containerId.value) {
       container.id = containerId.value
@@ -242,7 +251,8 @@ const initialize = async () => {
         if (button) {
           button.replaceWith(button.cloneNode(true))
         }
-      } catch (error) {
+      }
+      catch (error) {
         console.warn('DocSearch cleanup warning:', error)
       }
     }
@@ -252,101 +262,104 @@ const initialize = async () => {
     /**
      * Local implementation of this DocSearch box uses a unique container ID for each instance.
      */
-    container: containerSelector.value,
-    appId: props.applicationId,
-    apiKey: props.apiKey,
-    indexName: props.indexName,
-    searchParameters: {
-      facetFilters,
-      ...(props.searchParameters || {})
-    } as any,
-    /**
-     * Transform items into relative URL format (compatibility with Vue Router).
-     */
-    transformItems: props.transformItems
-      ? props.transformItems
-      : (items) => {
-          if (!items || !Array.isArray(items)) {
-            console.warn('DocSearch transformItems: items is not an array', items)
-            return []
-          }
-          
-          return items.map((item) => {
-            if (!item || !item.url) {
-              console.warn('DocSearch transformItems: item missing url', item)
-              return item
+      container: containerSelector.value,
+      appId: props.applicationId,
+      apiKey: props.apiKey,
+      indexName: props.indexName,
+      searchParameters: {
+        facetFilters,
+        ...(props.searchParameters || {}),
+      },
+      /**
+       * Transform items into relative URL format (compatibility with Vue Router).
+       */
+      transformItems: props.transformItems
+        ? props.transformItems
+        : (items) => {
+            if (!items || !Array.isArray(items)) {
+              console.warn('DocSearch transformItems: items is not an array', items)
+              return []
             }
-            
-            try {
-              const transformedUrl = getRelativePath(item.url)
-              return {
-                ...item,
-                url: transformedUrl
+
+            return items.map((item) => {
+              if (!item || !item.url) {
+                console.warn('DocSearch transformItems: item missing url', item)
+                return item
               }
-            } catch (error) {
-              console.error('DocSearch transformItems error:', error, item)
-              return item
-            }
-          })
-        },
-    navigator: props.navigator
-      ? props.navigator
-      : {
-          navigate: ({ itemUrl }) => {
-            const { pathname: hitPathname } = new URL(window.location.origin + itemUrl)
-            // Vue Router doesn't handle same-page navigation so we use
-            // the native browser location API for anchor navigation.
-            if (route.path === hitPathname) {
-              window.location.assign(window.location.origin + itemUrl)
-            } else {
-              router.push(withoutBaseUrl(itemUrl))
-            }
-          }
-        },
-    hitComponent: props.hitComponent
-      ? props.hitComponent
-      : ({ hit, children }) => {
-          return {
-            type: 'a',
-            constructor: undefined,
-            __v: 1,
-            props: {
-              href: hit.url,
-              children,
-              onClick: (event: MouseEvent) => {
-                if (isSpecialClick(event)) { return }
 
-                // We rely on the native link scrolling when user is
-                // already on the right anchor because Vue Router doesn't
-                // support duplicated history entries.
-                if (route.fullPath === hit.url) { return }
-
-                const { pathname: hitPathname } = new URL(window.location.origin + hit.url)
-
-                // If the hits goes to another page, we prevent the native link behavior
-                // to leverage the Vue Router loading feature.
-                if (route.path !== hitPathname) { event.preventDefault() }
-
-                router.push(withoutBaseUrl(hit.url))
+              try {
+                const transformedUrl = getRelativePath(item.url)
+                return {
+                  ...item,
+                  url: transformedUrl,
+                }
               }
-            }
-          } as any
-        },
-    disableUserPersonalization: props.disableUserPersonalization,
-    getMissingResultsUrl: props.getMissingResultsUrl,
-    initialQuery: props.initialQuery,
-    placeholder: props.placeholder,
-    translations: props.translations,
-    transformSearchClient: props.transformSearchClient
+              catch (error) {
+                console.error('DocSearch transformItems error:', error, item)
+                return item
+              }
+            })
+          },
+      navigator: props.navigator
+        ? props.navigator
+        : {
+            navigate: ({ itemUrl }) => {
+              const { pathname: hitPathname } = new URL(window.location.origin + itemUrl)
+              // Vue Router doesn't handle same-page navigation so we use
+              // the native browser location API for anchor navigation.
+              if (route.path === hitPathname) {
+                window.location.assign(window.location.origin + itemUrl)
+              }
+              else {
+                router.push(withoutBaseUrl(itemUrl))
+              }
+            },
+          },
+      hitComponent: props.hitComponent
+        ? props.hitComponent
+        : ({ hit, children }) => {
+            return {
+              type: 'a',
+              constructor: undefined,
+              __v: 1,
+              props: {
+                href: hit.url,
+                children,
+                onClick: (event: MouseEvent) => {
+                  if (isSpecialClick(event)) { return }
+
+                  // We rely on the native link scrolling when user is
+                  // already on the right anchor because Vue Router doesn't
+                  // support duplicated history entries.
+                  if (route.fullPath === hit.url) { return }
+
+                  const { pathname: hitPathname } = new URL(window.location.origin + hit.url)
+
+                  // If the hits goes to another page, we prevent the native link behavior
+                  // to leverage the Vue Router loading feature.
+                  if (route.path !== hitPathname) { event.preventDefault() }
+
+                  router.push(withoutBaseUrl(hit.url))
+                },
+              },
+            } as any
+          },
+      disableUserPersonalization: props.disableUserPersonalization,
+      getMissingResultsUrl: props.getMissingResultsUrl,
+      initialQuery: props.initialQuery,
+      placeholder: props.placeholder,
+      translations: props.translations,
+      transformSearchClient: props.transformSearchClient,
     })
-    
+
     console.log('DocSearch initialized successfully', {
       containerId: containerId.value,
       appId: props.applicationId,
       indexName: props.indexName,
-      apiKey: props.apiKey ? `${props.apiKey.substring(0, 10)}...` : 'missing'
+      apiKey: props.apiKey ? `${props.apiKey.substring(0, 10)}...` : 'missing',
     })
-  } catch (error) {
+  }
+  catch (error) {
     console.error('DocSearch initialization error:', error)
   }
 }
@@ -359,7 +372,8 @@ onUnmounted(() => {
       if (modal) {
         modal.remove()
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.warn('DocSearch cleanup warning:', error)
     }
     docSearchInstance = null
@@ -372,10 +386,10 @@ onMounted(async () => {
   if (containerId.value === 'docsearch') {
     const uuid = generateUUID()
     const newId = `docsearch-${uuid.substring(0, 8)}`
-    
+
     // Update the ref first
     containerId.value = newId
-    
+
     // Then update the DOM element ID directly to ensure it's set before DocSearch initialization
     await nextTick()
     const element = document.querySelector('#docsearch')
@@ -383,7 +397,7 @@ onMounted(async () => {
       element.id = newId
     }
   }
-  
+
   // Wait for DOM to be fully updated
   await nextTick()
   await initialize()

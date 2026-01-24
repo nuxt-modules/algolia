@@ -1,6 +1,5 @@
-import type { SearchClient } from 'algoliasearch'
+import type { SearchClient, SearchResponse } from 'algoliasearch'
 import type { LiteClient } from 'algoliasearch/lite'
-import type { SearchResponse } from 'algoliasearch'
 import { useNuxtApp } from '#imports'
 
 // Helper type that adds searchSingleIndex method to both SearchClient and LiteClient
@@ -32,9 +31,9 @@ export const useAlgoliaRef = (): AlgoliaClientWithSingleIndex => {
       return algolia.searchForHits<T>({
         requests: [{
           indexName: params.indexName,
-          ...params.searchParams
-        }]
+          ...params.searchParams,
+        }],
       }).then(result => result.results[0] as SearchResponse<T>)
-    }
+    },
   } as AlgoliaClientWithSingleIndex
 }

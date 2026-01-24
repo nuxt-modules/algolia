@@ -10,19 +10,19 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   // In v5 we use the proper entry points and let the client handle requesters automatically
   const { algoliasearch: searchClient } = await import('algoliasearch')
   const { liteClient } = await import('algoliasearch/lite')
-  
+
   // On server, use fetch requester for full client, lite client handles it automatically
-  let clientOptions: any = {}
+  const clientOptions: Record<string, unknown> = {}
   if (!lite && import.meta.server) {
     // Use fetch requester on server for full SearchClient
     clientOptions.requester = createFetchRequester()
   }
-  
+
   if (cache) {
     clientOptions.responsesCache = createInMemoryCache()
     clientOptions.requestsCache = createInMemoryCache({ serializable: false })
   }
-  
+
   const clientFactory = lite ? liteClient : searchClient
 
   // Both SearchClient and LiteClient have searchSingleIndex method used by composables

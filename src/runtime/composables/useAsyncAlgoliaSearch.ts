@@ -1,15 +1,18 @@
 import type { AsyncData } from '#app'
+import type { SearchClient } from 'algoliasearch'
 import type { RequestOptionsObject, SearchResponse } from '../../types'
 import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useNuxtApp, useAsyncData, useRuntimeConfig } from '#imports'
 
-export type AsyncSearchParams = { query: string, indexName?: string, key?: string } & RequestOptionsObject;
+export type AsyncSearchParams = { query: string, indexName?: string, key?: string } & RequestOptionsObject
 
-export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName, key }: AsyncSearchParams): Promise<AsyncData<SearchResponse<unknown>, Error>> {
+export async function useAsyncAlgoliaSearch({ query, requestOptions, indexName, key }: AsyncSearchParams): Promise<AsyncData<SearchResponse<unknown>, Error>> {
   const config = useRuntimeConfig()
   const index = indexName || config.public.algolia.globalIndex
 
-  if (!index) { throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `indexName`') }
+  if (!index) {
+    throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `indexName`')
+  }
 
   const algoliaIndex = useAlgoliaInitIndex(index)
 
@@ -17,7 +20,7 @@ export async function useAsyncAlgoliaSearch ({ query, requestOptions, indexName,
     if (import.meta.server) {
       const nuxtApp = useNuxtApp()
       // Only SearchClient has transporter, LiteClient doesn't need it
-      const algoliaClient = nuxtApp.$algolia as any
+      const algoliaClient = nuxtApp.$algolia as SearchClient
       if (algoliaClient.transporter) {
         const requesterModule = await import('@algolia/requester-fetch')
         algoliaClient.transporter.requester = requesterModule.createFetchRequester()

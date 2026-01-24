@@ -50,6 +50,7 @@
     "vue-instantsearch": "^4.22.8"
   },
   "devDependencies": {
+    "@nuxt/eslint-config": "^1.13.0",
     "@docsearch/css": "^4.5.3",
     "@docsearch/js": "^4.5.3",
     "@docsearch/react": "^4.5.3",

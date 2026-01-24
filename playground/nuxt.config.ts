@@ -1,18 +1,21 @@
 export default defineNuxtConfig({
   modules: [
     '../src/module',
-    '@nuxt/ui'
+    '@nuxt/ui',
   ],
+  css: ['./playground/app/assets/css/main.css'],
+
+  compatibilityDate: '2026-01-24',
 
   nitro: {
     prerender: {
-      crawlLinks: true
+      crawlLinks: true,
     },
     routeRules: {
       '/': {
-        prerender: true
-      }
-    }
+        prerender: true,
+      },
+    },
   },
 
   algolia: {
@@ -23,10 +26,10 @@ export default defineNuxtConfig({
     docSearch: {
       applicationId: 'PMZUYBQDAK',
       apiKey: '24b09689d5b4223813d9b8e48563c8f6',
-      indexName: 'docsearch'
+      indexName: 'docsearch',
     },
     instantSearch: {
-      theme: 'algolia'
+      theme: 'algolia',
     },
     recommend: true,
     indexer: {
@@ -35,15 +38,12 @@ export default defineNuxtConfig({
         algoliaAdminApiKey: process.env.ALGOLIA_ADMIN_KEY,
         indexName: process.env.ALGOLIA_INDEX_NAME,
         accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
-        contentVersion: process.env.STORYBLOK_CONTENT_VERSION || 'draft'
-      }
+        contentVersion: process.env.STORYBLOK_CONTENT_VERSION || 'draft',
+      },
     },
     crawler: {
       apiKey: process.env.ALGOLIA_CRAWLER_API_KEY,
-      indexName: process.env.ALGOLIA_CRAWLER_INDEX_NAME
-    }
+      indexName: process.env.ALGOLIA_CRAWLER_INDEX_NAME,
+    },
   },
-  css: ["./playground/app/assets/css/main.css"],
-
-  compatibilityDate: '2026-01-24'
 })

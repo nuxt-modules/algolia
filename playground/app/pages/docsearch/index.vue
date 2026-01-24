@@ -13,14 +13,22 @@
     <!-- 1. Basic Example -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-magnifying-glass" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-magnifying-glass"
+          class="w-6 h-6"
+        />
         Basic Example
       </h2>
       <UPageCard>
         <template #header>
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Basic Search</h3>
-            <UBadge label="Minimal configuration" color="primary" />
+            <h3 class="text-lg font-semibold">
+              Basic Search
+            </h3>
+            <UBadge
+              label="Minimal configuration"
+              color="primary"
+            />
           </div>
         </template>
         <template #body>
@@ -44,12 +52,17 @@
     <!-- 2. Custom Placeholder Example -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-text-aa" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-text-aa"
+          class="w-6 h-6"
+        />
         Custom Placeholder
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">Placeholder Custom</h3>
+          <h3 class="text-lg font-semibold">
+            Placeholder Custom
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -72,12 +85,17 @@
     <!-- 3. Initial Query Example -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-keyboard" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-keyboard"
+          class="w-6 h-6"
+        />
         Initial Query
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">Initial Query</h3>
+          <h3 class="text-lg font-semibold">
+            Initial Query
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -100,12 +118,17 @@
     <!-- 4. Facet Filters Example -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-funnel" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-funnel"
+          class="w-6 h-6"
+        />
         Facet Filters
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">Facet Filters</h3>
+          <h3 class="text-lg font-semibold">
+            Facet Filters
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -145,12 +168,17 @@
     <!-- 5. Search Parameters Example -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-sliders" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-sliders"
+          class="w-6 h-6"
+        />
         Search Parameters
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">Search Parameters</h3>
+          <h3 class="text-lg font-semibold">
+            Search Parameters
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -189,12 +217,17 @@
     <!-- 6. Full Configuration Example -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-gear" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-gear"
+          class="w-6 h-6"
+        />
         Full Configuration
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">All Options</h3>
+          <h3 class="text-lg font-semibold">
+            All Options
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -224,12 +257,17 @@
     <!-- 7. Props Documentation -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-book" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-book"
+          class="w-6 h-6"
+        />
         Props Documentation
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">Available Props</h3>
+          <h3 class="text-lg font-semibold">
+            Available Props
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -237,18 +275,32 @@
               <table class="w-full text-sm">
                 <thead>
                   <tr class="border-b border-muted">
-                    <th class="text-left p-2 font-semibold text-primary">Prop</th>
-                    <th class="text-left p-2 font-semibold text-primary">Type</th>
-                    <th class="text-left p-2 font-semibold text-primary">Description</th>
+                    <th class="text-left p-2 font-semibold text-primary">
+                      Prop
+                    </th>
+                    <th class="text-left p-2 font-semibold text-primary">
+                      Type
+                    </th>
+                    <th class="text-left p-2 font-semibold text-primary">
+                      Description
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="prop in docSearchProps" :key="prop.name" class="border-b border-muted">
+                  <tr
+                    v-for="prop in docSearchProps"
+                    :key="prop.name"
+                    class="border-b border-muted"
+                  >
                     <td class="p-2">
                       <code class="bg-elevated px-2 py-1 rounded text-primary">{{ prop.name }}</code>
                     </td>
-                    <td class="p-2 text-muted">{{ prop.type }}</td>
-                    <td class="p-2 text-muted">{{ prop.description }}</td>
+                    <td class="p-2 text-muted">
+                      {{ prop.type }}
+                    </td>
+                    <td class="p-2 text-muted">
+                      {{ prop.description }}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -261,12 +313,17 @@
     <!-- 8. Other Examples Available -->
     <section>
       <h2 class="text-2xl font-semibold text-primary mb-6 flex items-center gap-2">
-        <UIcon name="i-ph-link" class="w-6 h-6" />
+        <UIcon
+          name="i-ph-link"
+          class="w-6 h-6"
+        />
         Other Examples Available
       </h2>
       <UPageCard>
         <template #header>
-          <h3 class="text-lg font-semibold">Advanced Examples</h3>
+          <h3 class="text-lg font-semibold">
+            Advanced Examples
+          </h3>
         </template>
         <template #body>
           <div class="space-y-4">
@@ -280,10 +337,17 @@
                 class="p-4 bg-elevated rounded-lg border border-muted hover:border-primary transition-colors"
               >
                 <div class="flex items-start gap-3">
-                  <UIcon name="i-ph-arrow-right" class="w-5 h-5 text-primary mt-0.5" />
+                  <UIcon
+                    name="i-ph-arrow-right"
+                    class="w-5 h-5 text-primary mt-0.5"
+                  />
                   <div>
-                    <h4 class="font-semibold text-primary mb-1">{{ example.title }}</h4>
-                    <p class="text-sm text-muted">{{ example.description }}</p>
+                    <h4 class="font-semibold text-primary mb-1">
+                      {{ example.title }}
+                    </h4>
+                    <p class="text-sm text-muted">
+                      {{ example.description }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -307,18 +371,18 @@ const disablePersonalization = ref(false)
 const attributesToRetrieve = ref('title,description,url')
 
 const searchParameters = ref({
-  hitsPerPage: 20
+  hitsPerPage: 20,
 })
 
 const computedSearchParameters = computed(() => {
   const params: any = {
-    ...searchParameters.value
+    ...searchParameters.value,
   }
-  
+
   if (attributesToRetrieve.value) {
     params.attributesToRetrieve = attributesToRetrieve.value.split(',').map(s => s.trim())
   }
-  
+
   return params
 })
 
@@ -335,78 +399,78 @@ const docSearchProps = [
   {
     name: 'applicationId',
     type: 'string',
-    description: 'Algolia application ID'
+    description: 'Algolia application ID',
   },
   {
     name: 'apiKey',
     type: 'string',
-    description: 'Algolia API key'
+    description: 'Algolia API key',
   },
   {
     name: 'indexName',
     type: 'string',
-    description: "Algolia index name"
+    description: 'Algolia index name',
   },
   {
     name: 'placeholder',
     type: 'string',
-    description: 'Search placeholder text'
+    description: 'Search placeholder text',
   },
   {
     name: 'searchParameters',
     type: 'SearchOptions',
-    description: 'Custom Algolia search parameters'
+    description: 'Custom Algolia search parameters',
   },
   {
     name: 'disableUserPersonalization',
     type: 'boolean',
-    description: 'Disable user personalization'
+    description: 'Disable user personalization',
   },
   {
     name: 'initialQuery',
     type: 'string',
-    description: 'Initial query shown on open'
+    description: 'Initial query shown on open',
   },
   {
     name: 'facetFilters',
     type: 'string | string[]',
-    description: 'Facet filters to apply'
+    description: 'Facet filters to apply',
   },
   {
     name: 'langAttribute',
     type: 'string',
-    description: 'Attribute for language (default: "language")'
+    description: 'Attribute for language (default: "language")',
   },
   {
     name: 'lang',
     type: 'string',
-    description: 'Default language'
+    description: 'Default language',
   },
   {
     name: 'transformItems',
     type: 'Function',
-    description: 'Function to transform items before display'
+    description: 'Function to transform items before display',
   },
   {
     name: 'hitComponent',
     type: 'Function',
-    description: 'Custom component for each result'
+    description: 'Custom component for each result',
   },
   {
     name: 'transformSearchClient',
     type: 'Function',
-    description: 'Function to transform the search client (e.g. debounce)'
+    description: 'Function to transform the search client (e.g. debounce)',
   },
   {
     name: 'navigator',
     type: 'Object',
-    description: 'Custom implementation of the Navigator API'
+    description: 'Custom implementation of the Navigator API',
   },
   {
     name: 'getMissingResultsUrl',
     type: 'Function',
-    description: 'Function to get the URL when there are no results'
-  }
+    description: 'Function to get the URL when there are no results',
+  },
 ]
 
 // Other examples available in the menu
@@ -414,21 +478,21 @@ const otherExamples = [
   {
     title: 'Transform Items',
     description: 'Customize search results using transformItems',
-    path: '/docsearch/transform-items'
+    path: '/docsearch/transform-items',
   },
   {
     title: 'Debounce Search',
     description: 'Optimize performance with search debounce',
-    path: '/docsearch/debounce-search'
-  }
+    path: '/docsearch/debounce-search',
+  },
 ]
 
 // SEO
 useHead({
-  title: 'Algolia DocSearch - Playground'
+  title: 'Algolia DocSearch - Playground',
 })
 
 useSeoMeta({
-  description: 'Complete playground for AlgoliaDocSearch with examples of all available configurations'
+  description: 'Complete playground for AlgoliaDocSearch with examples of all available configurations',
 })
 </script>
