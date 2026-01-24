@@ -326,23 +326,29 @@ const initialize = async () => {
                 href: hit.url,
                 children,
                 onClick: (event: MouseEvent) => {
-                  if (isSpecialClick(event)) { return }
+                  if (isSpecialClick(event)) {
+                    return
+                  }
 
                   // We rely on the native link scrolling when user is
                   // already on the right anchor because Vue Router doesn't
                   // support duplicated history entries.
-                  if (route.fullPath === hit.url) { return }
+                  if (route.fullPath === hit.url) {
+                    return
+                  }
 
                   const { pathname: hitPathname } = new URL(window.location.origin + hit.url)
 
                   // If the hits goes to another page, we prevent the native link behavior
                   // to leverage the Vue Router loading feature.
-                  if (route.path !== hitPathname) { event.preventDefault() }
+                  if (route.path !== hitPathname) {
+                    event.preventDefault()
+                  }
 
                   router.push(withoutBaseUrl(hit.url))
                 },
               },
-            } as any
+            }
           },
       disableUserPersonalization: props.disableUserPersonalization,
       getMissingResultsUrl: props.getMissingResultsUrl,
@@ -350,13 +356,6 @@ const initialize = async () => {
       placeholder: props.placeholder,
       translations: props.translations,
       transformSearchClient: props.transformSearchClient,
-    })
-
-    console.log('DocSearch initialized successfully', {
-      containerId: containerId.value,
-      appId: props.applicationId,
-      indexName: props.indexName,
-      apiKey: props.apiKey ? `${props.apiKey.substring(0, 10)}...` : 'missing',
     })
   }
   catch (error) {

@@ -1,7 +1,6 @@
 {
   "private": true,
   "name": "nuxt-algolia-playground",
-  "type": "module",
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",

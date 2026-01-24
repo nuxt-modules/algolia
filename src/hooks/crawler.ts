@@ -105,38 +105,41 @@ export function createPageGenerateHook(nuxt: Nuxt, options: ModuleOptions, pages
 export function createGenerateDoneHook(nuxt: Nuxt, options: ModuleOptions, pages: CrawlerPage[]) {
   return async () => {
     if (pages.length > 0 && options.crawler) {
-      const { crawler: { apiKey, indexName }, applicationId } = options
+      const { crawler: { apiKey, indexName } } = options
+      const { applicationId } = options
       const client = algoliasearch(applicationId, apiKey)
-      const index = client.initIndex(indexName)
 
       await nuxt.callHook('crawler:index:before', {
         options,
         pages,
         client,
-        index,
       })
 
-      await index.replaceAllObjects(pages, {
-        autoGenerateObjectIDIfNotExist: true,
+      await client.batch({
+        indexName,
+        batchWriteParams: {
+          requests: pages.map(page => ({
+            objectID: page.objectID,
+            action: 'addObject',
+            body: page,
+          })),
+        },
       })
 
       await nuxt.callHook('crawler:index:after', {
         options,
         pages,
         client,
-        index,
       })
     }
   }
 }
 
-export interface CrawlerHooks {
-  'crawler:add:before': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
-  'crawler:add:after': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
-  'crawler:index:before': (arg: { options: ModuleOptions, pages: CrawlerPage[], client: SearchClient, index: SearchIndex }) => void
-  'crawler:index:after': (arg: { options: ModuleOptions, pages: CrawlerPage[], client: SearchClient, index: SearchIndex }) => void
-}
-
 declare module '@nuxt/schema' {
-  interface NuxtHooks extends CrawlerHooks { }
+  interface NuxtHooks {
+    'crawler:add:before': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
+    'crawler:add:after': (arg: { route: string, html: string, meta: MetaData, page: CrawlerPage }) => void
+    'crawler:index:before': (arg: { options: ModuleOptions, pages: CrawlerPage[], client: SearchClient }) => void
+    'crawler:index:after': (arg: { options: ModuleOptions, pages: CrawlerPage[], client: SearchClient }) => void
+  }
 }

@@ -40,17 +40,17 @@ export declare type RequestOptions = {
    * Custom query parameters for the request. This query parameters are
    * going to be merged the transporter query parameters.
    */
-  readonly queryParameters?: Record<string, any>
+  readonly queryParameters?: Record<string, unknown>
   /**
    * Custom data for the request. This data are
    * going to be merged the transporter data.
    */
-  readonly data?: Record<string, any>
+  readonly data?: Record<string, unknown>
   /**
    * Additional request body values. It's only taken in
    * consideration in `POST` and `PUT` requests.
    */
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export declare type SearchOptions = {
@@ -575,7 +575,7 @@ export declare type Settings = {
   /**
    * Custom userData that could be added to the Settings.
    */
-  readonly userData?: any
+  readonly userData?: unknown
   /**
    * Enable word segmentation (also called decompounding) at query time for
    * compatible languages. For example, this turns the Dutch query
@@ -726,8 +726,8 @@ export interface DocSearchOptions {
 export type HitComponentFunc = (props: {
   hit: InternalDocSearchHit | StoredDocSearchHit
   // Avoid importing React types there
-  children: any // React.ReactNode;
-}) => any
+  children: unknown // React.ReactNode;
+}) => unknown | null
 
 export const InstantSearchThemes = {
   reset: 'reset',
