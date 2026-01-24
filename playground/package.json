@@ -10,6 +10,11 @@
   "dependencies": {
     "@nuxtjs/algolia": "latest",
     "nuxt": "^4.3.0",
-    "nuxt/ui": "^4.4.0"
+    "@nuxt/ui": "^4.4.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.2.3"
   }
 }

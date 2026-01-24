@@ -1,5 +1,5 @@
 <template>
-  <div id="docsearch">
+  <div :id="containerId">
     <button type="button" class="DocSearch DocSearch-Button" aria-label="Search" />
   </div>
 </template>
@@ -10,20 +10,26 @@ import { withoutTrailingSlash } from 'ufo'
 import type { ModuleBaseOptions, SearchOptions } from '../../types'
 import type { DocSearchTranslations } from '@docsearch/react'
 import type { DocSearchProps } from '@docsearch/react'
-// @ts-ignore - These are Nuxt3 aliases
-import { useRuntimeConfig, useRoute, useRouter, onMounted, watch } from '#imports'
+import { useRuntimeConfig, useRoute, useRouter, onMounted, onUnmounted, watch } from '#imports'
 
 const route = useRoute()
 const router = useRouter()
 
+// Generate unique container ID for each instance
+const containerId = ref(`docsearch-${Math.random().toString(36).substring(2, 9)}`)
+const containerSelector = computed(() => `#${containerId.value}`)
+
+// Store DocSearch instance for cleanup
+let docSearchInstance: any = null
+
 const props = defineProps({
   applicationId: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.applicationId
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.applicationId
   },
   apiKey: {
     type: String,
-    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.apiKey
+    default: () => (useRuntimeConfig().public.algolia as ModuleBaseOptions)?.docSearch?.apiKey
   },
   indexName: {
     type: String,
@@ -109,7 +115,7 @@ const props = defineProps({
    * {@link https://docsearch.algolia.com/docs/api#getmissingresultsurl}
    */
   getMissingResultsUrl: {
-    type: [Function, undefined] as PropType<DocSearchProps['getMissingResultsUrl']>,
+    type: [Function, undefined] as PropType<DocSearchProps['getMissingResultsUrl'] | undefined>,
     default: undefined
   }
 })
@@ -123,10 +129,32 @@ const isSpecialClick = (event: MouseEvent) => event.button === 1 || event.altKey
  * Gets the relative path from an absolute URL provided by the DocSearch instance.
  */
 const getRelativePath = (absoluteUrl: string) => {
-  const { pathname, hash } = new URL(absoluteUrl)
-  const url = window.location.origin
-  const relativeUrl = pathname.replace(url, '/') + hash
-  return withoutTrailingSlash(relativeUrl)
+  // If URL is already relative, return it as is
+  if (!absoluteUrl || absoluteUrl.startsWith('/')) {
+    return withoutTrailingSlash(absoluteUrl)
+  }
+
+  try {
+    // Try to parse as absolute URL
+    const url = new URL(absoluteUrl)
+    const relativeUrl = url.pathname + url.hash
+    return withoutTrailingSlash(relativeUrl)
+  } catch (error) {
+    // If URL parsing fails, try to extract pathname manually
+    // This handles cases where the URL might be malformed
+    const hashIndex = absoluteUrl.indexOf('#')
+    const hash = hashIndex !== -1 ? absoluteUrl.substring(hashIndex) : ''
+    
+    // Try to find the pathname part
+    const originMatch = absoluteUrl.match(/^https?:\/\/[^/]+(\/.*?)(?:#|$)/)
+    if (originMatch) {
+      return withoutTrailingSlash(originMatch[1] + hash)
+    }
+    
+    // If all else fails, return the original URL
+    console.warn('Failed to parse URL:', absoluteUrl, error)
+    return absoluteUrl
+  }
 }
 
 /**
@@ -161,33 +189,80 @@ const importDocSearchAtRuntime = async (): Promise<DocSearchFunc> => {
  * Initialize the DocSearch instance.
  */
 const initialize = async () => {
-  const docsearch = await importDocSearchAtRuntime()
-  const langPrefix = props.lang ? `${props.langAttribute}:${props.lang}` : undefined
-  const facetFilters = langPrefix ? [langPrefix, ...props.facetFilters] : props.facetFilters
+  try {
+    const docsearch = await importDocSearchAtRuntime()
+    const langPrefix = props.lang ? `${props.langAttribute}:${props.lang}` : undefined
+    const baseFacetFilters: string[] = Array.isArray(props.facetFilters) 
+      ? [...props.facetFilters] 
+      : props.facetFilters 
+        ? [props.facetFilters] 
+        : []
+    const facetFilters: string[] = langPrefix ? [langPrefix, ...baseFacetFilters] : baseFacetFilters
 
-  // Create DocSearch instance
-  docsearch({
+    // Verify container exists
+    const container = document.querySelector(containerSelector.value)
+    if (!container) {
+      console.error(`DocSearch: Container ${containerSelector.value} not found`)
+      return
+    }
+
+    // Clean up previous instance if it exists
+    if (docSearchInstance) {
+      try {
+        // DocSearch doesn't have a built-in destroy method, so we remove the modal if it exists
+        const modal = document.querySelector('.DocSearch-Modal')
+        if (modal) {
+          modal.remove()
+        }
+        // Remove event listeners by removing and recreating the button
+        const button = container.querySelector('.DocSearch-Button')
+        if (button) {
+          button.replaceWith(button.cloneNode(true))
+        }
+      } catch (error) {
+        console.warn('DocSearch cleanup warning:', error)
+      }
+    }
+
+    // Create DocSearch instance
+    docSearchInstance = docsearch({
     /**
-     * Local implementation of this DocSearch box uses a local element with an `docsearch` id.
+     * Local implementation of this DocSearch box uses a unique container ID for each instance.
      */
-    container: '#docsearch',
+    container: containerSelector.value,
     appId: props.applicationId,
     apiKey: props.apiKey,
     indexName: props.indexName,
     searchParameters: {
       facetFilters,
-      ...props.searchParameters
-    },
+      ...(props.searchParameters || {})
+    } as any,
     /**
      * Transform items into relative URL format (compatibility with Vue Router).
      */
     transformItems: props.transformItems
       ? props.transformItems
       : (items) => {
+          if (!items || !Array.isArray(items)) {
+            console.warn('DocSearch transformItems: items is not an array', items)
+            return []
+          }
+          
           return items.map((item) => {
-            return {
-              ...item,
-              url: getRelativePath(item.url)
+            if (!item || !item.url) {
+              console.warn('DocSearch transformItems: item missing url', item)
+              return item
+            }
+            
+            try {
+              const transformedUrl = getRelativePath(item.url)
+              return {
+                ...item,
+                url: transformedUrl
+              }
+            } catch (error) {
+              console.error('DocSearch transformItems error:', error, item)
+              return item
             }
           })
         },
@@ -240,8 +315,33 @@ const initialize = async () => {
     placeholder: props.placeholder,
     translations: props.translations,
     transformSearchClient: props.transformSearchClient
-  })
+    })
+    
+    console.log('DocSearch initialized successfully', {
+      containerId: containerId.value,
+      appId: props.applicationId,
+      indexName: props.indexName,
+      apiKey: props.apiKey ? `${props.apiKey.substring(0, 10)}...` : 'missing'
+    })
+  } catch (error) {
+    console.error('DocSearch initialization error:', error)
+  }
 }
+
+// Cleanup on unmount
+onUnmounted(() => {
+  if (docSearchInstance) {
+    try {
+      const modal = document.querySelector('.DocSearch-Modal')
+      if (modal) {
+        modal.remove()
+      }
+    } catch (error) {
+      console.warn('DocSearch cleanup warning:', error)
+    }
+    docSearchInstance = null
+  }
+})
 
 onMounted(async () => {
   await initialize()

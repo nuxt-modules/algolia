@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   modules: [
-    '../src/module'
+    '../src/module',
+    '@nuxt/ui'
   ],
 
   nitro: {
@@ -20,6 +21,8 @@ export default defineNuxtConfig({
     lite: false, // by default set to 'true'
     cache: true,
     docSearch: {
+      applicationId: process.env.ALGOLIA_APPLICATION_ID ?? 'PMZUYBQDAK',
+      apiKey: process.env.ALGOLIA_API_KEY ?? '24b09689d5b4223813d9b8e48563c8f6',
       indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'docsearch'
     },
     instantSearch: {
@@ -32,7 +35,7 @@ export default defineNuxtConfig({
         algoliaAdminApiKey: process.env.ALGOLIA_ADMIN_KEY,
         indexName: process.env.ALGOLIA_INDEX_NAME,
         accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
-        contentVersion: process.env.STORYBLOK_CONTENT_VERSION
+        contentVersion: process.env.STORYBLOK_CONTENT_VERSION || 'draft'
       }
     },
     crawler: {
@@ -40,6 +43,7 @@ export default defineNuxtConfig({
       indexName: process.env.ALGOLIA_CRAWLER_INDEX_NAME
     }
   },
+  css: ["./playground/app/assets/css/main.css"],
 
-  compatibilityDate: '2025-03-19'
+  compatibilityDate: '2026-01-24'
 })
