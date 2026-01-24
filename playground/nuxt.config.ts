@@ -21,9 +21,9 @@ export default defineNuxtConfig({
     lite: false, // by default set to 'true'
     cache: true,
     docSearch: {
-      applicationId: process.env.ALGOLIA_APPLICATION_ID ?? 'PMZUYBQDAK',
-      apiKey: process.env.ALGOLIA_API_KEY ?? '24b09689d5b4223813d9b8e48563c8f6',
-      indexName: process.env.ALGOLIA_DOCSEARCH_INDEX_NAME ?? 'docsearch'
+      applicationId: 'PMZUYBQDAK',
+      apiKey: '24b09689d5b4223813d9b8e48563c8f6',
+      indexName: 'docsearch'
     },
     instantSearch: {
       theme: 'algolia'

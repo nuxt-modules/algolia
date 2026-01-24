@@ -1,5 +1,5 @@
 <template>
-  <div :id="containerId">
+  <div :id="containerId" :data-docsearch-id="containerId">
     <button type="button" class="DocSearch DocSearch-Button" aria-label="Search" />
   </div>
 </template>
@@ -10,14 +10,25 @@ import { withoutTrailingSlash } from 'ufo'
 import type { ModuleBaseOptions, SearchOptions } from '../../types'
 import type { DocSearchTranslations } from '@docsearch/react'
 import type { DocSearchProps } from '@docsearch/react'
-import { useRuntimeConfig, useRoute, useRouter, onMounted, onUnmounted, watch } from '#imports'
+import { useRuntimeConfig, useRoute, useRouter, onMounted, onUnmounted, watch, nextTick } from '#imports'
 
 const route = useRoute()
 const router = useRouter()
 
 // Generate unique container ID for each instance
-const containerId = ref(`docsearch-${Math.random().toString(36).substring(2, 9)}`)
+// Use a static ID on server to avoid SSR mismatch, then generate unique ID on client
+const containerId = ref('docsearch')
 const containerSelector = computed(() => `#${containerId.value}`)
+
+// Generate UUID function
+// TODO search for a better way to generate a unique ID
+const generateUUID = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0
+    const v = c === 'x' ? r : (r & 0x3 | 0x8)
+    return v.toString(16)
+  })
+}
 
 // Store DocSearch instance for cleanup
 let docSearchInstance: any = null
@@ -199,11 +210,23 @@ const initialize = async () => {
         : []
     const facetFilters: string[] = langPrefix ? [langPrefix, ...baseFacetFilters] : baseFacetFilters
 
-    // Verify container exists
-    const container = document.querySelector(containerSelector.value)
+    // Wait for next tick to ensure DOM is updated
+    await nextTick()
+    
+    // Verify container exists - try multiple selectors to handle ID updates
+    let container = document.querySelector(containerSelector.value)
+    if (!container) {
+      // Fallback: try to find by data attribute
+      container = document.querySelector(`[data-docsearch-id="${containerId.value}"]`)
+    }
     if (!container) {
       console.error(`DocSearch: Container ${containerSelector.value} not found`)
       return
+    }
+    
+    // Ensure the container has the correct ID
+    if (container.id !== containerId.value) {
+      container.id = containerId.value
     }
 
     // Clean up previous instance if it exists
@@ -344,6 +367,25 @@ onUnmounted(() => {
 })
 
 onMounted(async () => {
+  // Generate unique ID on client mount to avoid SSR mismatch
+  // This ensures each instance has a unique ID while avoiding hydration issues
+  if (containerId.value === 'docsearch') {
+    const uuid = generateUUID()
+    const newId = `docsearch-${uuid.substring(0, 8)}`
+    
+    // Update the ref first
+    containerId.value = newId
+    
+    // Then update the DOM element ID directly to ensure it's set before DocSearch initialization
+    await nextTick()
+    const element = document.querySelector('#docsearch')
+    if (element) {
+      element.id = newId
+    }
+  }
+  
+  // Wait for DOM to be fully updated
+  await nextTick()
   await initialize()
 })
 
