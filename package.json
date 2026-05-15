@@ -20,7 +20,6 @@
     }
   },
   "main": "./dist/module.cjs",
-  "types": "./dist/types.d.ts",
   "files": [
     "dist"
   ],
@@ -29,35 +28,39 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:preview": "nuxi preview playground",
-    "dev:prepare": "nuxt-module-build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "docs": "cd docs && yarn dev",
-    "release": "nuxt-module-build && standard-version && git push --follow-tags && npm publish",
+    "release": "nuxt-module-build build && standard-version && git push --follow-tags && npm publish",
     "lint": "eslint --ext .js,.ts,.vue"
   },
   "dependencies": {
-    "@algolia/cache-in-memory": "^4.14.2",
-    "@algolia/recommend": "^4.12.2",
-    "@algolia/requester-fetch": "^4.23.2",
-    "@algolia/requester-node-http": "^5.21.0",
+    "@algolia/cache-in-memory": "^4.26.0",
+    "@algolia/recommend": "^5.52.1",
+    "@algolia/requester-fetch": "^5.52.1",
+    "@algolia/requester-node-http": "^5.52.1",
     "@nuxt/kit": "^3.7.0",
-    "algoliasearch": "^4.11.0",
+    "algoliasearch": "^5.52.1",
     "defu": "^6.1.4",
     "exsolve": "^1.0.4",
     "instantsearch.css": "^7.4.5",
     "metadata-scraper": "^0.2.49",
     "mocked-exports": "^0.1.1",
     "storyblok-algolia-indexer": "^1.1.0",
-    "vue-instantsearch": "^4.3.2"
+    "vue-instantsearch": "^4.26.3"
   },
   "devDependencies": {
     "@docsearch/css": "^3.0.0",
     "@docsearch/js": "^3.0.0",
-    "@nuxt/module-builder": "latest",
+    "@nuxt/cli": "^3.35.2",
+    "@nuxt/module-builder": "^1.0.2",
     "@nuxtjs/eslint-config-typescript": "latest",
     "eslint": "latest",
+    "nuxi": "^3.9.0",
     "nuxt": "^3.16.0",
     "standard-version": "^9.3.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.8.3",
+    "vite": "^6.0.0",
+    "vue": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
@@ -75,5 +78,8 @@
     "nuxt",
     "module"
   ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
