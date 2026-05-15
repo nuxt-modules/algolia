@@ -2,7 +2,6 @@ import { computed, onUnmounted } from 'vue'
 import type { SearchResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
 import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
-import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useState, useRuntimeConfig, useNuxtApp } from '#imports'
 
 export type SearchParams = { query: string } & RequestOptionsObject;
@@ -12,24 +11,32 @@ export type UseSearchReturnType<T> = {
   search: (params: SearchParams) => Promise<SearchResponse<T>>,
 }
 
+// @ts-expect-error TS can not infer string here
 export function useAlgoliaSearch<K extends keyof AlgoliaIndices>(indexName?: K): UseSearchReturnType<AlgoliaIndices[K]>
 export function useAlgoliaSearch<T>(indexName?: string): UseSearchReturnType<T>
-export function useAlgoliaSearch (indexName?: string) {
+export function useAlgoliaSearch<T> (indexName?: string) {
   const config = useRuntimeConfig()
   const index = indexName || config.public.algolia.globalIndex
 
   if (!index) { throw new Error('`[@nuxtjs/algolia]` Cannot search in Algolia without `globalIndex` or `indexName` passed as a parameter') }
 
-  const algoliaIndex = useAlgoliaInitIndex(index)
+  const client = useAlgoliaRef()
   const result = useState(`${index}-search-result`, () => null)
 
   const search = async ({ query, requestOptions }: SearchParams) => {
     if (import.meta.server) {
       const nuxtApp = useNuxtApp()
-      nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-fetch').then(lib => lib.default || lib)).createFetchRequester()
+      nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-fetch').then(lib => lib.createFetchRequester()))
     }
 
-    const searchResult = await algoliaIndex.search(query, requestOptions)
+    const searchResult = await client.search<T>({
+      requests: [
+        {
+          indexName: index,
+          query
+        }
+      ]
+    }, requestOptions)
     result.value = searchResult
     return searchResult
   }

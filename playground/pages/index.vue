@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useSeoMeta } from '#imports'
 import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch/vue3/es'
+import { useSeoMeta } from '#imports'
 // Used to try the refresh of the component on options changes
 const indexName = ref('test_index')
 
@@ -36,7 +36,7 @@ const algolia = useAlgoliaRef()
 const { result: recommendResult, get } = useAlgoliaRecommend()
 
 // Just add some indices in ./playground/types.d.ts, they should then be autocompleted here
-const { search: typedSearch } = useAlgoliaInitIndex('test_index')
+const { search: typedSearch } = algolia
 
 // SSR Searching for results
 const { data } = await useAsyncData('ssr-search-results', () => search({ query: 'Samsung' }))
@@ -53,10 +53,17 @@ onMounted(async () => {
   await searchForFacetValues({ facet })
 
   // useAlgoliaRecommend
-  await get({ queries: [{ indexName: indexName.value, model: 'related-products', objectID: 'ecommerce-sample-data-99' }] })
+  await get({ requests: [{ indexName: indexName.value, model: 'related-products', objectID: 'ecommerce-sample-data-99', threshold: 0.5 }] })
 
   // Notice the type of typedFoo is inferred from the type of the result of the call to useInitIndex
-  const typedFoo = await typedSearch('foo')
+  const typedFoo = await typedSearch({
+    requests: [
+      {
+        indexName: 'test_index',
+        query: 'foo'
+      }
+    ]
+  })
 
   // @ts-expect-error bar should be a number
   typedFoo.hits[0].bar = '1'

@@ -1,20 +1,18 @@
-import type { RecommendationsQuery, RecommendClient } from '@algolia/recommend'
+import type { RecommendationsRequest, RecommendClient } from '@algolia/recommend'
 import { type ComputedRef, computed } from 'vue'
-import type { RequestOptionsObject, SearchResponse } from '../../types'
+import type { RequestOptionsObject } from '../../types'
 import { useNuxtApp, useState } from '#imports'
 
-export type RecommendParams = { queries: RecommendationsQuery[] } & RequestOptionsObject
+export type RecommendParams = { requests: RecommendationsRequest[] } & RequestOptionsObject
 
-export type MultipleQueriesResponse<T> = {
-  results: Array<SearchResponse<T>>;
+export type RecommendResponse = Awaited<ReturnType<RecommendClient['getRecommendations']>>
+
+export type UseAlgoliaRecommend = {
+  result: ComputedRef<RecommendResponse | null>;
+  get: (params: RecommendParams) => Promise<RecommendResponse>
 }
 
-export type UseAlgoliaRecommend<T> = {
-  result: ComputedRef<MultipleQueriesResponse<T>>;
-  get: (params: RecommendParams) => Promise<MultipleQueriesResponse<T>>
-}
-
-export function useAlgoliaRecommend<T> (key: string = ''): UseAlgoliaRecommend<T> {
+export function useAlgoliaRecommend (key: string = ''): UseAlgoliaRecommend {
   const { $algoliaRecommend } = useNuxtApp()
   const algoliaRecommend: RecommendClient = $algoliaRecommend
 
@@ -24,8 +22,10 @@ export function useAlgoliaRecommend<T> (key: string = ''): UseAlgoliaRecommend<T
 
   const result = useState(`recommend-result${key ? '-' + key : ''}`, () => null)
 
-  const get = async ({ queries, requestOptions }: RecommendParams) => {
-    result.value = await algoliaRecommend.getRecommendations<T>(queries, requestOptions)
+  const get = async ({ requests, requestOptions }: RecommendParams) => {
+    result.value = await algoliaRecommend.getRecommendations({
+      requests
+    }, requestOptions)
 
     return result.value
   }

@@ -1,9 +1,8 @@
-import { SearchClient } from 'algoliasearch/lite'
 import { useNuxtApp } from '#imports'
 
-export const useAlgoliaRef = (): SearchClient => {
+export const useAlgoliaRef = () => {
   const nuxtApp = useNuxtApp()
-  const algolia: SearchClient = nuxtApp.$algolia
+  const algolia = nuxtApp.$algolia
 
   return algolia
 }

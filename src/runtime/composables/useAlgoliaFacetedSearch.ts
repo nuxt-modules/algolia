@@ -3,7 +3,6 @@ import { computed } from 'vue'
 import type { SearchForFacetValuesResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
 import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
-import { useAlgoliaInitIndex } from './useAlgoliaInitIndex'
 import { useState } from '#imports'
 
 export type SearchForFacetValuesParams = {
@@ -18,15 +17,25 @@ export type UseSearchForFacetValuesReturnType = {
   search: (params: SearchForFacetValuesParams) => Promise<SearchForFacetValuesResponse>,
 }
 
+// @ts-expect-error TS can not infer string here
 export function useAlgoliaFacetedSearch<K extends keyof AlgoliaIndices>(indexName: K): UseSearchForFacetValuesReturnType
 export function useAlgoliaFacetedSearch(indexName: string): UseSearchForFacetValuesReturnType
 export function useAlgoliaFacetedSearch (indexName: string) {
-  const algoliaIndex = useAlgoliaInitIndex(indexName)
+  const algolia = useAlgoliaRef()
   const result = useState(`${indexName}-search-for-facet-values-result`, () => null)
 
   const search = async ({ facet, requestOptions }: SearchForFacetValuesParams) => {
     const { name, query } = facet
-    const searchForFacetValuesResult = await algoliaIndex.searchForFacetValues(name, query, requestOptions)
+    const searchForFacetValuesResult = await algolia.searchForFacets({
+      requests: [
+        {
+          indexName,
+          facet: name,
+          query,
+          type: 'facet'
+        }
+      ]
+    }, requestOptions)
     result.value = searchForFacetValuesResult
     return searchForFacetValuesResult
   }
