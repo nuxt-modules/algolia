@@ -1,8 +1,7 @@
 import type { DocSearchTranslations } from '@docsearch/react'
 import type { InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react/dist/esm/types'
 
-// TODO: update import
-import type { SearchIndex } from 'algoliasearch'
+import type { SearchResponse } from 'algoliasearch'
 
 export interface AlgoliaIndices {}
 
@@ -13,7 +12,7 @@ export type RequestOptionsObject = {
 
 export type TypedSearchIndex<K extends keyof AlgoliaIndices> = {
     // eslint-disable-next-line
-    readonly search: (...args: Parameters<SearchIndex['search']>) => Readonly<Promise<SearchResponse<AlgoliaIndices[K]>>>
+    readonly search: (...args: any) => Readonly<Promise<SearchResponse<AlgoliaIndices[K]>>>
 } & Omit<SearchIndex, 'search'>
 
 // Have to add some types manually as the imports are failing the build process of the module
