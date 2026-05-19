@@ -36,7 +36,7 @@ const algolia = useAlgoliaRef()
 const { result: recommendResult, get } = useAlgoliaRecommend()
 
 // Just add some indices in ./playground/types.d.ts, they should then be autocompleted here
-const { search: typedSearch, result: typedResult } = useAlgoliaSearch('coolIndex')
+const { search: typedSearch, result: typedResult } = useAlgoliaSearch('test_index')
 
 // SSR Searching for results
 const { data } = await useAsyncData('ssr-search-results', () => search({ query: 'Samsung' }))
