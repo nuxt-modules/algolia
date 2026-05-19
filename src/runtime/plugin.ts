@@ -4,7 +4,7 @@ import { liteClient } from 'algoliasearch/lite'
 import type { RecommendClient, SearchClient } from 'algoliasearch'
 import { defineNuxtPlugin, useRuntimeConfig } from '#imports'
 
-export default defineNuxtPlugin(async (nuxtApp) => {
+export default defineNuxtPlugin(async () => {
   const { applicationId, apiKey, lite, recommend, cache } = useRuntimeConfig().public.algolia
 
   const algoliaSarchOptions = cache
@@ -15,7 +15,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
   let algoliaFullClient: SearchClient | undefined
   if (!lite) {
-    algoliaFullClient = await import('algoliasearch').then(lib => lib.searchClient(applicationId, apiKey, algoliaSarchOptions))
+    algoliaFullClient = await import('algoliasearch/dist/browser').then(lib => lib.algoliasearch(applicationId, apiKey, algoliaSarchOptions))
   }
 
   let algoliaRecommend: RecommendClient | undefined
