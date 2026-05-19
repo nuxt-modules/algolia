@@ -1,10 +1,11 @@
 import { computed, onUnmounted } from 'vue'
 import type { SearchResponse } from '@algolia/client-search'
 import type { ComputedRef } from 'vue'
+import type { BaseSearchParams } from 'algoliasearch'
 import type { AlgoliaIndices, RequestOptionsObject } from '../../types'
 import { useState, useRuntimeConfig, useNuxtApp } from '#imports'
 
-export type SearchParams = { query: string } & RequestOptionsObject;
+export type SearchParams = BaseSearchParams & RequestOptionsObject;
 
 export type UseSearchReturnType<T> = {
   result: ComputedRef<SearchResponse<T>>,
@@ -23,7 +24,7 @@ export function useAlgoliaSearch<T> (indexName?: string) {
   const client = useAlgoliaRef()
   const result = useState(`${index}-search-result`, () => null)
 
-  const search = async ({ query, requestOptions }: SearchParams) => {
+  const search = async ({ query, requestOptions, ...searchOptions }: SearchParams) => {
     if (import.meta.server) {
       const nuxtApp = useNuxtApp()
       nuxtApp.$algolia.transporter.requester = (await import('@algolia/requester-fetch').then(lib => lib.createFetchRequester()))
@@ -33,7 +34,8 @@ export function useAlgoliaSearch<T> (indexName?: string) {
       requests: [
         {
           indexName: index,
-          query
+          query,
+          ...searchOptions
         }
       ]
     }, requestOptions)
