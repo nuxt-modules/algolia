@@ -36,14 +36,14 @@ const algolia = useAlgoliaRef()
 const { result: recommendResult, get } = useAlgoliaRecommend()
 
 // Just add some indices in ./playground/types.d.ts, they should then be autocompleted here
-const { search: typedSearch } = algolia
+const { search: typedSearch, result: typedResult } = useAlgoliaSearch('coolIndex')
 
 // SSR Searching for results
 const { data } = await useAsyncData('ssr-search-results', () => search({ query: 'Samsung' }))
 
 onMounted(async () => {
   // useSearch
-  await search({ query: 'Samsung', requestOptions: { filters: 'objectID:ecommerce-sample-data-99' } })
+  await search({ query: 'Samsung', filters: 'objectID:ecommerce-sample-data-99' })
 
   // useSearchForFacetValues
   const facet = {
@@ -57,12 +57,7 @@ onMounted(async () => {
 
   // Notice the type of typedFoo is inferred from the type of the result of the call to useInitIndex
   const typedFoo = await typedSearch({
-    requests: [
-      {
-        indexName: 'test_index',
-        query: 'foo'
-      }
-    ]
+    query: 'foo'
   })
 
   // @ts-expect-error bar should be a number
