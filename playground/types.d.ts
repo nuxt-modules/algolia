@@ -2,7 +2,7 @@ import './../src/module'
 
 declare module '../src/module' {
  interface AlgoliaIndices {
-     coolIndex: {
+     test_index: {
          foo: string
          bar: number
      }

@@ -1,84 +1,71 @@
 import type { DocSearchTranslations } from '@docsearch/react'
-import type { InternalDocSearchHit, StoredDocSearchHit } from '@docsearch/react/dist/esm/types'
-import type { SearchIndex } from 'algoliasearch'
+import type {
+  InternalDocSearchHit,
+  StoredDocSearchHit
+} from '@docsearch/react/dist/esm/types'
+
+import type { SearchResponse } from 'algoliasearch'
 
 export interface AlgoliaIndices {}
 
 export type RequestOptionsObject = {
   // eslint-disable-next-line
-  requestOptions?: RequestOptions & SearchOptions;
-}
+  requestOptions?: RequestOptions;
+};
 
-export type TypedSearchIndex<K extends keyof AlgoliaIndices> = {
-    // eslint-disable-next-line
-    readonly search: (...args: Parameters<SearchIndex['search']>) => Readonly<Promise<SearchResponse<AlgoliaIndices[K]>>>
-} & Omit<SearchIndex, 'search'>
+// TODO: check how this can be fixed, or if it needs to
+// export type TypedSearchIndex<K extends keyof AlgoliaIndices> = {
+//   readonly search: (
+//     ...args: any
+//   ) => Readonly<Promise<SearchResponse<AlgoliaIndices[K]>>>;
+// } & Omit<SearchIndex, 'search'>;
 
 // Have to add some types manually as the imports are failing the build process of the module
 // Algolia types
 
-export type FacetHit = {
-  /**
-   * The value of the facet.
-   */
-  readonly value: string;
-  /**
-   * The highlighted value.
-   */
-  readonly highlighted: string;
-  /**
-   * The count.
-   */
-  readonly count: number;
-};
-
-export type SearchForFacetValuesResponse = {
-  /**
-   * The list of facet hits.
-   */
-  facetHits: FacetHit[];
-  /**
-   * The exhaustive facets count.
-   */
-  exhaustiveFacetsCount: boolean;
-  /**
-   * The time that the API toke the process the request.
-   */
-  processingTimeMS?: number;
-};
-
+// See node_modules/@algolia/client-common/dist/common.d.ts
 export declare type RequestOptions = {
   /**
    * If the given request should persist on the cache. Keep in mind,
    * that some methods may have this option enabled by default.
    */
-  readonly cacheable?: boolean;
+  cacheable?: boolean | undefined;
   /**
-   * Custom timeout for the request. Note that, in normal situacions
+   * Custom timeout for the request. Note that, in normal situations
    * the given timeout will be applied. But the transporter layer may
    * increase this timeout if there is need for it.
    */
-  readonly timeout?: number;
+  timeouts?:
+    | Partial<{
+        /**
+         * Timeout in milliseconds before the connection is established.
+         */
+        connect: number;
+        /**
+         * Timeout in milliseconds before reading the response on a read request.
+         */
+        read: number;
+        /**
+         * Timeout in milliseconds before reading the response on a write request.
+         */
+        write: number;
+      }>
+    | undefined;
   /**
    * Custom headers for the request. This headers are
    * going to be merged the transporter headers.
    */
-  readonly headers?: Readonly<Record<string, string>>;
+  headers?: Record<string, string> | undefined;
   /**
    * Custom query parameters for the request. This query parameters are
    * going to be merged the transporter query parameters.
    */
-  readonly queryParameters?: Record<string, any>;
+  queryParameters?: Record<string, any> | undefined;
   /**
-   * Custom data for the request. This data are
+   * Custom data for the request. This data is
    * going to be merged the transporter data.
    */
-  readonly data?: Record<string, any>;
-  /**
-   * Additional request body values. It's only taken in
-   * consideration in `POST` and `PUT` requests.
-   */
-  [key: string]: any;
+  data?: Array<Record<string, any>> | Record<string, any> | undefined;
 };
 
 export declare type SearchOptions = {
@@ -377,294 +364,6 @@ export declare type SearchOptions = {
   readonly enableReRanking?: boolean;
 };
 
-export declare type Settings = {
-  /**
-   * The complete list of attributes that will be used for searching.
-   */
-  readonly searchableAttributes?: readonly string[];
-  /**
-   * @deprecated Use `searchableAttributes` instead.
-   */
-  readonly attributesToIndex?: readonly string[];
-  /**
-   * The complete list of attributes that will be used for faceting.
-   */
-  readonly attributesForFaceting?: readonly string[];
-  /**
-   * List of attributes that cannot be retrieved at query time.
-   */
-  readonly unretrievableAttributes?: readonly string[];
-  /**
-   * Gives control over which attributes to retrieve and which not to retrieve.
-   */
-  readonly attributesToRetrieve?: readonly string[];
-  /**
-   * Controls the way results are sorted.
-   */
-  readonly ranking?: readonly string[];
-  /**
-   * Specifies the custom ranking criterion.
-   */
-  readonly customRanking?: readonly string[];
-  /**
-   * Creates replicas, exact copies of an index.
-   */
-  readonly replicas?: readonly string[];
-  /**
-   * @deprecated Use `replicas` instead.
-   */
-  readonly slaves?: readonly string[];
-  /**
-   * The primary parameter is automatically added to a replica's settings when the replica is created and cannot be modified.
-   *
-   * Can not be setted.
-   */
-  readonly primary?: string;
-  /**
-   * Maximum number of facet values to return for each facet during a regular search.
-   */
-  readonly maxValuesPerFacet?: number;
-  /**
-   * Controls how facet values are sorted.
-   */
-  readonly sortFacetValuesBy?: 'count' | 'alpha';
-  /**
-   * List of attributes to highlight.
-   */
-  readonly attributesToHighlight?: readonly string[];
-  /**
-   * List of attributes to snippet, with an optional maximum number of words to snippet.
-   */
-  readonly attributesToSnippet?: readonly string[];
-  /**
-   * The HTML string to insert before the highlighted parts in all highlight and snippet results.
-   */
-  readonly highlightPreTag?: string;
-  /**
-   * The HTML string to insert after the highlighted parts in all highlight and snippet results.
-   */
-  readonly highlightPostTag?: string;
-  /**
-   * String used as an ellipsis indicator when a snippet is truncated.
-   */
-  readonly snippetEllipsisText?: string;
-  /**
-   * Restrict highlighting and snippeting to items that matched the query.
-   */
-  readonly restrictHighlightAndSnippetArrays?: boolean;
-  /**
-   * Set the number of hits per page.
-   */
-  readonly hitsPerPage?: number;
-  /**
-   * Set the maximum number of hits accessible via pagination.
-   */
-  readonly paginationLimitedTo?: number;
-  /**
-   * Minimum number of characters a word in the query string must contain to accept matches with 1 typo.
-   */
-  readonly minWordSizefor1Typo?: number;
-  /**
-   * Minimum number of characters a word in the query string must contain to accept matches with 2 typos.
-   */
-  readonly minWordSizefor2Typos?: number;
-  /**
-   * Controls whether typo tolerance is enabled and how it is applied.
-   */
-  readonly typoTolerance?: string | boolean;
-  /**
-   * hether to allow typos on numbers (“numeric tokens”) in the query string.
-   */
-  readonly allowTyposOnNumericTokens?: boolean;
-  /**
-   * List of attributes on which you want to disable typo tolerance.
-   */
-  readonly disableTypoToleranceOnAttributes?: readonly string[];
-  /**
-   * List of words on which you want to disable typo tolerance.
-   */
-  readonly disableTypoToleranceOnWords?: readonly string[];
-  /**
-   * Control which separators are indexed.
-   */
-  readonly separatorsToIndex?: string;
-  /**
-   * Treats singular, plurals, and other forms of declensions as matching terms.
-   */
-  readonly ignorePlurals?: readonly string[] | boolean;
-  /**
-   * Sets the languages to be used by language-specific settings and functionalities such as ignorePlurals, removeStopWords, and CJK word-detection.
-   */
-  readonly queryLanguages?: readonly string[];
-  /**
-   * A list of language ISO code.
-   */
-  readonly indexLanguages?: readonly string[];
-  /**
-   * Whether rules should be globally enabled.
-   */
-  readonly enableRules?: boolean;
-  /**
-   * Controls if and how query words are interpreted as prefixes.
-   */
-  readonly queryType?: 'prefixLast' | 'prefixAll' | 'prefixNone';
-  /**
-   * Selects a strategy to remove words from the query when it doesn’t match any hits.
-   */
-  readonly removeWordsIfNoResults?: 'none' | 'lastWords' | 'firstWords' | 'allOptional';
-  /**
-   * Enables the advanced query syntax.
-   */
-  readonly advancedSyntax?: boolean;
-  /**
-   * AdvancedSyntaxFeatures can be exactPhrase or excludeWords
-   */
-  readonly advancedSyntaxFeatures?: ReadonlyArray<'exactPhrase' | 'excludeWords'>;
-  /**
-   * A list of words that should be considered as optional when found in the query.
-   */
-  readonly optionalWords?: readonly string[];
-  /**
-   * List of attributes on which you want to disable prefix matching.
-   */
-  readonly disablePrefixOnAttributes?: readonly string[];
-  /**
-   * List of attributes on which you want to disable the exact ranking criterion.
-   */
-  readonly disableExactOnAttributes?: readonly string[];
-  /**
-   * Controls how the exact ranking criterion is computed when the query contains only one word.
-   */
-  readonly exactOnSingleWordQuery?: 'attribute' | 'none' | 'word';
-  /**
-   * List of alternatives that should be considered an exact match by the exact ranking criterion.
-   */
-  readonly alternativesAsExact?: ReadonlyArray<'ignorePlurals' | 'singleWordSynonym' | 'multiWordsSynonym'>;
-  /**
-   * Removes stop (common) words from the query before executing it.
-   */
-  readonly removeStopWords?: boolean | readonly string[];
-  /**
-   * List of numeric attributes that can be used as numerical filters.
-   */
-  readonly numericAttributesForFiltering?: readonly string[];
-  /**
-   * Enables compression of large integer arrays.
-   */
-  readonly allowCompressionOfIntegerArray?: boolean;
-  /**
-   * Name of the de-duplication attribute to be used with the distinct feature.
-   */
-  readonly attributeForDistinct?: string;
-  /**
-   * Enables de-duplication or grouping of results.
-   */
-  readonly distinct?: boolean | number;
-  /**
-   * Whether to highlight and snippet the original word that matches the synonym or the synonym itself.
-   */
-  readonly replaceSynonymsInHighlight?: boolean;
-  /**
-   * Allows proximity to impact which searchable attribute is matched in the attribute ranking stage.
-   */
-  readonly attributeCriteriaComputedByMinProximity?: boolean;
-  /**
-   * Precision of the proximity ranking criterion.
-   */
-  readonly minProximity?: number;
-  /**
-   * Choose which fields the response will contain. Applies to search and browse queries.
-   */
-  readonly responseFields?: readonly string[];
-  /**
-   * Maximum number of facet hits to return during a search for facet values.
-   */
-  readonly maxFacetHits?: number;
-  /**
-   * List of attributes on which to do a decomposition of camel case words.
-   */
-  readonly camelCaseAttributes?: readonly string[];
-  /**
-   * Specify on which attributes in your index Algolia should apply word-splitting (“decompounding”)
-   */
-  readonly decompoundedAttributes?: Readonly<Record<string, readonly string[]>>;
-  /**
-   * Characters that should not be automatically normalized by the search engine.
-   */
-  readonly keepDiacriticsOnCharacters?: string;
-  /**
-   * Overrides Algolia's default normalization.
-   */
-  readonly customNormalization?: Readonly<Record<string, Readonly<Record<string, string>>>>;
-  /**
-   * Enable personalization for queries by default
-   */
-  readonly enablePersonalization?: boolean;
-  /**
-   * Custom userData that could be added to the Settings.
-   */
-  readonly userData?: any;
-  /**
-   * Enable word segmentation (also called decompounding) at query time for
-   * compatible languages. For example, this turns the Dutch query
-   * "spaanplaatbehang" into "spaan plaat behang" to retrieve more relevant
-   * results.
-   */
-  readonly decompoundQuery?: boolean;
-  /**
-   * Specify on which attributes in your index Algolia should apply Japanese
-   * transliteration to make words indexed in Katakana or Kanji searchable in Hiragana.
-   */
-  readonly attributesToTransliterate?: readonly string[];
-  /**
-   * The relevancy threshold to apply to search in a virtual index [0-100]. A Bigger
-   * value means fewer, but more relevant results, smaller value means more, but
-   * less relevant results.
-   */
-  readonly relevancyStrictness?: number;
-  /**
-   * Content defining how the search interface should be rendered.
-   * This is set via the settings for a default value and can be overridden via rules
-   */
-  readonly renderingContent?: {
-      readonly redirect?: {
-        url?: string
-      }
-      /**
-       * defining how facets should be ordered
-       */
-      readonly facetOrdering?: {
-          /**
-           * the ordering of facets (widgets)
-           */
-          readonly facets?: {
-              /**
-               * pinned order of facet lists
-               */
-              readonly order?: readonly string[];
-          };
-          /**
-           * the ordering of facet values, within an individual list
-           */
-          readonly values?: {
-              readonly [facet: string]: {
-                  /**
-                   * pinned order of facet values
-                   */
-                  readonly order?: readonly string[];
-                  /**
-                   * How to display the remaining items.
-                   * - facet count (descending)
-                   * - alphabetical (ascending)
-                   * - hidden (show only pinned values)
-                   */
-                  readonly sortRemainingBy?: 'count' | 'alpha' | 'hidden';
-              };
-          };
-      };
-  };
-};
-
 export declare type RankingInfo = {
   readonly promoted: boolean;
   readonly nbTypos: number;
@@ -677,14 +376,14 @@ export declare type RankingInfo = {
   readonly filters: number;
   readonly userScore: number;
   readonly matchedGeoLocation?: {
-      readonly lat: number;
-      readonly lng: number;
-      readonly distance: number;
+    readonly lat: number;
+    readonly lng: number;
+    readonly distance: number;
   };
   readonly personalization?: {
-      readonly filtersScore: number;
-      readonly rankingScore: number;
-      readonly score: number;
+    readonly filtersScore: number;
+    readonly rankingScore: number;
+    readonly score: number;
   };
 };
 
@@ -693,9 +392,11 @@ export type SnippetMatch = {
   readonly matchLevel: 'none' | 'partial' | 'full';
 };
 
-export type SnippetResult<THit> = THit extends string | number ? SnippetMatch : {
-  [KAttribute in keyof THit]: SnippetResult<THit[KAttribute]>;
-};
+export type SnippetResult<THit> = THit extends string | number
+  ? SnippetMatch
+  : {
+      [KAttribute in keyof THit]: SnippetResult<THit[KAttribute]>;
+    };
 
 export type HighlightMatch = {
   readonly value: string;
@@ -704,9 +405,11 @@ export type HighlightMatch = {
   readonly fullyHighlighted?: boolean;
 };
 
-export type HighlightResult<THit> = THit extends string | number ? HighlightMatch : {
-  [KAttribute in keyof THit]?: HighlightResult<THit[KAttribute]>;
-};
+export type HighlightResult<THit> = THit extends string | number
+  ? HighlightMatch
+  : {
+      [KAttribute in keyof THit]?: HighlightResult<THit[KAttribute]>;
+    };
 
 export type Hit<THit> = THit & {
   readonly objectID: string;
@@ -714,195 +417,6 @@ export type Hit<THit> = THit & {
   readonly _snippetResult?: SnippetResult<THit>;
   readonly _rankingInfo?: RankingInfo;
   readonly _distinctSeqID?: number;
-};
-
-export type SearchResponse<TObject = {}> = {
-  /**
-   * The hits returned by the search.
-   *
-   * Hits are ordered according to the ranking or sorting of the index being queried.
-   */
-  hits: Array<Hit<TObject>>;
-  /**
-   * Index of the current page (zero-based).
-   */
-  page: number;
-  /**
-   * Number of hits returned (used only with offset)
-   */
-  length?: number;
-  /**
-   * The offset of the first hit to returned.
-   */
-  offset?: number;
-  /**
-   * Number of hits matched by the query.
-   */
-  nbHits: number;
-  /**
-   * Subset of hits selected when relevancyStrictness is applied.
-   */
-  nbSortedHits?: number;
-  /**
-   * Number of pages returned.
-   *
-   * Calculation is based on the total number of hits (nbHits) divided by the
-   * number of hits per page (hitsPerPage), rounded up to the nearest integer.
-   */
-  nbPages: number;
-  /**
-   * Maximum number of hits returned per page.
-   */
-  hitsPerPage: number;
-  /**
-   * Time the server took to process the request, in milliseconds. This does not include network time.
-   */
-  processingTimeMS: number;
-  /**
-   * Whether the nbHits is exhaustive (true) or approximate (false).
-   *
-   * An approximation is done when the query takes more than 50ms to be
-   * processed (this can happen when using complex filters on millions on records).
-   */
-  exhaustiveNbHits: boolean;
-  /**
-   * Whether the facet count is exhaustive (true) or approximate (false).
-   */
-  exhaustiveFacetsCount?: boolean;
-  /**
-   * A mapping of each facet name to the corresponding facet counts.
-   */
-  facets?: Record<string, Record<string, number>>;
-  /**
-   * Statistics for numerical facets.
-   */
-  facets_stats?: Record<string, {
-      /**
-       * The minimum value in the result set.
-       */
-      min: number;
-      /**
-       * The maximum value in the result set.
-       */
-      max: number;
-      /**
-       * The average facet value in the result set.
-       */
-      avg: number;
-      /**
-       * The sum of all values in the result set.
-       */
-      sum: number;
-  }>;
-  /**
-   * The query used to search. Accepts every character, and every character entered will be used in the search.
-   *
-   * An empty query can be used to fetch all records.
-   */
-  query: string;
-  /**
-   * A markup text indicating which parts of the original query have been removed in order to retrieve a non-empty result set.
-   */
-  queryAfterRemoval?: string;
-  /**
-   * A url-encoded string of all search parameters.
-   */
-  params: string;
-  /**
-   * Unique identifier of the search query, to be sent in Insights methods. This identifier links events back to the search query it represents.
-   *
-   * Returned only if clickAnalytics is true.
-   */
-  queryID?: string;
-  /**
-   * Used to return warnings about the query.
-   */
-  message?: string;
-  /**
-   * The computed geo location.
-   *
-   * Format: "lat,lng", where the latitude and longitude are expressed as decimal floating point number.
-   */
-  aroundLatLng?: string;
-  /**
-   * The automatically computed radius.
-   */
-  automaticRadius?: string;
-  /**
-   * Actual host name of the server that processed the request.
-   *
-   * Our DNS supports automatic failover and load balancing, so this may differ from the host name used in the request.
-   */
-  serverUsed?: string;
-  /**
-   * Index name used for the query.
-   */
-  index?: string;
-  /**
-   * Index name used for the query. In case of AB test, the index targetted isn’t always the index used by the query.
-   */
-  indexUsed?: string;
-  /**
-   * In case of AB test, reports the variant ID used. The variant ID is the position in the array of variants (starting at 1).
-   */
-  abTestVariantID?: number;
-  /**
-   * The query string that will be searched, after normalization.
-   */
-  parsedQuery?: string;
-  /**
-   * Custom user data.
-   */
-  userData?: any;
-  /**
-   * Rules applied to the query.
-   */
-  appliedRules?: Array<Record<string, any>>;
-  /**
-   * The explanation of the decompounding at query time.
-   */
-  explain?: {
-      /**
-       * The explain query match.
-       */
-      match: {
-          /**
-           * The explain query match alternatives.
-           */
-          alternatives: Array<{
-              /**
-               * The alternative type.
-               */
-              types: string[];
-              /**
-               * The list of alternative words.
-               */
-              words: string[];
-              /**
-               * The number of typos.
-               */
-              typos: number;
-              /**
-               * The offset.
-               */
-              offset: number;
-              /**
-               * The length.
-               */
-              length: number;
-          }>;
-      };
-      /**
-       * Query parameter reporting. Parameters are reported
-       * as a JSON object with one field per parameter.
-       */
-      params?: Record<string, any>;
-  };
-  /**
-   * The relevancy threshold applied to search in a virtual index.
-   */
-  appliedRelevancyStrictness?: number;
-  renderingContent?: Settings['renderingContent'];
 };
 
 export interface DocSearchOptions {
@@ -935,7 +449,7 @@ export interface DocSearchOptions {
    *
    * {@link https://docsearch.algolia.com/docs/api#searchparameters}
    */
-  searchParameters?: SearchOptions;
+  indices?: SearchOptions;
   /**
    * Disable saving recent searches and favorites to the local storage.
    *
@@ -968,14 +482,14 @@ export interface DocSearchOptions {
   /**
    * Default language to be used on the Algolia DocSearch client.
    */
-  lang?: string
+  lang?: string;
 }
 
 export type HitComponentFunc = (props: {
   hit: InternalDocSearchHit | StoredDocSearchHit;
   // Avoid importing React types there
   children: any; // React.ReactNode;
-}) => any
+}) => any;
 
 export enum InstantSearchThemes {
   'reset',
@@ -985,12 +499,12 @@ export enum InstantSearchThemes {
 
 interface Indexer {
   storyblok: {
-    accessToken: string,
-    algoliaAdminApiKey: string,
-    indexName: string,
+    accessToken: string;
+    algoliaAdminApiKey: string;
+    indexName: string;
     secret: string;
     contentVersion: 'draft' | 'published';
-  }
+  };
 }
 
 export interface ModuleBaseOptions {

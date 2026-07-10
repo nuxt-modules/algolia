@@ -2,10 +2,10 @@ import { resolve } from 'path'
 import { fileURLToPath } from 'url'
 import { defineNuxtModule, addPlugin, addComponentsDir, addServerHandler, addImportsDir, useLogger, isNuxt2 } from '@nuxt/kit'
 import { defu } from 'defu'
+import { resolveModulePath } from 'exsolve'
 import { createPageGenerateHook, createGenerateDoneHook } from './hooks'
 import type { CrawlerPage, CrawlerHooks, CrawlerOptions } from './hooks'
 import { InstantSearchThemes, type ModuleBaseOptions } from './types'
-import { resolveModulePath } from 'exsolve'
 
 const MODULE_NAME = '@nuxtjs/algolia'
 const logger = useLogger(MODULE_NAME)
@@ -27,8 +27,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@nuxtjs/algolia',
     configKey: 'algolia',
     compatibility: {
-      nuxt: '>=3.0.0-rc.9 || ^2.16.0',
-      bridge: true
+      nuxt: '>=3.16.0'
     }
   },
   defaults: {
