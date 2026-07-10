@@ -15,16 +15,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
+      "import": "./dist/module.mjs"
     }
   },
-  "main": "./dist/module.cjs",
+  "main": "./dist/module.mjs",
   "files": [
     "dist"
   ],
   "scripts": {
-    "prepack": "nuxt-module-build",
+    "prepack": "nuxt-module-build build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:preview": "nuxi preview playground",
@@ -46,7 +45,8 @@
     "metadata-scraper": "^0.2.49",
     "mocked-exports": "^0.1.1",
     "storyblok-algolia-indexer": "^1.1.0",
-    "vue-instantsearch": "^4.26.3"
+    "vue-instantsearch": "^4.26.3",
+    "vue-tsc": "^3.3.7"
   },
   "devDependencies": {
     "@docsearch/css": "^3.0.0",
