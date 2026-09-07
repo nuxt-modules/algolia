@@ -57,7 +57,7 @@
     "eslint": "latest",
     "nuxt": "^3.16.0",
     "standard-version": "^9.3.2",
-    "typescript": "^5.2.2"
+    "typescript": "^7.0.2"
   },
   "publishConfig": {
     "access": "public"
