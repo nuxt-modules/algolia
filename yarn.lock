@@ -619,10 +619,15 @@
   dependencies:
     mime "^3.0.0"
 
-"@docsearch/css@3.5.2", "@docsearch/css@^3.0.0":
+"@docsearch/css@3.5.2":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-3.5.2.tgz#610f47b48814ca94041df969d9fcc47b91fc5aac"
   integrity sha512-SPiDHaWKQZpwR2siD0KQUwlStvIAnEyK6tAE2h2Wuoq8ue9skzhlyVQ1ddzOxX6khULnAALDiR/isSF3bnuciA==
+
+"@docsearch/css@^5.1.2":
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-5.1.2.tgz#3cc381e1c23f6c0fef1fd6e5231ec5cb3b21e819"
+  integrity sha512-zPkSBM8y6XbMfRwq4DeDSRyE0Jsx/phd2KYRgug7PvoZd9cYLqwf6nb2na4whprxCYe4NB6M5RL84C7NgRv0XA==
 
 "@docsearch/js@^3.0.0":
   version "3.5.2"
