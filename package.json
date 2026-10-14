@@ -32,7 +32,8 @@
     "dev:prepare": "nuxt-module-build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "docs": "cd docs && yarn dev",
     "release": "nuxt-module-build && standard-version && git push --follow-tags && npm publish",
-    "lint": "eslint --ext .js,.ts,.vue"
+    "lint": "eslint --ext .js,.ts,.vue",
+    "test": "vitest run"
   },
   "dependencies": {
     "@algolia/cache-in-memory": "^4.14.2",
@@ -57,7 +58,8 @@
     "eslint": "latest",
     "nuxt": "^3.16.0",
     "standard-version": "^9.3.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^3.2.7"
   },
   "publishConfig": {
     "access": "public"
