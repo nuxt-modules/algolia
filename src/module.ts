@@ -121,7 +121,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Workaround for rc.14 only
     nuxt.options.runtimeConfig.public = nuxt.options.runtimeConfig.public || {}
     // @ts-ignore
-    nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.algolia, {
+    nuxt.options.runtimeConfig.public.algolia = defu(nuxt.options.runtimeConfig.public.algolia, {
       apiKey: options.apiKey,
       applicationId: options.applicationId,
       lite: options.lite,
